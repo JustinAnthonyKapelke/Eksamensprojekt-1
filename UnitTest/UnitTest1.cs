@@ -8,7 +8,7 @@ namespace UnitTest
     public class UnitTest1
     {
 
-        BaseRepository<WoodMaterial>.CreateMaterialDelegate<WoodMaterial> createDelegate = (materialID, materialName, materialDescription, materialStorageIndex, materialPrice) =>
+        BaseRepository<WoodMaterial>.CreateMaterialDelegate<WoodMaterial> woodDelegate = (materialID, materialName, materialDescription, materialStorageIndex, materialPrice) =>
         {
             // Opret en ny WoodMaterial med de givne parametre
             return new WoodMaterial(materialID, materialName, materialDescription, materialStorageIndex, materialPrice);
@@ -19,7 +19,9 @@ namespace UnitTest
         public void InitializeTest()
         {
             //ARRANGE
-            WoodRepository woodRepo = new WoodRepository(createDelegate);
+            ThatchingRepository thatchingRepo = new ThatchingRepository(thatchingDelegate);
+            VariousRepository variousRepo = new VariousRepository(variousDelegate);
+            WoodRepository woodRepo = new WoodRepository(woodDelegate);
             
             //ACT
             int expectedNumberOfMaterials = 4;
