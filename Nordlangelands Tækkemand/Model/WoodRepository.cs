@@ -12,8 +12,6 @@ namespace Nordlangelands_Tækkemand.Model
     //The class implements the IRepository interface
     public class WoodRepository : BaseRepository<WoodMaterial>
     {
-        //private string _connectionString = "Server=10.56.8.36; Database=DB_F23_TEAM_06; User Id=DB_F23_TEAM_06; Password=TEAMDB_DB_06; TrustServerCertificate=true";
-
         //Constructor
         public WoodRepository(CreateMaterialDelegate<WoodMaterial> createDelegate) : base(createDelegate)
         {
