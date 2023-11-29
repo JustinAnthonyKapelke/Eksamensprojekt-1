@@ -1,54 +1,72 @@
-﻿using Nordlangelands_Tækkemand.Interfaces;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.Identity.Client.Extensions.Msal;
+using Nordlangelands_Tækkemand.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Automation.Peers;
 using System.Windows.Media.Media3D;
 
 namespace Nordlangelands_Tækkemand.Model
 {
+    //Inheritance
     public abstract class BaseRepository<T> where T : IMaterial
     {
         //Database Connection String
         protected string _connectionString = "Server=10.56.8.36; Database=DB_F23_TEAM_06; User Id=DB_F23_TEAM_06; Password=TEAMDB_DB_06; TrustServerCertificate=true";
 
+        //Specific Delegates
+        private readonly CreateDelegate<T> _createDelegate;
+        private readonly InitializeCreateDelegate<T> _initializeCreateDelegate;
+
         //Signature Delegate
-        public delegate T CreateMaterialDelegate<T>(int materialID, string materialName, string materialDescription, int materialStorageIndex, double materialPrice);
-
-        //Specific Delegate
-        private readonly CreateMaterialDelegate<T> _createDelegate;
-
-        //Material List Field
+        public delegate T CreateDelegate<T>(string materialName, string materialDescription, int materialStorageIndex, double materialPrice,int storageID);
+        
+        //Signature Delegate For Initalize
+        public delegate T InitializeCreateDelegate<T>(int materialID, string materialName, string materialDescription, int materialStorageIndex, double materialPrice, int storageID);
+        
+        //Material List
         protected List<T> _materials = new List<T>();
 
-        //Material List Property
-        public List<T> GetAll()
+        //Database Queries
+        protected virtual string RepoCreateQuery { get; set; } = "";
+        protected virtual string RepoReadQuery { get; set; } = "";
+        protected virtual string RepoUpdateQuery { get; set; } = "";
+        protected virtual string RepoDeleteQuery { get; set; } = "";
+
+        //Constructor
+        public BaseRepository(CreateDelegate<T> createDelegate)
         {
-            return _materials;
+            _createDelegate = createDelegate;
+            InitializeMaterials();
         }
 
-        //Material Repository Constructor
-        public BaseRepository(CreateMaterialDelegate<T> createDelegate)
+        //Constructor overload
+        public BaseRepository(CreateDelegate<T> createDelegate, InitializeCreateDelegate<T> initializeCreateDelegate)
         {
-            _createDelegate = createDelegate; 
+            _createDelegate = createDelegate;
+            _initializeCreateDelegate = initializeCreateDelegate;     
+            InitializeMaterials();
         }
 
-        //CRUD METHODS
-        public T CreateMaterial(int materialID, string materialName, string materialDescription, int materialStorageIndex, double materialPrice)
+        //CRUD Methods
+
+        public T CreateMaterial(string materialName, string materialDescription, int materialStorageIndex, double materialPrice, int storageID)
         {
-            T createdMaterial = _createDelegate(materialID, materialName, materialDescription, materialStorageIndex, materialPrice);
-            _materials.Add(createdMaterial);
-            return createdMaterial;
+            T newMaterial = _createDelegate(materialName, materialDescription, materialStorageIndex, materialPrice, storageID);
+            _materials.Add(newMaterial);
+            return newMaterial;
         }
                            
         public T ReadMaterial(int materialID)
         {
             return _materials.FirstOrDefault(m => m.MaterialID == materialID);
         }
-
-        public void UpdateMaterial(int materialID, string newMaterialName, string newMaterialDescription, int newMaterialStorageIndex, double newMaterialPrice)
+        
+        public void UpdateMaterial(int materialID, string newMaterialName, string newMaterialDescription, int newMaterialStorageIndex, double newMaterialPrice, int newStorageID)
         {
             T updatedMaterial = _materials.FirstOrDefault(m => m.MaterialID == materialID);
 
@@ -58,6 +76,7 @@ namespace Nordlangelands_Tækkemand.Model
                 updatedMaterial.MaterialDescription = newMaterialDescription;
                 updatedMaterial.MaterialStorageIndex = newMaterialStorageIndex;
                 updatedMaterial.MaterialPrice = newMaterialPrice;
+                updatedMaterial.StorageID = newStorageID;
             }
         }
 
@@ -70,5 +89,61 @@ namespace Nordlangelands_Tækkemand.Model
                 _materials.Remove(deletedMaterial);
             }
         }
+
+        //Database Operation Methods
+
+        //Initialize Materials From Database
+        public void InitializeMaterials()
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                //Use a stored procedure to prevent sql injection.
+                string query = RepoReadQuery;
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        int materialID = (int)reader["MaterialID"];
+                        string materialName = (string)reader["MaterialName"];
+                        string materialDescription = (string)reader["MaterialDescription"];
+                        int materialStorageIndex = (int)reader["MaterialStorageIndex"];
+                        double materialPrice = (double)reader["MaterialPrice"];
+                        int storageID = (int)reader["StorageID"];
+
+                        T newMaterial = _initializeCreateDelegate(materialID, materialName, materialDescription, materialStorageIndex, materialPrice, storageID);
+
+                        _materials.Add(newMaterial);
+                    }
+                }
+            }
+        }
+        
+        //Insert Material Into Database
+        public void InsertMaterialIntoDatabase(string materialName, string materialDescription, int materialStorageIndex, double materialPrice, int storageID)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                //Use a stored procedure to prevent an sql injection
+                string query = RepoCreateQuery;
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@MaterialName", materialName);
+                    command.Parameters.AddWithValue("@MaterialDescription", materialDescription);
+                    command.Parameters.AddWithValue("@MaterialStorageIndex", materialStorageIndex);
+                    command.Parameters.AddWithValue("@MaterialPrice", materialPrice);
+                    command.Parameters.AddWithValue("@StorageID", storageID);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+        
+        //Update Material In Database
+        //Delete Material From Database
     }
 }

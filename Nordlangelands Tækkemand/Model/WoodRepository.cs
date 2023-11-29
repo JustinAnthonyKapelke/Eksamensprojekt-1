@@ -9,40 +9,17 @@ using System.Configuration;
 
 namespace Nordlangelands_Tækkemand.Model
 {
-    //The class implements the IRepository interface
+    //The class inherits the BaseRepository class
     public class WoodRepository : BaseRepository<WoodMaterial>
     {
+        //Overwrite RepoQuery Inherited From BaseRepository
+        protected override string RepoCreateQuery { get; set; } = "EXEC sp_NTReadWoodMaterial";
+        protected override string RepoReadQuery { get; set; } = "EXEC sp_NTReadWoodMaterial";
+
         //Constructor
-        public WoodRepository(CreateMaterialDelegate<WoodMaterial> createDelegate) : base(createDelegate)
+        public WoodRepository(CreateDelegate<WoodMaterial> createDelegate) : base(createDelegate)
         {
-            InitializeWoodMaterials();
-        }
 
-        //Initialize Wood Materials Method
-        public void InitializeWoodMaterials()
-        {
-            using (SqlConnection connection = new SqlConnection(_connectionString))
-            {
-                connection.Open();
-
-                string query = "SELECT WoodID, WoodName, WoodDescription, WoodStorageIndex, WoodPrice FROM WoodMaterial";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        int materialID = (int)reader["WoodID"];
-                        string materialName = (string)reader["WoodName"];
-                        string materialDescription = (string)reader["WoodDescription"];
-                        int materialStorageIndex = (int)reader["WoodStorageIndex"];
-                        double MaterialPrice = (double)reader["WoodPrice"];
-
-                        _materials.Add(new WoodMaterial(materialID, materialName, materialDescription, materialStorageIndex, MaterialPrice));
-                    }
-                }
-            }
-        }
-      
+        }  
     }
 }

@@ -16,15 +16,27 @@ namespace Nordlangelands_Tækkemand.Model
         public string MaterialDescription { get; set; }
         public int MaterialStorageIndex { get; set; }
         public double MaterialPrice { get; set; }
+        public int StorageID { get; set; }
 
         //Constructor
-        public ThatchingMaterial(int materialID, string materialName, string materialDescription, int materialStorageIndex, double materialPrice)
+        public ThatchingMaterial(int materialID, string materialName, string materialDescription, int materialStorageIndex, double materialPrice, int storageID)
         { 
             MaterialID = materialID;          
             MaterialName = materialName;
             MaterialDescription = materialDescription;
             MaterialStorageIndex = materialStorageIndex;
             MaterialPrice = materialPrice;
+            StorageID = storageID;
+        }
+
+        //Constructor Overload
+        public ThatchingMaterial(string materialName, string materialDescription, int materialStorageIndex, double materialPrice, int storageID)
+        {
+            MaterialName = materialName;
+            MaterialDescription = materialDescription;
+            MaterialStorageIndex = materialStorageIndex;
+            MaterialPrice = materialPrice;
+            StorageID = storageID;
         }
     }
 }

@@ -11,41 +11,23 @@ using Microsoft.Data.SqlClient;
 
 namespace Nordlangelands_Tækkemand.Model
 {
-    //The class implements the IRepository interface
+    //The class inherits the BaseRepository class
     public class ThatchingRepository : BaseRepository<ThatchingMaterial>
     {
+        //Overwrite RepoQuery Inherited From BaseRepository
+        protected override string RepoCreateQuery { get; set; } = "EXEC sp_NTCreateThatchingMaterial @MaterialName, @MaterialDescription, @MaterialStorageIndex, @MaterialPrice, @StorageID;";
+        protected override string RepoReadQuery { get; set; } = "SELECT MaterialID, MaterialName, MaterialDescription, MaterialStorageIndex, MaterialPrice, StorageID FROM NTThatchingMaterial";
+
         //Constructor
-        public ThatchingRepository(CreateMaterialDelegate<ThatchingMaterial> createDelegate) : base(createDelegate)
+        public ThatchingRepository(CreateDelegate<ThatchingMaterial> createDelegate) : base(createDelegate)
         {
-           InitializeThatchingMaterials();
+            
         }
 
-        //Initialize Thatching Materials Method
-        public void InitializeThatchingMaterials()
+        //Constructor Overload
+        public ThatchingRepository(CreateDelegate<ThatchingMaterial> createDelegate, InitializeCreateDelegate<ThatchingMaterial> initializeCreateDelegate) : base(createDelegate, initializeCreateDelegate)
         {
-            string connectionString = "din forbindelsesstreng her"; // Erstat med din database forbindelsesstreng
-
-            using (SqlConnection connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DatabaseServerInstance"].ConnectionString))
-            {
-                connection.Open();
-
-                string query = "SELECT ThatchingID, ThatchingName, ThatchingDescription, ThatchingStorageIndex, ThatchingReader FROM ThatchingMaterial";
-
-                using (SqlCommand command = new SqlCommand(query, connection))
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        int materialID = (int)reader["ThatchingID"];
-                        string materialName = (string)reader["ThatchingName"];
-                        string materialDescription = (string)reader["ThatchingDescription"];
-                        int materialStorageIndex = (int)reader["ThatchingStorageIndex"];
-                        double MaterialPrice = (double)reader["ThatchingReader"];
-
-                        _materials.Add(new ThatchingMaterial(materialID, materialName, materialDescription, materialStorageIndex, MaterialPrice));
-                    }
-                }
-            }
+           
         }
     }
 }

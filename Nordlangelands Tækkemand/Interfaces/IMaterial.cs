@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Nordlangelands_Tækkemand.Interfaces
 {
-    //Polymorph
+    //Polymorphism
     public interface IMaterial
     {
         //Auto-Implemented Properties
@@ -15,5 +15,6 @@ namespace Nordlangelands_Tækkemand.Interfaces
         public string MaterialDescription { get; set; }
         public int MaterialStorageIndex { get; set; }
         public double MaterialPrice { get; set; }
+        public int StorageID { get; set; }
     }
 }

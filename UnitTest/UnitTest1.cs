@@ -1,53 +1,59 @@
 using Microsoft.Data.SqlClient.DataClassification;
 using Nordlangelands_Tækkemand.Model;
+using Nordlangelands_Tækkemand.ViewModel;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace UnitTest
 {
+
+
     [TestClass]
-    public class UnitTest1
+    public class ThatchingTest
     {
-        BaseRepository<ThatchingMaterial>.CreateMaterialDelegate<ThatchingMaterial> thatchingDelegate = (materialID, materialName, materialDescription, materialStorageIndex, materialPrice) =>
+
+        // CreateDelegate-metoden bruges som mock for ThatchingRepository.CreateMaterial i testen
+        public ThatchingMaterial InitializeCreateDelegate(int materialID, string name, string description, int storageIndex, double price, int storageID)
         {
-            // Opret en ny WoodMaterial med de givne parametre
-            return new ThatchingMaterial(materialID, materialName, materialDescription, materialStorageIndex, materialPrice);
-        };
-
-        BaseRepository<VariousMaterial>.CreateMaterialDelegate<VariousMaterial> variousDelegate = (materialID, materialName, materialDescription, materialStorageIndex, materialPrice) =>
-        {
-            // Opret en ny WoodMaterial med de givne parametre
-            return new VariousMaterial(materialID, materialName, materialDescription, materialStorageIndex, materialPrice);
-        };
-
-        BaseRepository<WoodMaterial>.CreateMaterialDelegate<WoodMaterial> woodDelegate = (materialID, materialName, materialDescription, materialStorageIndex, materialPrice) =>
-        {
-            // Opret en ny WoodMaterial med de givne parametre
-            return new WoodMaterial(materialID, materialName, materialDescription, materialStorageIndex, materialPrice);
-        };
-
-        //Database Operation
-        [TestMethod]
-        public void InitializeTest()
-        {
-            //ARRANGE
-            ThatchingRepository thatchingRepo = new ThatchingRepository(thatchingDelegate);
-            VariousRepository variousRepo = new VariousRepository(variousDelegate);
-            WoodRepository woodRepo = new WoodRepository(woodDelegate);
-
-            //ACT
-            int expectedNumberOfThatchingMaterials = 4;
-            int actualNumberOfThatchingMaterials = thatchingRepo.GetAll().Count();
-
-            int expectedNumberOfVariousMaterials = 4;
-            int actualNumberOfVariousMaterials = variousRepo.GetAll().Count();
-
-            int expectedNumberOfWoodMaterials = 4;
-            int actualNumberOfWoodMaterials = woodRepo.GetAll().Count();   
-
-            //ASSERT something
-            Assert.AreEqual(expectedNumberOfThatchingMaterials, actualNumberOfThatchingMaterials);
-            Assert.AreEqual(expectedNumberOfVariousMaterials, actualNumberOfVariousMaterials);
-            Assert.AreEqual(expectedNumberOfWoodMaterials, actualNumberOfWoodMaterials);
+            return new ThatchingMaterial(materialID, name, description, storageIndex, price, storageID);
         }
+
+        public ThatchingMaterial CreateDelegate(string name, string description, int storageIndex, double price, int storageID)
+        {
+            return new ThatchingMaterial(name, description, storageIndex, price, storageID);
+        }
+
+        ThatchingRepository thatchingRepo;
+        ThatchingViewModel tvm;
+        int MaterialID = 28;
+
+        [TestMethod]
+        public void CreateAndInsertMaterialTest()
+        {
+            // ARRANGE
+            thatchingRepo = new ThatchingRepository(CreateDelegate, InitializeCreateDelegate);
+            tvm = new ThatchingViewModel();
+
+            // ACT
+            thatchingRepo.InitializeMaterials();
+
+            tvm.CreateAndInsertMaterial("Frøgræs", "Langkornet frøgræs", 1, 80, 1);
+
+            ThatchingMaterial createdMaterial = thatchingRepo.ReadMaterial(MaterialID);
+
+            // ASSERT
+            Assert.IsNotNull(createdMaterial);
+            Assert.AreEqual("Frøgræs", createdMaterial.MaterialName);
+            Assert.AreEqual("Langkornet frøgræs", createdMaterial.MaterialDescription);
+            Assert.AreEqual(1, createdMaterial.MaterialStorageIndex);
+            Assert.AreEqual(80, createdMaterial.MaterialPrice);
+        }
+
+        //[TestCleanup]
+        //public void Cleanup()
+        //{
+        //    //thatchingRepo.DeleteMaterial(ThatchingID);           
+        //}
+
     }
 }
