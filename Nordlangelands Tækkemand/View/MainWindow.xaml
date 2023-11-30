@@ -5,8 +5,52 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Nordlangelands_Tækkemand"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+        Title="Nordlangelands Tækkemand"
+        Height="659"
+        Width="1052"
+        Icon="/View/Øjning.png">
+    <TabControl Margin="0,46,0,0">
+        <TabItem Header="Forside">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="69*" />
+                    <ColumnDefinition Width="10*" />
+                    <ColumnDefinition Width="36*" />
+                    <ColumnDefinition Width="931*" />
+                </Grid.ColumnDefinitions>
+                <!-- Add content for the "Forside" tab here -->
+                <Image Source="/Images/Forside.png"
+                       Margin="-24,-10,-24,-65"
+                       Grid.ColumnSpan="4" />
+            </Grid>
+        </TabItem>
+        <TabItem Header="Lager">
+            <Grid>
+                <ListBox Name="materialListBox"
+                         Margin="45,60,45,110"
+                         ItemsSource="{Binding ThatchingVM}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="{Binding IconPath}"
+                                       Width="32"
+                                       Height="32" />
+                                <TextBlock Text="{Binding MaterialName}" 
+                                           VerticalAlignment="Center"
+                                           Margin="5,0,0,0" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </TabItem>
+        <TabItem Header="Arbejdsplads">
+            <Grid Background="#FFE5E5E5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="166*" />
+                    <ColumnDefinition Width="545*" />
+                </Grid.ColumnDefinitions>
+            </Grid>
+        </TabItem>
+    </TabControl>
 </Window>

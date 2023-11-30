@@ -24,10 +24,10 @@ namespace Nordlangelands_Tækkemand.ViewModel
         }
 
         //Method
-        public void CreateAndInsertMaterial(int storageID, string workplaceName, string workplaceAddress)
+        public void CreateAndInsertMaterial(string workplaceName, string workplaceAddress, string workplaceImagePath, int storageID)
         {
-            workplaceRepo.CreateWorkplace(workplaceName, workplaceAddress, storageID);
-            workplaceRepo.InsertWorkplaceIntoDatabase(workplaceName, workplaceAddress, storageID);
+            workplaceRepo.CreateWorkplaceInRepository(workplaceName, workplaceAddress,workplaceImagePath, storageID);
+            workplaceRepo.CreateWorkplaceInDatabase(workplaceName, workplaceAddress,workplaceImagePath, storageID);
         }
     }
 }

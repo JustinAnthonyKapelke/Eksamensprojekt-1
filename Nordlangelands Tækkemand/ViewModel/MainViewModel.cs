@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nordlangelands_Tækkemand.Model;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -53,6 +54,18 @@ namespace Nordlangelands_Tækkemand.ViewModel
             VariousVM = new ObservableCollection<VariousViewModel>();
             WoodVM = new ObservableCollection<WoodViewModel>();
             WorkplaceVM = new ObservableCollection<WorkplaceViewModel>();
+
+            // Initialize ThatchingViewModel
+            TVM = new ThatchingViewModel(new ThatchingMaterial());
+
+            // Get the list of thatching materials from the repository
+            List<ThatchingMaterial> thatchingMaterials = TVM.thatchingRepo.GetAllMaterials();
+
+            // Go through each of the materials from the repository and create a ThatchingViewModel for them
+            foreach (ThatchingMaterial material in thatchingMaterials)
+            {
+                ThatchingVM.Add(new ThatchingViewModel(material));
+            }
         }
     }
 }

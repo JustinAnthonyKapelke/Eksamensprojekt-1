@@ -18,8 +18,8 @@ namespace Nordlangelands_Tækkemand.Model
         private List<Workplace> _workplaces;
 
         //Database Queries
-        protected virtual string RepoInitializeQuery { get; set; } = "SELECT WorkplaceID, WorkplaceName, WorkplaceAddress FROM NTWorkplace";
-        protected virtual string RepoCreateQuery { get; set; } = "EXEC sp_CreateWorkplace @WorkplaceName, @WooodDescription, @StorageID";
+        protected virtual string RepoInitializeQuery { get; set; } = "SELECT WorkplaceID, WorkplaceName, WorkplaceAddress, WorkplaceImagePath FROM NTWorkplace";
+        protected virtual string RepoCreateQuery { get; set; } = "EXEC sp_CreateWorkplace @WorkplaceName, @WooodAddress, @WorkplaceImagePath, @StorageID";
         protected virtual string RepoReadQuery { get; set; } = "";
         protected virtual string RepoUpdateQuery { get; set; } = "";
         protected virtual string RepoDeleteQuery { get; set; } = "";
@@ -32,19 +32,18 @@ namespace Nordlangelands_Tækkemand.Model
         }
 
         //CRUD Methods
-        public void CreateWorkplace(string workplaceName, string workplaceAddress, int storageID)
+        public void CreateWorkplaceInRepository(string workplaceName, string workplaceAddress, string workplaceImagePath, int storageID)
         {
-            Workplace newWorkplace = new Workplace(storageID, workplaceName, workplaceAddress);
+            Workplace newWorkplace = new Workplace(workplaceName, workplaceAddress, workplaceImagePath, storageID);
             _workplaces.Add(newWorkplace);
-
         }
 
-        public Workplace ReadWorkplace(int workplaceID)
+        public Workplace ReadWorkplaceFromRepository(int workplaceID)
         {
             return _workplaces.FirstOrDefault(w => w.WorkplaceID == workplaceID);
         }
 
-        public void UpdateWorkplace(int workplaceID, string workplaceName, string workplaceAddress)
+        public void UpdateWorkplaceInRepository(int workplaceID, string workplaceName, string workplaceAddress, string workplaceImagePath)
         {
             Workplace updatedWorkplace = _workplaces.FirstOrDefault(w => w.WorkplaceID == workplaceID);
 
@@ -52,10 +51,11 @@ namespace Nordlangelands_Tækkemand.Model
             {
                 updatedWorkplace.WorkplaceName = workplaceName;
                 updatedWorkplace.WorkplaceAddress = workplaceAddress;
+                updatedWorkplace.WorkplaceImagePath = workplaceImagePath;
             }
         }
 
-        public void DeleteWorkplace(int workplaceID)
+        public void DeleteWorkplaceFromRepository(int workplaceID)
         {
             Workplace deletedWorkplace = _workplaces.FirstOrDefault(w => w.WorkplaceID == workplaceID);
 
@@ -80,17 +80,19 @@ namespace Nordlangelands_Tækkemand.Model
                 {
                     while (reader.Read())
                     {
-                        int workplaceID = (int)reader["WoodID"];
-                        string workplaceName = (string)reader["WoodName"];
-                        string workplaceAddress = (string)reader["WoodDescription"];
-                        _workplaces.Add(new Workplace(workplaceID, workplaceName, workplaceAddress));
+                        int workplaceID = (int)reader["WorkplaceID"];
+                        string workplaceName = (string)reader["WorkplaceName"];
+                        string workplaceAddress = (string)reader["WorkplaceAddress"];
+                        string workplaceImagePath = (string)reader["WorkPlaceImagePath"];
+                        int storageID = (int)reader["StorageID"];
+                        _workplaces.Add(new Workplace(workplaceID, workplaceName, workplaceAddress, workplaceImagePath, storageID));
                     }
                 }
             }
         }
 
         //Insert Workplace Into Database
-        public void InsertWorkplaceIntoDatabase(string workplaceName, string workplaceAddress, int storageID)
+        public void CreateWorkplaceInDatabase(string workplaceName, string workplaceAddress, string workplaceImagePath, int storageID)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -102,13 +104,15 @@ namespace Nordlangelands_Tækkemand.Model
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@WorkplaceName", workplaceName);
-                    command.Parameters.AddWithValue("@WooodDescription", workplaceAddress);
+                    command.Parameters.AddWithValue("@WorkplaceAddress", workplaceAddress);
+                    command.Parameters.AddWithValue("WorkplaceImagePath", workplaceImagePath);
                     command.Parameters.AddWithValue("@StorageID", storageID);
                     command.ExecuteNonQuery();
                 }
             }
         }
 
+        //Read Workplace From Database
         //Update Workplace In Database
         //Delete Workplace From Database
     }

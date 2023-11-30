@@ -12,21 +12,26 @@ namespace Nordlangelands_Tækkemand.Model
         public int WorkplaceID { get; private set; }
         public string WorkplaceName { get; set; }
         public string WorkplaceAddress { get; set; }
+        public string WorkplaceImagePath { get; set; }
         public int StorageID { get; set; }
 
         //Constructor
-        public Workplace(int storageID, string workplaceName, string workplaceAddress)
+        public Workplace(string workplaceName, string workplaceAddress, string workplaceImagePath, int storageID)
         {
-            StorageID = storageID;
             WorkplaceName = workplaceName;
             WorkplaceAddress = workplaceAddress;
+            WorkplaceImagePath = workplaceImagePath;
+            StorageID = storageID;
         }
 
         //Constructor Overload
-        public Workplace(string workplaceName, string workplaceAddress)
-        {           
+        public Workplace(int workplaceID, string workplaceName, string workplaceAddress, string workplaceImagePath, int storageID)
+        {
+            WorkplaceID = workplaceID;
             WorkplaceName = workplaceName;
             WorkplaceAddress = workplaceAddress;
-        }            
+            WorkplaceImagePath = workplaceImagePath;
+            StorageID = storageID;
+        }
     }
 }

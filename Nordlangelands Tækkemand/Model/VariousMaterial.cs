@@ -14,27 +14,30 @@ namespace Nordlangelands_Tækkemand.Model
         public int MaterialID { get; set; }
         public string MaterialName { get; set; }
         public string MaterialDescription { get; set; }
-        public int MaterialStorageIndex { get; set; }
-        public double MaterialPrice { get; set; }
+        public string MaterialImagePath { get; set; }
+        public int MaterialStockCount { get; set; }
+        public int MaterialTypeID { get; set; }
         public int StorageID { get; set; }
 
         //Constructor
-        public VariousMaterial(int materialID, string materialName, string materialDescription, int materialStorageIndex, double materialPrice, int storageID)
+        public VariousMaterial(int materialID, string materialName, string materialDescription,string materialImagePath, int materialStockCount, int materialTypeID, int storageID)
         {
             MaterialID = materialID;
             MaterialName = materialName;
             MaterialDescription = materialDescription;
-            MaterialStorageIndex = materialStorageIndex;
-            MaterialPrice = materialPrice;
+            MaterialImagePath = materialImagePath;
+            MaterialStockCount = materialStockCount;
+            MaterialTypeID = materialTypeID;    
             StorageID = storageID;
         }
 
-        public VariousMaterial(string materialName, string materialDescription, int materialStorageIndex, double materialPrice, int storageID)
+        public VariousMaterial(string materialName, string materialDescription, string materialImagePath, int materialStockCount, int materialTypeID, int storageID)
         {            
             MaterialName = materialName;
             MaterialDescription = materialDescription;
-            MaterialStorageIndex = materialStorageIndex;
-            MaterialPrice = materialPrice;
+            MaterialImagePath = materialImagePath;
+            MaterialStockCount = materialStockCount;
+            MaterialTypeID = materialTypeID;
             StorageID = storageID;
         }
     }

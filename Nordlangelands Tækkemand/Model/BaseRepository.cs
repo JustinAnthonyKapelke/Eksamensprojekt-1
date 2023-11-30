@@ -23,11 +23,11 @@ namespace Nordlangelands_Tækkemand.Model
         private readonly InitializeCreateDelegate<T> _initializeCreateDelegate;
 
         //Signature Delegate
-        public delegate T CreateDelegate<T>(string materialName, string materialDescription, int materialStorageIndex, double materialPrice,int storageID);
-        
+        public delegate T CreateDelegate<T>(string materialName, string materialDescription, string materialImagePath, int materialStockCount, int materialTypeID, int storageID);
+
         //Signature Delegate For Initalize
-        public delegate T InitializeCreateDelegate<T>(int materialID, string materialName, string materialDescription, int materialStorageIndex, double materialPrice, int storageID);
-        
+        public delegate T InitializeCreateDelegate<T>(int materialID, string materialName, string materialDescription, string materialImagePath, int materialStockCount, int materialTypeID, int storageID);
+
         //Material List
         protected List<T> _materials = new List<T>();
 
@@ -49,34 +49,34 @@ namespace Nordlangelands_Tækkemand.Model
         public BaseRepository(CreateDelegate<T> createDelegate, InitializeCreateDelegate<T> initializeCreateDelegate)
         {
             _createDelegate = createDelegate;
-            _initializeCreateDelegate = initializeCreateDelegate;     
+            _initializeCreateDelegate = initializeCreateDelegate;
             InitializeMaterials();
         }
 
         //CRUD Methods
 
-        public T CreateMaterialInRepository(string materialName, string materialDescription, int materialStorageIndex, double materialPrice, int storageID)
+        public T CreateMaterialInRepository(string materialName, string materialDescription, string materialImagePath, int materialStockCount, int materialTypeID, int storageID)
         {
-            T newMaterial = _createDelegate( materialName, materialDescription, materialStorageIndex, materialPrice, storageID);
+            T newMaterial = _createDelegate(materialName, materialDescription, materialImagePath, materialStockCount, materialTypeID, storageID);
             _materials.Add(newMaterial);
             return newMaterial;
         }
-                           
+
         public T ReadMaterialFromRepisitory(int materialID)
         {
             return _materials.FirstOrDefault(m => m.MaterialID == materialID);
         }
-        
-        public void UpdateMaterialInRepository(int materialID, string newMaterialName, string newMaterialDescription, int newMaterialStorageIndex, double newMaterialPrice, int newStorageID)
+
+        public void UpdateMaterialInRepository(int materialID, string newMaterialName, string newMaterialDescription, int newMaterialStockCount, int newMaterialTypeID, int newStorageID)
         {
             T updatedMaterial = _materials.FirstOrDefault(m => m.MaterialID == materialID);
 
-            if (updatedMaterial != null) 
+            if (updatedMaterial != null)
             {
                 updatedMaterial.MaterialName = newMaterialName;
                 updatedMaterial.MaterialDescription = newMaterialDescription;
-                updatedMaterial.MaterialStorageIndex = newMaterialStorageIndex;
-                updatedMaterial.MaterialPrice = newMaterialPrice;
+                updatedMaterial.MaterialStockCount = newMaterialStockCount;
+                updatedMaterial.MaterialTypeID = newMaterialTypeID;
                 updatedMaterial.StorageID = newStorageID;
             }
         }
@@ -111,20 +111,22 @@ namespace Nordlangelands_Tækkemand.Model
                         int materialID = (int)reader["MaterialID"];
                         string materialName = (string)reader["MaterialName"];
                         string materialDescription = (string)reader["MaterialDescription"];
-                        int materialStorageIndex = (int)reader["MaterialStorageIndex"];
-                        double materialPrice = (double)reader["MaterialPrice"];
+                        string materialImagePath = (string)reader["MaterialImagePath"];
+                        int materialStockCount = (int)reader["MaterialStockCount"];
+                        int materialTypeID = (int)reader["MaterialTypeID"];
                         int storageID = (int)reader["StorageID"];
 
-                        T newMaterial = _initializeCreateDelegate(materialID, materialName, materialDescription, materialStorageIndex, materialPrice, storageID);
+
+                        T newMaterial = _initializeCreateDelegate(materialID, materialName, materialDescription, materialImagePath, materialStockCount, materialTypeID, storageID);
 
                         _materials.Add(newMaterial);
                     }
                 }
             }
         }
-        
+
         //Create Material In Database
-        public void CreateMaterialInDatabase(string materialName, string materialDescription, int materialStorageIndex, double materialPrice, int storageID)
+        public void CreateMaterialInDatabase(string materialName, string materialDescription,string materialImagePath, int materialStockCount, int materialTypeID, int storageID)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -136,8 +138,9 @@ namespace Nordlangelands_Tækkemand.Model
                 {
                     command.Parameters.AddWithValue("@MaterialName", materialName);
                     command.Parameters.AddWithValue("@MaterialDescription", materialDescription);
-                    command.Parameters.AddWithValue("@MaterialStorageIndex", materialStorageIndex);
-                    command.Parameters.AddWithValue("@MaterialPrice", materialPrice);
+                    command.Parameters.AddWithValue("@MaterialImagePath", materialImagePath);
+                    command.Parameters.AddWithValue("@MaterialStockCount", materialStockCount);
+                    command.Parameters.AddWithValue("@MaterialTypeID", materialTypeID);
                     command.Parameters.AddWithValue("@StorageID", storageID);
                     command.ExecuteNonQuery();
                 }
@@ -162,11 +165,12 @@ namespace Nordlangelands_Tækkemand.Model
                         int materialID = (int)reader["MaterialID"];
                         string materialName = (string)reader["MaterialName"];
                         string materialDescription = (string)reader["MaterialDescription"];
-                        int materialStorageIndex = (int)reader["MaterialStorageIndex"];
-                        double materialPrice = (double)reader["MaterialPrice"];
+                        string materialImagePath = (string)reader["MaterialImagePath"];
+                        int materialStockCount = (int)reader["MaterialStockCount"];
+                        int materialTypeID = (int)reader["MaterialTypeID"];
                         int storageID = (int)reader["StorageID"];
 
-                        T newMaterial = _initializeCreateDelegate(materialID, materialName, materialDescription, materialStorageIndex, materialPrice, storageID);
+                        T newMaterial = _initializeCreateDelegate(materialID, materialName, materialDescription, materialImagePath, materialStockCount, materialTypeID, storageID);
 
                         return newMaterial;
                     }
@@ -189,11 +193,19 @@ namespace Nordlangelands_Tækkemand.Model
                 string query = RepoDeleteQuery;
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@MaterialID", materialID);      
-                
+                    command.Parameters.AddWithValue("@MaterialID", materialID);
+
                     command.ExecuteNonQuery();
                 }
             }
         }
+
+        //Get all materials method
+        public List<T> GetAllMaterials()
+        {
+            return _materials.ToList();
+        }
+
     }
+
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Nordlangelands_Tækkemand.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,14 @@ namespace Nordlangelands_Tækkemand
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
+            // Indstil DataContext for MainWindow til MainViewModel
+            DataContext = new MainViewModel();
         }
+
+        
     }
 }
