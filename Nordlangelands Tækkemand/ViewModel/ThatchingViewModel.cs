@@ -36,10 +36,10 @@ namespace Nordlangelands_Tækkemand.ViewModel
         }
 
         //Method
-        public void CreateAndInsertMaterial(string materialName, string materialDescription, int materialStorageIndex, double materialPrice, int storageID)
-        {
-            thatchingRepo.CreateMaterial(materialName, materialDescription, materialStorageIndex, materialPrice, storageID);
-            thatchingRepo.InsertMaterialIntoDatabase(materialName, materialDescription, materialStorageIndex, materialPrice, storageID);
-        }
+        //public void CreateMaterial(string materialName, string materialDescription, int materialStorageIndex, double materialPrice, int storageID)
+        //{
+        //    thatchingRepo.CreateMaterialInRepository(materialName, materialDescription, materialStorageIndex, materialPrice, storageID);
+        //    thatchingRepo.CreateMaterialInDatabase(materialDescription, materialStorageIndex, materialPrice, storageID);
+        //}
     }
 }

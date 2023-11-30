@@ -17,6 +17,13 @@ namespace Nordlangelands_Tækkemand.Model
         //List of workplaces
         private List<Workplace> _workplaces;
 
+        //Database Queries
+        protected virtual string RepoInitializeQuery { get; set; } = "SELECT WorkplaceID, WorkplaceName, WorkplaceAddress FROM NTWorkplace";
+        protected virtual string RepoCreateQuery { get; set; } = "EXEC sp_CreateWorkplace @WorkplaceName, @WooodDescription, @StorageID";
+        protected virtual string RepoReadQuery { get; set; } = "";
+        protected virtual string RepoUpdateQuery { get; set; } = "";
+        protected virtual string RepoDeleteQuery { get; set; } = "";
+
         //Constructor
         public WorkplaceRepository()
         {
@@ -66,7 +73,7 @@ namespace Nordlangelands_Tækkemand.Model
             {
                 connection.Open();
 
-                string query = "SELECT WorkplaceID, WorkplaceName, WorkplaceAddress FROM NTWorkplace";
+                string query = RepoInitializeQuery;
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -90,7 +97,7 @@ namespace Nordlangelands_Tækkemand.Model
                 connection.Open();
 
                 //Use a stored procedure to prevent an sql injection
-                string query = "EXEC sp_CreateWorkplace @WorkplaceName, @WooodDescription, @StorageID";
+                string query = RepoCreateQuery;
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {

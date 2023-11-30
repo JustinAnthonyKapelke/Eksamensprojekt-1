@@ -13,8 +13,11 @@ namespace Nordlangelands_Tækkemand.Model
     public class WoodRepository : BaseRepository<WoodMaterial>
     {
         //Overwrite RepoQuery Inherited From BaseRepository
-        protected override string RepoCreateQuery { get; set; } = "EXEC sp_NTReadWoodMaterial";
-        protected override string RepoReadQuery { get; set; } = "EXEC sp_NTReadWoodMaterial";
+        protected override string RepoInitializeQuery { get; set; } = "EXEC sp_NTReadWoodMaterial";
+        //protected override string RepoCreateQuery { get; set; } = "EXEC sp_NTReadWoodMaterial";
+        //protected override string RepoReadQuery { get; set; }
+        protected override string RepoUpdateQuery { get; set; }
+        protected override string RepoDeleteQuery { get; set; }
 
         //Constructor
         public WoodRepository(CreateDelegate<WoodMaterial> createDelegate) : base(createDelegate)

@@ -25,7 +25,7 @@ namespace UnitTest
 
         ThatchingRepository thatchingRepo;
         ThatchingViewModel tvm;
-        int MaterialID = 28;
+        int MaterialID;
 
         [TestMethod]
         public void CreateAndInsertMaterialTest()
@@ -35,11 +35,18 @@ namespace UnitTest
             tvm = new ThatchingViewModel();
 
             // ACT
+
+            //Create material without ID
+            //Insert material in database
+            //Material is given ID in databas
+            thatchingRepo.CreateMaterialInDatabase("Frøgræs", "Langkornet frøgræs", 1, 80, 1);
             thatchingRepo.InitializeMaterials();
 
-            tvm.CreateAndInsertMaterial("Frøgræs", "Langkornet frøgræs", 1, 80, 1);
+            thatchingRepo.ReadLastAddedMaterialFromDatabase();
 
-            ThatchingMaterial createdMaterial = thatchingRepo.ReadMaterial(MaterialID);
+            // Skal have et ID
+            ThatchingMaterial createdMaterial = thatchingRepo.ReadLastAddedMaterialFromDatabase();
+
 
             // ASSERT
             Assert.IsNotNull(createdMaterial);
@@ -49,11 +56,16 @@ namespace UnitTest
             Assert.AreEqual(80, createdMaterial.MaterialPrice);
         }
 
-        //[TestCleanup]
-        //public void Cleanup()
-        //{
-        //    //thatchingRepo.DeleteMaterial(ThatchingID);           
-        //}
+        [TestCleanup]
+        public void Cleanup()
+        {
+            ThatchingMaterial createdMaterial = thatchingRepo.ReadLastAddedMaterialFromDatabase();
+
+            MaterialID = createdMaterial.MaterialID;
+
+            thatchingRepo.DeleteMaterialFromDatabase(MaterialID);
+        }
 
     }
 }
+
