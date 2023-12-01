@@ -126,7 +126,7 @@ namespace Nordlangelands_Tækkemand.Model
         }
 
         //Create Material In Database
-        public void CreateMaterialInDatabase(string materialName, string materialDescription,string materialImagePath, int materialStockCount, int materialTypeID, int storageID)
+        public void CreateMaterialInDatabase(string materialName, string materialDescription,string materialImagePath,int materialTypeID, int storageID)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
@@ -138,8 +138,7 @@ namespace Nordlangelands_Tækkemand.Model
                 {
                     command.Parameters.AddWithValue("@MaterialName", materialName);
                     command.Parameters.AddWithValue("@MaterialDescription", materialDescription);
-                    command.Parameters.AddWithValue("@MaterialImagePath", materialImagePath);
-                    command.Parameters.AddWithValue("@MaterialStockCount", materialStockCount);
+                    command.Parameters.AddWithValue("@MaterialImagePath", materialImagePath);                   
                     command.Parameters.AddWithValue("@MaterialTypeID", materialTypeID);
                     command.Parameters.AddWithValue("@StorageID", storageID);
                     command.ExecuteNonQuery();

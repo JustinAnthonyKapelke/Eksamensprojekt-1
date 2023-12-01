@@ -16,7 +16,7 @@ namespace Nordlangelands_Tækkemand.Model
     {
         //Overwrite RepoQuery Inherited From BaseRepository
         protected override string RepoInitializeQuery { get; set; } = "SELECT * FROM NTMaterial";
-        protected override string RepoCreateQuery { get; set; } = "EXEC sp_NTCreateMaterial @MaterialName, @MaterialDescription, @MaterialImagePath, @MaterialStockCount, @MaterialTypeID, @StorageID;";
+        protected override string RepoCreateQuery { get; set; } = "EXEC sp_NTCreateMaterialTest @MaterialName, @MaterialDescription, @MaterialImagePath, @MaterialTypeID, @StorageID";
         protected override string RepoReadQuery { get; set; } = "EXEC sp_NTReadLastMaterial";
         protected override string RepoUpdateQuery { get; set; }
         protected override string RepoDeleteQuery { get; set; } = "EXEC sp_NTDeleteMaterial @MaterialID";

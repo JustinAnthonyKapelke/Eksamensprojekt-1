@@ -38,7 +38,7 @@ namespace UnitTest
             //Create material without ID
             //Insert material in database
             //Material is given ID in databas
-            thatchingRepo.CreateMaterialInDatabase("Tækkerør", "Tækkerør fra danmark","url", 1, 1, 1);
+            thatchingRepo.CreateMaterialInDatabase("Tækkerør", "Tækkerør fra danmark","url", 1, 1);
             thatchingRepo.InitializeMaterials();
 
             thatchingRepo.ReadLastAddedMaterialFromDatabase();
@@ -52,20 +52,20 @@ namespace UnitTest
             Assert.AreEqual("Tækkerør", createdMaterial.MaterialName);
             Assert.AreEqual("Tækkerør fra danmark", createdMaterial.MaterialDescription);
             Assert.AreEqual("url", createdMaterial.MaterialImagePath);
-            Assert.AreEqual(1, createdMaterial.MaterialStockCount);
+            //Assert.AreEqual(1, createdMaterial.MaterialStockCount);
             Assert.AreEqual(1, createdMaterial.MaterialTypeID);
             Assert.AreEqual(1, createdMaterial.StorageID);
         }
 
-        [TestCleanup]
-        public void Cleanup()
-        {
-            ThatchingMaterial createdMaterial = thatchingRepo.ReadLastAddedMaterialFromDatabase();
+        //[TestCleanup]
+        //public void Cleanup()
+        //{
+        //    ThatchingMaterial createdMaterial = thatchingRepo.ReadLastAddedMaterialFromDatabase();
 
-            MaterialID = createdMaterial.MaterialID;
+        //    MaterialID = createdMaterial.MaterialID;
 
-            thatchingRepo.DeleteMaterialFromDatabase(MaterialID);
-        }
+        //    thatchingRepo.DeleteMaterialFromDatabase(MaterialID);
+        //}
     }
 }
 

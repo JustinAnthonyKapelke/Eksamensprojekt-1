@@ -46,6 +46,16 @@ namespace Nordlangelands_Tækkemand.Model
             StorageID = storageID;
         }
 
-      
+        public ThatchingMaterial(string materialName, string materialDescription, string materialImagePath, int materialTypeID, int storageID)
+        {
+            MaterialName = materialName;
+            MaterialDescription = materialDescription;
+            MaterialImagePath = materialImagePath;
+           
+            MaterialTypeID = materialTypeID;
+            StorageID = storageID;
+        }
+
+
     }
 }
