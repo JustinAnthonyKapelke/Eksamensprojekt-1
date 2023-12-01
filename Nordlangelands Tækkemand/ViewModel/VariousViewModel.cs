@@ -25,14 +25,14 @@ namespace Nordlangelands_Tækkemand.ViewModel
             variousRepo = new VariousRepository(CreateDelegate/*, InitializeCreateDelegate*/);
         }
 
-        public VariousMaterial CreateDelegate(string materialName, string materialDescription, string materialImagePath, int materialStockCount, int materialTypeID, int storageID)
+        public VariousMaterial CreateDelegate(string materialName, string materialDescription, string materialImagePath, int materialStockCount, string materialType, int storageID)
         {
-            return new VariousMaterial(materialName, materialDescription,materialImagePath, materialStockCount, materialTypeID, storageID);
+            return new VariousMaterial(materialName, materialDescription,materialImagePath, materialStockCount, materialType, storageID);
         }
 
-        public VariousMaterial InitializeCreateDelegate(int materialID, string materialName, string materialDescription, string materialImagePath, int materialStockCount, int materialTypeID, int storageID)
+        public VariousMaterial InitializeCreateDelegate(int materialID, string materialName, string materialDescription, string materialImagePath, int materialStockCount, string materialType, int storageID)
         {
-            return new VariousMaterial(materialID, materialName, materialDescription,materialImagePath, materialStockCount, materialTypeID, storageID);
+            return new VariousMaterial(materialID, materialName, materialDescription,materialImagePath, materialStockCount, materialType, storageID);
         }
 
         //Method

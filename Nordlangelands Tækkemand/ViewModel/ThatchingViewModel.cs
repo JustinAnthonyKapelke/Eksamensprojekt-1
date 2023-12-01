@@ -18,7 +18,7 @@ namespace Nordlangelands_Tækkemand.ViewModel
         public string MaterialDescription { get; set; }
         public string MaterialImagePath { get; set; }
         public int MaterialStockCount { get; set; }
-        public int MaterialTypeID { get; set; }
+        public string MaterialType { get; set; }
         public int StorageID { get; set; }
 
         //Constructor
@@ -29,7 +29,7 @@ namespace Nordlangelands_Tækkemand.ViewModel
             MaterialDescription = material.MaterialDescription;
             MaterialImagePath = material.MaterialImagePath;
             MaterialStockCount = material.MaterialStockCount;
-            MaterialTypeID = material.MaterialTypeID;
+            MaterialType = material.MaterialType;
             StorageID = material.StorageID;
 
             thatchingRepo = new ThatchingRepository(CreateDelegate, InitializeCreateDelegate);
@@ -44,14 +44,14 @@ namespace Nordlangelands_Tækkemand.ViewModel
 
 
 
-        public ThatchingMaterial CreateDelegate(string materialName, string materialDescription, string materialImagePath, int materialStockCount, int materialTypeID, int storageID)
+        public ThatchingMaterial CreateDelegate(string materialName, string materialDescription, string materialImagePath, int materialStockCount, string materialType, int storageID)
         {
-            return new ThatchingMaterial(materialName, materialDescription, materialImagePath, materialStockCount, materialTypeID, storageID);
+            return new ThatchingMaterial(materialName, materialDescription, materialImagePath, materialStockCount, materialType, storageID);
         }
 
-        public ThatchingMaterial InitializeCreateDelegate(int materialID, string materialName, string materialDescription, string materialImagePath, int materialStockCount, int materialTypeID, int storageID)
+        public ThatchingMaterial InitializeCreateDelegate(int materialID, string materialName, string materialDescription, string materialImagePath, int materialStockCount, string materialType, int storageID)
         {
-            return new ThatchingMaterial(materialID, materialName, materialDescription, materialImagePath, materialStockCount, materialTypeID, storageID);
+            return new ThatchingMaterial(materialID, materialName, materialDescription, materialImagePath, materialStockCount, materialType, storageID);
         }
 
         //Method

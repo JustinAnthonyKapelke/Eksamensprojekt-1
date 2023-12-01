@@ -16,27 +16,27 @@ namespace Nordlangelands_Tækkemand.Model
         public string MaterialDescription { get; set; }
         public string MaterialImagePath { get; set; }
         public int MaterialStockCount { get; set; }
-        public int MaterialTypeID { get; set; }
+        public string MaterialType { get; set; }
         public int StorageID { get; set; }
 
         //Constructor
-        public WoodMaterial(int materialID, string materialName, string materialDescription, string materialImagePath, int materialStockCount, int materialTypeID, int storageID)
+        public WoodMaterial(int materialID, string materialName, string materialDescription, string materialImagePath, int materialStockCount, string materialType, int storageID)
         {
             MaterialID = materialID;
             MaterialName = materialName;
             MaterialDescription = materialDescription;
             MaterialStockCount = materialStockCount;
-            MaterialTypeID = materialTypeID;
+            MaterialType = materialType;
             StorageID = storageID;
         }
 
         //Constructor Overload
-        public WoodMaterial(string materialName, string materialDescription, string materialImagePath, int materialStockCount, int materialTypeID, int storageID)
+        public WoodMaterial(string materialName, string materialDescription, string materialImagePath, int materialStockCount, string materialType, int storageID)
         {          
             MaterialName = materialName;
             MaterialDescription = materialDescription;
             MaterialStockCount = materialStockCount;
-            MaterialTypeID = materialTypeID;
+            MaterialType = materialType;
             StorageID = storageID;
         }
     }

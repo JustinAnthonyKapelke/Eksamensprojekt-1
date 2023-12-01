@@ -27,14 +27,14 @@ namespace Nordlangelands_Tækkemand.ViewModel
             woodRepo = new WoodRepository(CreateDelegate);
         }
 
-        public WoodMaterial CreateDelegate(string materialName, string materialDescription, string materialImagePath, int materialStockCount, int materialTypeID, int storageID)
+        public WoodMaterial CreateDelegate(string materialName, string materialDescription, string materialImagePath, int materialStockCount, string materialType, int storageID)
         {
-            return new WoodMaterial(materialName, materialDescription, materialImagePath, materialStockCount, materialTypeID, storageID);
+            return new WoodMaterial(materialName, materialDescription, materialImagePath, materialStockCount, materialType, storageID);
         }
 
-        public WoodMaterial InitializeCreateDelegate(int materialID, string materialName, string materialDescription, string materialImagePath, int materialStockCount, int materialTypeID, int storageID)
+        public WoodMaterial InitializeCreateDelegate(int materialID, string materialName, string materialDescription, string materialImagePath, int materialStockCount, string materialType, int storageID)
         {
-            return new WoodMaterial(materialID, materialName, materialDescription, materialImagePath, materialStockCount, materialTypeID, storageID);
+            return new WoodMaterial(materialID, materialName, materialDescription, materialImagePath, materialStockCount, materialType, storageID);
         }
     }
 }

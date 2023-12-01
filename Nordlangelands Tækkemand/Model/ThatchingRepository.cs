@@ -15,11 +15,14 @@ namespace Nordlangelands_Tækkemand.Model
     public class ThatchingRepository : BaseRepository<ThatchingMaterial>
     {
         //Overwrite RepoQuery Inherited From BaseRepository
-        protected override string RepoInitializeQuery { get; set; } = "SELECT * FROM NTMaterial";
-        protected override string RepoCreateQuery { get; set; } = "EXEC sp_NTCreateMaterialTest @MaterialName, @MaterialDescription, @MaterialImagePath, @MaterialTypeID, @StorageID";
+        protected override string RepoInitializeQuery { get; set; } = "SELECT * FROM NTCombinedMaterialView";
+        protected override string RepoCreateQuery { get; set; } = "EXEC sp_NTCreateMaterial @MaterialName, @MaterialDescription, @MaterialStockCount, @MaterialTypeID, @StorageID;";
         protected override string RepoReadQuery { get; set; } = "EXEC sp_NTReadLastMaterial";
         protected override string RepoUpdateQuery { get; set; }
         protected override string RepoDeleteQuery { get; set; } = "EXEC sp_NTDeleteMaterial @MaterialID";
+        protected override string UpdateStockCountQuery { get; set; } = "EXEC sp_NTUpdateStockCount @MaterialID, @NewMaterialAmount";
+
+        protected override string ReadMaterialByIDQuery { get; set; } = "EXEC sp_NTGetMaterialByID @MaterialID";
 
         //Constructor
         public ThatchingRepository(CreateDelegate<ThatchingMaterial> createDelegate) : base(createDelegate)

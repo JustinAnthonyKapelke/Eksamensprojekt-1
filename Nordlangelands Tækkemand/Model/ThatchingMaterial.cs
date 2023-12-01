@@ -16,42 +16,44 @@ namespace Nordlangelands_Tækkemand.Model
         public string MaterialDescription { get; set; }
         public string MaterialImagePath { get; set; }
         public int MaterialStockCount { get; set; }
-        public int MaterialTypeID { get; set; }    
+        public string MaterialType { get; set; }    
+        public int MaterialTypeID { get; set; }
         public int StorageID { get; set; }
+
 
         //Constructor
         public ThatchingMaterial()
         {
         }
 
-        public ThatchingMaterial(int materialID, string materialName, string materialDescription, string materialImagePath, int materialStockCount, int materialTypeID, int storageID)
+        public ThatchingMaterial(int materialID, string materialName, string materialDescription, string materialImagePath, int materialStockCount, string materialType, int storageID)
         { 
             MaterialID = materialID;          
             MaterialName = materialName;
             MaterialDescription = materialDescription;
             MaterialImagePath = materialImagePath;
             MaterialStockCount = materialStockCount;
-            MaterialTypeID = materialTypeID;
+            MaterialType = materialType;
             StorageID = storageID;
         }
 
         //Constructor Overload
+        public ThatchingMaterial(string materialName, string materialDescription, string materialImagePath, int materialStockCount, string materialType, int storageID)
+        {
+            MaterialName = materialName;
+            MaterialDescription = materialDescription;
+            MaterialImagePath = materialImagePath;
+            MaterialStockCount = materialStockCount;
+            MaterialType = materialType;
+            StorageID = storageID;
+        }
+
         public ThatchingMaterial(string materialName, string materialDescription, string materialImagePath, int materialStockCount, int materialTypeID, int storageID)
         {
             MaterialName = materialName;
             MaterialDescription = materialDescription;
             MaterialImagePath = materialImagePath;
             MaterialStockCount = materialStockCount;
-            MaterialTypeID = materialTypeID;
-            StorageID = storageID;
-        }
-
-        public ThatchingMaterial(string materialName, string materialDescription, string materialImagePath, int materialTypeID, int storageID)
-        {
-            MaterialName = materialName;
-            MaterialDescription = materialDescription;
-            MaterialImagePath = materialImagePath;
-           
             MaterialTypeID = materialTypeID;
             StorageID = storageID;
         }

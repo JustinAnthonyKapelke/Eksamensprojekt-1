@@ -32,10 +32,13 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="{Binding MaterialImagePath}" 
-                                Width="32"
+                                <Image Source="{Binding IconPath}"
+                                       Width="32"
                                        Height="32" />
                                 <TextBlock Text="{Binding MaterialName}" 
+                                           VerticalAlignment="Center"
+                                           Margin="5,0,0,0" />
+                                <TextBlock Text="{Binding MaterialStockCount}"
                                            VerticalAlignment="Center"
                                            Margin="5,0,0,0" />
                             </StackPanel>
