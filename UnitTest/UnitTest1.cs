@@ -72,7 +72,6 @@ namespace UnitTest
             thatchingRepo.InitializeMaterials(); // Initial material load
 
             // ACT
-
             ThatchingMaterial OldMaterialStockCount = thatchingRepo.ReadMaterialByIDFromDatabase(UpdateMaterialID);
 
 
@@ -82,7 +81,6 @@ namespace UnitTest
 
             // ASSERT
             Assert.AreEqual(OldMaterialStockCount.MaterialStockCount + NewMaterialAmount, NewMaterialStockCount.MaterialStockCount);
-
 
         }
 

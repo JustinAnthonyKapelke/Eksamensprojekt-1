@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:Nordlangelands_Tækkemand"
         mc:Ignorable="d"
         Title="Nordlangelands Tækkemand"
@@ -16,26 +17,65 @@
                     <ColumnDefinition Width="69*" />
                     <ColumnDefinition Width="10*" />
                     <ColumnDefinition Width="36*" />
-                    <ColumnDefinition Width="931*" />
+                    <ColumnDefinition Width="9*" />
+                    <ColumnDefinition Width="21*" />
+                    <ColumnDefinition Width="9*" />
+                    <ColumnDefinition Width="892*" />
                 </Grid.ColumnDefinitions>
                 <!-- Add content for the "Forside" tab here -->
                 <Image Source="/Images/Forside.png"
                        Margin="-24,-10,-24,-65"
-                       Grid.ColumnSpan="4" />
+                       Grid.ColumnSpan="7" />
             </Grid>
         </TabItem>
         <TabItem Header="Lager">
             <Grid>
-                <ListBox Name="materialListBox"
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="10*" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="5"
+                            Margin="10"
+                            Content="Opret Materiale +"
+                            Command="{Binding SearchMaterialCMD}"
+                            CommandParameter="{Binding}" />
+                    <Button Grid.Column="2"
+                            Margin="10"
+                            Content="Test "
+                            Click="Button_Click" />
+                    <TextBox x:Name="SearchMaterialTextBox"
+                             Grid.Column="0"
+                             Margin="10"
+                             Text="{Binding Path = SearchText, UpdateSourceTrigger = PropertyChanged}">
+
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="Enter"
+                                        Command="{Binding SearchMaterialCMD}"
+                                        CommandParameter="{Binding}" />
+                        </TextBox.InputBindings>
+                    </TextBox>
+                </Grid>
+
+                <ListBox Grid.Row="1"
+                         Name="materialListBox"
                          Margin="45,60,45,110"
-                         ItemsSource="{Binding ThatchingVM}">
+                         ItemsSource="{Binding ThatchingVM, Mode=TwoWay, UpdateSourceTrigger = PropertyChanged}">
+                         
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
-                                <Image Source="{Binding IconPath}"
+                                <Image Source="{Binding MaterialImagePath}"
                                        Width="32"
                                        Height="32" />
-                                <TextBlock Text="{Binding MaterialName}" 
+                                <TextBlock Text="{Binding MaterialName}"
                                            VerticalAlignment="Center"
                                            Margin="5,0,0,0" />
                                 <TextBlock Text="{Binding MaterialStockCount}"

@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "cb/fYS9QkINFX4Wsh/BsFYCmSHN8D+4d6/43OPOD5G75lewSAhPIemAXQ1qsdGhrJ8LrJFemSGYIqxwORmxbKQ==",
+  "dgSpecHash": "qEXiXbYSmmgDfRhaEwvCp16r6vDWq8qH08r7DeoR97VI5bPwTQJRAtrSvbxqI0L4dyVhVkudEq4GE6mzUTcNBg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Justin\\Datamatiker\\Programmering\\Kode\\Nordlangelands Tækkemand\\Nordlangelands Tækkemand\\Nordlangelands Tækkemand.csproj",
   "expectedPackageFiles": [
@@ -43,7 +43,19 @@
     "C:\\Users\\Justin\\.nuget\\packages\\system.text.encodings.web\\6.0.0\\system.text.encodings.web.6.0.0.nupkg.sha512",
     "C:\\Users\\Justin\\.nuget\\packages\\system.text.json\\4.7.2\\system.text.json.4.7.2.nupkg.sha512",
     "C:\\Users\\Justin\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
-    "C:\\Users\\Justin\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512"
+    "C:\\Users\\Justin\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
+    "C:\\Users\\Justin\\.nuget\\packages\\system.windows.interactivity.wpf\\2.0.20525\\system.windows.interactivity.wpf.2.0.20525.nupkg.sha512"
   ],
-  "logs": []
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'System.Windows.Interactivity.WPF 2.0.20525' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0-windows7.0'. This package may not be fully compatible with your project.",
+      "libraryId": "System.Windows.Interactivity.WPF",
+      "targetGraphs": [
+        "net7.0-windows7.0"
+      ]
+    }
+  ]
 }

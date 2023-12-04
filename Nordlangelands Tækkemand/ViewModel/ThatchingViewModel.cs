@@ -1,6 +1,7 @@
 ﻿using Nordlangelands_Tækkemand.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,9 +9,10 @@ using System.Threading.Tasks;
 
 namespace Nordlangelands_Tækkemand.ViewModel
 {
-    public class ThatchingViewModel
+    public class ThatchingViewModel 
     {
         public ThatchingRepository thatchingRepo;
+              
 
         //Auto-Implemented Properties
         public int MaterialID { get; set; }
@@ -53,6 +55,8 @@ namespace Nordlangelands_Tækkemand.ViewModel
         {
             return new ThatchingMaterial(materialID, materialName, materialDescription, materialImagePath, materialStockCount, materialType, storageID);
         }
+
+
 
         //Method
         //public void CreateMaterial(string materialName, string materialDescription, int materialStockCount, double materialPrice, int storageID)
