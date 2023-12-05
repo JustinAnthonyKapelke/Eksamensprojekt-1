@@ -16,7 +16,7 @@ namespace Nordlangelands_Tækkemand.ViewModel
 
         //Command Properties
         public ICommand SearchMaterialCMD { get; set; } = new SearchMaterialCommand();
-
+        public ICommand CreateMaterialCMD { get; set; } = new CreateMaterialCommand();
 
         // INotifyPropertyChanged EventHandler
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -35,8 +35,12 @@ namespace Nordlangelands_Tækkemand.ViewModel
             get { return _searchText; }
             set
             {
-                _searchText = value;
-                OnPropertyChanged(nameof(SearchText));                
+                if (_searchText != value)
+                {
+                    _searchText = value;
+                    OnPropertyChanged(nameof(SearchText)); // Implement INotifyPropertyChanged
+                    
+                }
             }
         }
 

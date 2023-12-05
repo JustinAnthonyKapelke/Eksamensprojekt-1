@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "HetHLSEvezw7XOHqViBH+FNTWCzDKh/a5ODIH/7YjcsfzDFHssKHHqg0/pnrOMxIzUCDZ5BpOsvg3+oqZofiqw==",
+  "dgSpecHash": "BR9BFJJbZcQkOT7zceKmt7qIljEv21G1nI6G6dZuPfrFK8dTN10/UmXUIozEEA8yTMZKgYl2P4pIE7zPvwyD7Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\Justin\\Datamatiker\\Programmering\\Kode\\Nordlangelands Tækkemand\\UnitTest\\UnitTest.csproj",
   "expectedPackageFiles": [
@@ -127,21 +127,9 @@
     "C:\\Users\\Justin\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.4\\system.threading.tasks.extensions.4.5.4.nupkg.sha512",
     "C:\\Users\\Justin\\.nuget\\packages\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Users\\Justin\\.nuget\\packages\\system.windows.extensions\\6.0.0\\system.windows.extensions.6.0.0.nupkg.sha512",
-    "C:\\Users\\Justin\\.nuget\\packages\\system.windows.interactivity.wpf\\2.0.20525\\system.windows.interactivity.wpf.2.0.20525.nupkg.sha512",
     "C:\\Users\\Justin\\.nuget\\packages\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
     "C:\\Users\\Justin\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\Justin\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Package 'System.Windows.Interactivity.WPF 2.0.20525' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net7.0-windows7.0'. This package may not be fully compatible with your project.",
-      "libraryId": "System.Windows.Interactivity.WPF",
-      "targetGraphs": [
-        "net7.0-windows7.0"
-      ]
-    }
-  ]
+  "logs": []
 }

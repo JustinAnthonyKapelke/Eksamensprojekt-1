@@ -90,5 +90,5 @@ C:\Users\Justin\Desktop\Eksamensprojekt-1-Listbox_shows_thatchingmaterials\Nordl
 C:\Users\Justin\Desktop\Eksamensprojekt-1-Listbox_shows_thatchingmaterials\Nordlangelands Tækkemand\obj\Debug\net7.0-windows\Nordlangelands Tækkemand.pdb
 C:\Users\Justin\Desktop\Eksamensprojekt-1-Listbox_shows_thatchingmaterials\Nordlangelands Tækkemand\obj\Debug\net7.0-windows\Nordlangelands Tækkemand.genruntimeconfig.cache
 C:\Users\Justin\Desktop\Eksamensprojekt-1-Listbox_shows_thatchingmaterials\Nordlangelands Tækkemand\obj\Debug\net7.0-windows\ref\Nordlangelands Tækkemand.dll
-C:\Users\Justin\Datamatiker\Programmering\Kode\Nordlangelands Tækkemand\Nordlangelands Tækkemand\bin\Debug\net7.0-windows\Microsoft.Expression.Interactions.dll
-C:\Users\Justin\Datamatiker\Programmering\Kode\Nordlangelands Tækkemand\Nordlangelands Tækkemand\bin\Debug\net7.0-windows\System.Windows.Interactivity.dll
+C:\Users\Justin\Datamatiker\Programmering\Kode\Nordlangelands Tækkemand\Nordlangelands Tækkemand\obj\Debug\net7.0-windows\View\CreateMaterialWindow.g.cs
+C:\Users\Justin\Datamatiker\Programmering\Kode\Nordlangelands Tækkemand\Nordlangelands Tækkemand\obj\Debug\net7.0-windows\View\CreateMaterialWindow.baml

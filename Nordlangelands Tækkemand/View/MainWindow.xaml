@@ -28,7 +28,9 @@
                        Grid.ColumnSpan="7" />
             </Grid>
         </TabItem>
-        <TabItem Header="Lager">
+        <TabItem Header="Lager"
+                 HorizontalAlignment="Left"
+                 Width="42">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
@@ -42,25 +44,21 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <Button Grid.Column="5"
+                    <Button x:Name="CreateMaterialButton"
+                            Grid.Column="5"
                             Margin="10"
                             Content="Opret Materiale +"
-                            Command="{Binding SearchMaterialCMD}"
-                            CommandParameter="{Binding}" />
-                    <Button Grid.Column="2"
-                            Margin="10"
-                            Content="Test "
-                            Click="Button_Click" />
+                            Command="{Binding CreateMaterialCMD}"
+                            CommandParameter="{Binding}"
+                            Click="CreateMaterialButton_Click" />
+                    
                     <TextBox x:Name="SearchMaterialTextBox"
                              Grid.Column="0"
                              Margin="10"
-                             Text="{Binding Path = SearchText, UpdateSourceTrigger = PropertyChanged}">
+                             Text="{Binding Path = SearchText, UpdateSourceTrigger=PropertyChanged}"
+                             TextChanged="SearchMaterialTextBox_TextChanged">
 
-                        <TextBox.InputBindings>
-                            <KeyBinding Key="Enter"
-                                        Command="{Binding SearchMaterialCMD}"
-                                        CommandParameter="{Binding}" />
-                        </TextBox.InputBindings>
+                        
                     </TextBox>
                 </Grid>
 
