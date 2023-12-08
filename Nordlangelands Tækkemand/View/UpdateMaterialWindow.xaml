@@ -1,0 +1,174 @@
+﻿<Window x:Class="Nordlangelands_Tækkemand.View.UpdateMaterialWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nordlangelands_Tækkemand.View"
+        mc:Ignorable="d"
+        Title="UpdateMaterialWindow"
+        Height="450"
+        Width="800"
+        Background="#FF4A4A4A">
+    <Grid>
+
+
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="7*" />
+            </Grid.ColumnDefinitions>
+
+            <Label x:Name="NavnT"
+                   Grid.Column="0"
+                   Content="Navn:"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   Margin="20,0,0,0"
+                   Foreground="White"
+                   FontWeight="Bold"
+                   FontFamily="Bahnschrift" />
+            <TextBox x:Name="NameTextBox"
+                     Grid.Column="1"
+                     Margin="10,25,500,25"
+                     BorderBrush="Black"
+                     Text="{Binding SelectedMaterial.MaterialName}" />
+
+
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition  Width="7*" />
+            </Grid.ColumnDefinitions>
+
+            <Label  Grid.Column="0"
+                    Content="Beskrivelse:"
+                    Foreground="White"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Margin="20,0,0,0"
+                    FontWeight="Bold"
+                    FontFamily="Bahnschrift" />
+            <TextBox x:Name="DescriptionTextBox"
+                     Grid.Column="1"
+                     Margin="10,25,500,25"
+                     BorderBrush="Black"
+                     Text="{Binding SelectedMaterial.MaterialDescription}" />
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.225*" />
+                <ColumnDefinition  Width="0.2*" />
+                <ColumnDefinition  Width="0.18*" />
+                <ColumnDefinition  Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <RadioButton x:Name="ThatchingTypeRadioButton"
+                         Grid.Column="1"
+                         Content="Tække"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Center"
+                         Foreground="White"
+                         IsChecked="false" />
+
+            <RadioButton x:Name="WoodTypeRadioButton"
+                         Grid.Column="2"
+                         Content="Træ"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Center"
+                         Foreground="White"
+                         IsChecked="false" />
+
+            <RadioButton x:Name="VariousTypeRadioButton"
+                         Grid.Column="3"
+                         Content="Diverse"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Center"
+                         Foreground="White"
+                         IsChecked="false" />
+
+            <Label  Grid.Column="0"
+                    Content="Type:"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Margin="20,0,0,0"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    FontFamily="Bahnschrift" />
+        </Grid>
+
+        <Grid Grid.Row="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition  Width="7*" />
+            </Grid.ColumnDefinitions>
+
+            <Label  Grid.Column="0"
+                    Content="Antal:"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Margin="20,0,0,0"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    FontFamily="Bahnschrift" />
+            <TextBox x:Name="StockCountTextBox"
+                     Grid.Column="1"
+                     Margin="10,25,500,25"
+                     BorderBrush="Black"
+                     IsEnabled="False"
+                     Text="{Binding SelectedMaterial.MaterialStockCount}" />
+        </Grid>
+
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition  Width="7*" />
+            </Grid.ColumnDefinitions>
+
+            <Label  Grid.Column="0"
+                    Content="Lager ID:"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Margin="20,0,0,0"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    FontFamily="Bahnschrift" />
+            <TextBox x:Name="StorageIDTextBox"
+                     Grid.Column="1"
+                     Margin="10,25,500,25"
+                     BorderBrush="Black"
+                     IsEnabled="False"
+                     Text="{Binding SelectedMaterial.StorageID}" />
+        </Grid>
+
+        <Button x:Name="Save_Button"
+                Grid.Row="5"
+                Margin="600,30,30,16"
+                Content="Gem"
+                Background="#FFFFC500"
+                BorderBrush="Black"
+                Foreground="Black"
+                Command="{Binding UpdateMaterialCMD}"
+                CommandParameter="{Binding}">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius"
+                            Value="7.5" />
+                </Style>
+            </Button.Resources>
+        </Button>
+
+
+    </Grid>
+</Window>

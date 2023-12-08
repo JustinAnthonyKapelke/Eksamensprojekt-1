@@ -9,7 +9,16 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="View\Øjning.png" />
+    <Compile Remove="Commands\ThatchingRadioButtonCommand.cs" />
+    <Compile Remove="Commands\UpdateStockCountCommand.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Images\Homepage.png" />
+    <None Remove="Images\Icon.jpg" />
+    <None Remove="View\Diverse.png" />
+    <None Remove="View\Træ.png" />
+    <None Remove="View\Tække.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,7 +26,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="View\Øjning.png" />
+    <Content Include="Images\Homepage.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Images\Icon.jpg" />
+    <Resource Include="Images\Various.png" />
+    <Resource Include="Images\Wood.png" />
+    <Resource Include="Images\Thatching.png" />
   </ItemGroup>
 
 </Project>

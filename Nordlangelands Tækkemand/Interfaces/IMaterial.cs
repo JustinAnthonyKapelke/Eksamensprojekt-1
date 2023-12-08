@@ -16,6 +16,7 @@ namespace Nordlangelands_Tækkemand.Interfaces
         public string MaterialImagePath { get; set; }
         public int MaterialStockCount { get; set; }
         public string MaterialType { get; set; }
+        public int MaterialTypeID { get; set; }
         public int StorageID { get; set; }
     }
 }

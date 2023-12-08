@@ -256,3 +256,12 @@ C:\Users\Justin\Desktop\Eksamensprojekt-1-Listbox_shows_thatchingmaterials\UnitT
 C:\Users\Justin\Desktop\Eksamensprojekt-1-Listbox_shows_thatchingmaterials\UnitTest\obj\Debug\net7.0-windows\UnitTest.pdb
 C:\Users\Justin\Desktop\Eksamensprojekt-1-Listbox_shows_thatchingmaterials\UnitTest\obj\Debug\net7.0-windows\UnitTest.genruntimeconfig.cache
 C:\Users\Justin\Desktop\Eksamensprojekt-1-Listbox_shows_thatchingmaterials\UnitTest\obj\Debug\net7.0-windows\ref\UnitTest.dll
+C:\Users\PITA\Downloads\sdfsdgff\Eksamensprojekt-1-05-12-23\UnitTest\bin\Debug\net7.0-windows\CoverletSourceRootsMapping
+C:\Users\PITA\Downloads\sdfsdgff\Eksamensprojekt-1-05-12-23\UnitTest\obj\Debug\net7.0-windows\UnitTest.csproj.AssemblyReference.cache
+C:\Users\PITA\Downloads\sdfsdgff\Eksamensprojekt-1-05-12-23\UnitTest\obj\Debug\net7.0-windows\UnitTest.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\PITA\Downloads\sdfsdgff\Eksamensprojekt-1-05-12-23\UnitTest\obj\Debug\net7.0-windows\UnitTest.AssemblyInfoInputs.cache
+C:\Users\PITA\Downloads\sdfsdgff\Eksamensprojekt-1-05-12-23\UnitTest\obj\Debug\net7.0-windows\UnitTest.AssemblyInfo.cs
+C:\Users\PITA\Downloads\sdfsdgff\Eksamensprojekt-1-05-12-23\UnitTest\obj\Debug\net7.0-windows\UnitTest.csproj.CoreCompileInputs.cache
+C:\Users\PITA\Downloads\sdfsdgff\Eksamensprojekt-1-05-12-23\UnitTest\obj\Debug\net7.0-windows\UnitTest.dll
+C:\Users\PITA\Downloads\sdfsdgff\Eksamensprojekt-1-05-12-23\UnitTest\obj\Debug\net7.0-windows\refint\UnitTest.dll
+C:\Users\PITA\Downloads\sdfsdgff\Eksamensprojekt-1-05-12-23\UnitTest\obj\Debug\net7.0-windows\UnitTest.pdb

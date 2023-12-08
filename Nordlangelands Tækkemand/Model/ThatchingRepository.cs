@@ -24,6 +24,10 @@ namespace Nordlangelands_Tækkemand.Model
 
         protected override string ReadMaterialByIDQuery { get; set; } = "EXEC sp_NTGetMaterialByID @MaterialID";
 
+        protected override string MaterialType { get; set; } = "Tække";
+
+
+
         //Constructor
         public ThatchingRepository(CreateDelegate<ThatchingMaterial> createDelegate) : base(createDelegate)
         {

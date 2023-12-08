@@ -6,37 +6,61 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:local="clr-namespace:Nordlangelands_Tækkemand"
         mc:Ignorable="d"
+        Background="#FF4A4A4A"
         Title="Nordlangelands Tækkemand"
         Height="659"
         Width="1052"
-        Icon="/View/Øjning.png">
+        Icon="/Images/Icon.jpg">
+
+
     <TabControl Margin="0,46,0,0">
-        <TabItem Header="Forside">
+        <TabItem Header="Forside"
+                 HorizontalAlignment="Left"
+                 Width="100"
+                 BorderBrush="Black"
+                 BorderThickness="2"
+                 Margin="-2,-2,0,0">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="69*" />
-                    <ColumnDefinition Width="10*" />
-                    <ColumnDefinition Width="36*" />
-                    <ColumnDefinition Width="9*" />
-                    <ColumnDefinition Width="21*" />
-                    <ColumnDefinition Width="9*" />
-                    <ColumnDefinition Width="892*" />
+                    <ColumnDefinition Width="139*" />
+                    <ColumnDefinition Width="112*" />
+                    <ColumnDefinition Width="795*" />
                 </Grid.ColumnDefinitions>
-                <!-- Add content for the "Forside" tab here -->
-                <Image Source="/Images/Forside.png"
-                       Margin="-24,-10,-24,-65"
-                       Grid.ColumnSpan="7" />
+                <Image Source="/Images/Homepage.png"
+                       Margin="-94,0,-94,-52"
+                       Grid.ColumnSpan="3" />
+                <TextBox Text="Brugernavn"
+                         Margin="227,181,398,341"
+                         Grid.Column="2" />
+                <TextBox Text="Adgangskode"
+                         Margin="227,252,398,275"
+                         Grid.Column="2" />
+
+
             </Grid>
         </TabItem>
         <TabItem Header="Lager"
                  HorizontalAlignment="Left"
-                 Width="42">
-            <Grid>
+                 Width="100"
+                 BorderBrush="Black"
+                 BorderThickness="2"
+                 Height="22"
+                 VerticalAlignment="Top"
+                 Margin="-3,-1,0,0">
+            <Grid Background="#FF4A4A4A">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="41*" />
+                    <ColumnDefinition Width="220*" />
+                    <ColumnDefinition Width="785*" />
+                </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="10*" />
                 </Grid.RowDefinitions>
-                <Grid Grid.Row="0">
+                
+                <Grid Grid.Row="0"
+                      Grid.ColumnSpan="3">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
@@ -44,54 +68,249 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
+
                     <Button x:Name="CreateMaterialButton"
-                            Grid.Column="5"
+                            Grid.Column="4"
                             Margin="10"
                             Content="Opret Materiale +"
-                            Command="{Binding CreateMaterialCMD}"
+                            Click="CreateMaterialButton_Click"
+                            BorderBrush="Black"
+                            Background="#FFFFC500">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius"
+                                        Value="7.5" />
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+                    <Button x:Name="DeleteMaterialButton"
+                            Grid.Column="2"
+                            Margin="10"
+                            Content="Slet Materiale -"                          
+                            BorderBrush="Black"
+                            Background="IndianRed"
+                            Command="{Binding DeleteMaterialCMD}"
                             CommandParameter="{Binding}"
-                            Click="CreateMaterialButton_Click" />
-                    
+                            >
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius"
+                                        Value="7.5" />
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+
+                    <Button x:Name="AddToStockButton"
+                            Grid.Column="3"
+                            Margin="122,10,46,10"
+                            Content="+"
+                            BorderBrush="Black"
+                            Background="#FFFFC500"
+                            Command="{Binding AddStockCountCMD}"
+                            CommandParameter="{Binding}">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius"
+                                        Value="7.5" />
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+                    <Button x:Name="RemoveFromStockButton"
+                            Grid.Column="3"
+                            Margin="26,10,140,10"
+                            Content="-"
+                            BorderBrush="Black"
+                            Background="#FFFFC500"
+                            Command="{Binding RemoveStockCountCMD}"
+                            CommandParameter="{Binding}">
+                        <Button.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius"
+                                        Value="7.5" />
+                            </Style>
+                        </Button.Resources>
+                    </Button>
+
+                    <TextBox x:Name="NewStockCountTextBox"
+                             Grid.Column="3"
+                             Margin="74,10,92,10"
+                             MinWidth="30"
+                             Text="1"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center" />
+
+
+
+
                     <TextBox x:Name="SearchMaterialTextBox"
                              Grid.Column="0"
                              Margin="10"
                              Text="{Binding Path = SearchText, UpdateSourceTrigger=PropertyChanged}"
-                             TextChanged="SearchMaterialTextBox_TextChanged">
-
-                        
+                             TextChanged="SearchMaterialTextBox_TextChanged"
+                             BorderBrush="Black"
+                             BorderThickness="1">
                     </TextBox>
+
+
+
+
                 </Grid>
 
-                <ListBox Grid.Row="1"
+                <Grid Grid.ColumnSpan="3"
+                      Margin="0,47,0,445"
+                      Grid.RowSpan="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="150" />
+                    </Grid.ColumnDefinitions>
+
+                    <RadioButton x:Name="Thatching_RadioButton"
+                                 Grid.Column="0"
+                                 VerticalAlignment="Center"
+                                 Margin="10"
+                                 Command="{Binding FilterMaterialCMD}"
+                                 CommandParameter="{Binding}" />
+
+                    <RadioButton x:Name="Wood_RadioButton"
+                                 Grid.Column="1"
+                                 VerticalAlignment="Center"
+                                 Margin="10"
+                                 Command="{Binding FilterMaterialCMD}"
+                                 CommandParameter="{Binding}" />
+
+                    <RadioButton x:Name="Various_RadioButton"
+                                 Grid.Column="2"
+                                 VerticalAlignment="Center"
+                                 Margin="10"
+                                 Command="{Binding FilterMaterialCMD}"
+                                 CommandParameter="{Binding}" />
+
+                    <RadioButton x:Name="AllMaterials_RadioButton"
+                                 Grid.Column="3"
+                                 VerticalAlignment="Center"
+                                 Margin="10"
+                                 Command="{Binding FilterMaterialCMD}"
+                                 CommandParameter="{Binding}" />
+
+                    <Label x:Name="Thatching_Label"
+                           Grid.Column="0"
+                           Content="Tække"
+                           Margin="25,10,10,10"
+                           Foreground="White"
+                           VerticalAlignment="Center"
+                           FontFamily="Trebuchet MS"
+                           FontSize="15" />
+
+                    <Label x:Name="Wood_Label"
+                           Grid.Column="1"
+                           Content="Træ"
+                           Margin="25,10,10,10"
+                           Foreground="White"
+                           VerticalAlignment="Center"
+                           FontFamily="Trebuchet MS"
+                           FontSize="15" />
+
+                    <Label x:Name="Various_Label"
+                           Grid.Column="2"
+                           Content="Diverse"
+                           Margin="25,10,10,10"
+                           Foreground="White"
+                           VerticalAlignment="Center"
+                           FontFamily="Trebuchet MS"
+                           FontSize="15" />
+
+                    <Label x:Name="AllMaterials"
+                           Grid.Column="3"
+                           Content="Alle materialer"
+                           Margin="25,10,10,10"
+                           Foreground="White"
+                           VerticalAlignment="Center"
+                           FontFamily="Trebuchet MS"
+                           FontSize="15" />
+                </Grid>
+
+                <ListBox Grid.Row="2"
                          Name="materialListBox"
-                         Margin="45,60,45,110"
-                         ItemsSource="{Binding ThatchingVM, Mode=TwoWay, UpdateSourceTrigger = PropertyChanged}">
-                         
+                         Margin="4,45,45,45"
+                         ItemsSource="{Binding CurrentVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         BorderBrush="Black"
+                         BorderThickness="2"
+                         Grid.ColumnSpan="2"
+                         Grid.Column="1"
+                         SelectedItem="{Binding SelectedMaterial}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Margin"
+                                    Value="0,07" />
+                            <Setter Property="ToolTip">
+                                <Setter.Value>
+                                    <TextBlock Text="{Binding MaterialDescription}" />
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <Image Source="{Binding MaterialImagePath}"
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />                                    
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Row="0"
+                                       Grid.Column="0"
+                                       Source="{Binding MaterialImagePath}"
                                        Width="32"
                                        Height="32" />
-                                <TextBlock Text="{Binding MaterialName}"
-                                           VerticalAlignment="Center"
-                                           Margin="5,0,0,0" />
-                                <TextBlock Text="{Binding MaterialStockCount}"
-                                           VerticalAlignment="Center"
-                                           Margin="5,0,0,0" />
-                            </StackPanel>
+                                <TextBlock Grid.Row="0"
+                                           Grid.Column="1"
+                                           Text="{Binding MaterialName}"
+                                           Margin="5,0,0,0"
+                                           FontWeight="Bold" />
+                                <TextBlock Grid.Row="1"
+                                           Grid.Column="1"
+                                           Margin="5,-15,0,0">                                
+                                            <Run Text="Antal på lager: "
+                                          FontStyle="Italic" />
+                                         <Run Text="{Binding MaterialStockCount}" />
+                                </TextBlock>
+                                <Button x:Name="UpdateMaterialButton"
+                                        Grid.Row="0"
+                                        Grid.Column="1"
+                                        Margin="750,0,0,0"
+                                        Content="Redigér"
+                                        Click="UpdateMaterialButton_Click" />
+                            </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
+
             </Grid>
         </TabItem>
-        <TabItem Header="Arbejdsplads">
-            <Grid Background="#FFE5E5E5">
+
+        <TabItem Header="Arbejdsplads"
+                 HorizontalAlignment="Left"
+                 Width="100"
+                 BorderBrush="Black"
+                 BorderThickness="2"
+                 Margin="-4,-2,0,0">
+            <Grid Background="#FF4A4A4A">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="166*" />
-                    <ColumnDefinition Width="545*" />
+                    <ColumnDefinition Width="20*" />
+                    <ColumnDefinition Width="225*" />
+                    <ColumnDefinition Width="802*" />
                 </Grid.ColumnDefinitions>
             </Grid>
         </TabItem>
+
     </TabControl>
 </Window>

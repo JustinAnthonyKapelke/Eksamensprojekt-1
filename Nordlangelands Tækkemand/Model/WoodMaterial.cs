@@ -17,7 +17,9 @@ namespace Nordlangelands_Tækkemand.Model
         public string MaterialImagePath { get; set; }
         public int MaterialStockCount { get; set; }
         public string MaterialType { get; set; }
+        public int MaterialTypeID { get; set; }
         public int StorageID { get; set; }
+
 
         //Constructor
         public WoodMaterial(int materialID, string materialName, string materialDescription, string materialImagePath, int materialStockCount, string materialType, int storageID)
@@ -25,6 +27,7 @@ namespace Nordlangelands_Tækkemand.Model
             MaterialID = materialID;
             MaterialName = materialName;
             MaterialDescription = materialDescription;
+            MaterialImagePath= materialImagePath;
             MaterialStockCount = materialStockCount;
             MaterialType = materialType;
             StorageID = storageID;
@@ -32,12 +35,28 @@ namespace Nordlangelands_Tækkemand.Model
 
         //Constructor Overload
         public WoodMaterial(string materialName, string materialDescription, string materialImagePath, int materialStockCount, string materialType, int storageID)
-        {          
+        {
             MaterialName = materialName;
             MaterialDescription = materialDescription;
+            MaterialImagePath = materialImagePath;
             MaterialStockCount = materialStockCount;
-            MaterialType = materialType;
+            MaterialType = materialType; 
             StorageID = storageID;
+        }
+
+        public WoodMaterial(string materialName, string materialDescription, string materialImagePath, int materialStockCount, int materialTypeID, int storageID)
+        {
+            MaterialName = materialName;
+            MaterialDescription = materialDescription;
+            MaterialImagePath = materialImagePath;
+            MaterialStockCount = materialStockCount;
+            MaterialID= materialTypeID;  
+            StorageID = storageID;
+        }
+
+        public WoodMaterial()
+        {
+
         }
     }
 }

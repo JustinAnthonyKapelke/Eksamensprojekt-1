@@ -10,12 +10,18 @@
     <Compile Update="View\CreateMaterialWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="View\UpdateMaterialWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="View\CreateMaterialWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="View\UpdateMaterialWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

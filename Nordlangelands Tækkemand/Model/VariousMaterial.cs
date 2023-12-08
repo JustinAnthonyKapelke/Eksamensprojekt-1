@@ -17,28 +17,45 @@ namespace Nordlangelands_Tækkemand.Model
         public string MaterialImagePath { get; set; }
         public int MaterialStockCount { get; set; }
         public string MaterialType { get; set; }
+        public int MaterialTypeID { get; set; }
         public int StorageID { get; set; }
 
         //Constructor
-        public VariousMaterial(int materialID, string materialName, string materialDescription,string materialImagePath, int materialStockCount, string materialType, int storageID)
+        public VariousMaterial(int materialID, string materialName, string materialDescription, string materialImagePath, int materialStockCount, string materialType, int storageID)
         {
             MaterialID = materialID;
             MaterialName = materialName;
             MaterialDescription = materialDescription;
             MaterialImagePath = materialImagePath;
             MaterialStockCount = materialStockCount;
-            MaterialType = materialType;    
+            MaterialType = materialType;
             StorageID = storageID;
         }
 
+        // Constructor Overload
         public VariousMaterial(string materialName, string materialDescription, string materialImagePath, int materialStockCount, string materialType, int storageID)
-        {            
+        {
             MaterialName = materialName;
             MaterialDescription = materialDescription;
             MaterialImagePath = materialImagePath;
             MaterialStockCount = materialStockCount;
             MaterialType = materialType;
             StorageID = storageID;
+        }
+
+        public VariousMaterial(string materialName, string materialDescription, string materialImagePath, int materialStockCount, int materialTypeID, int storageID)
+        {
+            MaterialName = materialName;
+            MaterialDescription = materialDescription;
+            MaterialImagePath = materialImagePath;
+            MaterialStockCount = materialStockCount;
+            MaterialTypeID= materialTypeID;
+            StorageID = storageID;
+        }
+
+        public VariousMaterial()
+        {
+
         }
     }
 }

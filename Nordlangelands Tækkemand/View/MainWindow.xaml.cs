@@ -1,4 +1,5 @@
 ﻿using Nordlangelands_Tækkemand.Commands;
+using Nordlangelands_Tækkemand.View;
 using Nordlangelands_Tækkemand.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -22,20 +23,26 @@ namespace Nordlangelands_Tækkemand
     /// </summary>
     public partial class MainWindow : Window
     {
-        MainViewModel mvm = new MainViewModel();
-        CreateMaterialWindow createMaterialWindow = new CreateMaterialWindow();
+
+        MainViewModel mvm;
+        public CreateMaterialWindow CreateMaterialWindow;
+        public UpdateMaterialWindow UpdateMaterialWindow;
+
         public MainWindow()
         {
+            //Instansier MainVievModel med den aktuelle instans af MainWindow
+            mvm = new MainViewModel(this);
             InitializeComponent();
             // Indstil DataContext for MainWindow til MainViewModel
             DataContext = mvm;
+            CreateMaterialWindow = new CreateMaterialWindow(mvm);
+            UpdateMaterialWindow = new UpdateMaterialWindow(mvm);
         }
 
         private void SearchMaterialTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             mvm.SearchMaterialCMD.Execute(mvm);
         }
-
 
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -58,7 +65,18 @@ namespace Nordlangelands_Tækkemand
         private void CreateMaterialButton_Click(object sender, RoutedEventArgs e)
         {
             //CreateMaterialWindow createMaterialWindow = new CreateMaterialWindow();
-            createMaterialWindow.Show();
+            CreateMaterialWindow.Show();
+        }
+
+        private void UpdateMaterialButton_Click(object sender, RoutedEventArgs e)
+        {
+            //CreateMaterialWindow createMaterialWindow = new CreateMaterialWindow();
+            UpdateMaterialWindow.Show();
+            mvm.UpdateRadioButtonsCMD.Execute(mvm);
+            //GetTypeFromRadioButton();
+
+
+
         }
     }
 }

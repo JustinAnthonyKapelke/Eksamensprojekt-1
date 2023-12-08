@@ -18,12 +18,14 @@ namespace Nordlangelands_Tækkemand.Model
         //Database Connection String
         protected string _connectionString = "Server=10.56.8.36; Database=DB_F23_TEAM_06; User Id=DB_F23_TEAM_06; Password=TEAMDB_DB_06; TrustServerCertificate=true";
 
+        protected virtual string MaterialType { get; set; } = "";
+
         //Specific Delegates
         private readonly CreateDelegate<T> _createDelegate;
         private readonly InitializeCreateDelegate<T> _initializeCreateDelegate;
 
         //Signature Delegate
-        public delegate T CreateDelegate<T>(string materialName, string materialDescription, string materialImagePath, int materialStockCount, string materialType, int storageID);
+        public delegate T CreateDelegate<T>(string materialName, string materialDescription, string materialImagePath, int materialStockCount, int materialTypeID, int storageID);
 
         //Signature Delegate For Initalize
         public delegate T InitializeCreateDelegate<T>(int materialID, string materialName, string materialDescription, string materialImagePath, int materialStockCount, string materialType, int storageID);
@@ -39,8 +41,6 @@ namespace Nordlangelands_Tækkemand.Model
         protected virtual string RepoDeleteQuery { get; set; } = "";
         protected virtual string UpdateStockCountQuery { get; set; } = "";
         protected virtual string ReadMaterialByIDQuery { get; set; } = "";
-
- 
 
         //Constructor
         public BaseRepository(CreateDelegate<T> createDelegate)
@@ -59,14 +59,15 @@ namespace Nordlangelands_Tækkemand.Model
 
         //CRUD Methods
 
-        public T CreateMaterialInRepository(string materialName, string materialDescription, string materialImagePath, int materialStockCount, string materialType, int storageID)
-        {
-            T newMaterial = _createDelegate(materialName, materialDescription, materialImagePath, materialStockCount, materialType, storageID);
-            _materials.Add(newMaterial);
-            return newMaterial;
-        }
+        //public T CreateMaterialInRepository(string materialName, string materialDescription, string materialImagePath, int materialStockCount, int materialTypeID, int storageID)
+        //{
+        //    T newMaterial = _createDelegate(materialName, materialDescription, materialImagePath, materialStockCount, materialTypeID, storageID);
+        //    _materials.Add(newMaterial);
+        //    return newMaterial;
+        //}
 
-        public T ReadMaterialFromRepisitory(int materialID)
+        //Bliver brugt i UpdateStockCountCommand
+        public T ReadMaterialFromRepository(int materialID)
         {
             return _materials.FirstOrDefault(m => m.MaterialID == materialID);
         }
@@ -85,6 +86,8 @@ namespace Nordlangelands_Tækkemand.Model
             }
         }
 
+     
+
         public void DeleteMaterialFromRepisitory(int materialID)
         {
             T deletedMaterial = _materials.FirstOrDefault(m => m.MaterialID == materialID);
@@ -97,15 +100,17 @@ namespace Nordlangelands_Tækkemand.Model
 
         //Database Operation Methods
 
-        //Initialize Materials From Database
+        //Initialize Materials From Database (gør create material in repository overflødig)
         public void InitializeMaterials()
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
+                
                 connection.Open();
 
                 //Use a stored procedure to prevent sql injection.
                 string query = RepoInitializeQuery;
+                string foundMaterialType = MaterialType;
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 using (SqlDataReader reader = command.ExecuteReader())
@@ -120,10 +125,12 @@ namespace Nordlangelands_Tækkemand.Model
                         string materialImagePath = (string)reader["MaterialImagePath"];
                         int storageID = (int)reader["StorageID"];
 
+                        if (foundMaterialType == materialType)
+                        {
+                            T newMaterial = _initializeCreateDelegate(materialID, materialName, materialDescription, materialImagePath, materialStockCount, materialType, storageID);
 
-                        T newMaterial = _initializeCreateDelegate(materialID, materialName, materialDescription, materialImagePath, materialStockCount, materialType, storageID);
-                        
-                        _materials.Add(newMaterial);
+                            _materials.Add(newMaterial);
+                        }
                     }
                 }
             }
@@ -141,8 +148,7 @@ namespace Nordlangelands_Tækkemand.Model
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@MaterialName", materialName);
-                    command.Parameters.AddWithValue("@MaterialDescription", materialDescription);
-                   
+                    command.Parameters.AddWithValue("@MaterialDescription", materialDescription);                  
                     command.Parameters.AddWithValue("@MaterialStockCount", materialStockCount);
                     command.Parameters.AddWithValue("@MaterialTypeID", materialTypeID);
                     command.Parameters.AddWithValue("@StorageID", storageID);
@@ -169,10 +175,10 @@ namespace Nordlangelands_Tækkemand.Model
                         int materialID = (int)reader["MaterialID"];
                         string materialName = (string)reader["MaterialName"];
                         string materialDescription = (string)reader["MaterialDescription"];
-                        string materialImagePath = (string)reader["MaterialImagePath"];
                         int materialStockCount = (int)reader["MaterialStockCount"];
                         string materialType = (string)reader["MaterialType"];
                         int storageID = (int)reader["StorageID"];
+                        string materialImagePath = (string)reader["MaterialImagePath"];
 
                         T newMaterial = _initializeCreateDelegate(materialID, materialName, materialDescription, materialImagePath, materialStockCount, materialType, storageID);
 
@@ -224,8 +230,6 @@ namespace Nordlangelands_Tækkemand.Model
                     command.Parameters.AddWithValue("@MaterialID", materialID);
                     command.Parameters.AddWithValue("@NewMaterialAmount", newMaterialAmount);
                     command.ExecuteNonQuery();
-
-
                 }
             }
         }

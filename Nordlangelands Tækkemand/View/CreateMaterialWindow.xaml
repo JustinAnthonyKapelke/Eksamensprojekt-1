@@ -8,22 +8,14 @@
         Title="CreateMaterialWindow"
         Height="450"
         Width="800"
-        Background="Transparent">
+        Background="#FF4A4A4A"
+        Icon="/Images/Icon.jpg">
 
     <Grid>
-        <Border>
-            <Border.Background>
-                <LinearGradientBrush StartPoint="0,2"
-                                     EndPoint="1,1">   
-                <GradientStop Color="Grey" 
-                              Offset="0.1"/> 
-                <GradientStop Color="White"
-                              Offset="3"/>
-           </LinearGradientBrush>
-       </Border.Background>
-   </Border>
+
 
         <Grid.RowDefinitions>
+            <RowDefinition />
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
@@ -33,17 +25,23 @@
 
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition                                   Width="1*"/>
-                <ColumnDefinition  Width="7*"/>                
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="7*" />
             </Grid.ColumnDefinitions>
-            <Label  Grid.Column="0"
-                    Content="Navn:"
-                    
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Margin="20,0,0,0" />
+            
+            <Label x:Name="NavnT"
+                   Grid.Column="0"
+                   Content="Navn:"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Center"
+                   Margin="20,0,0,0"
+                   Foreground="White"
+                   FontWeight="Bold"
+                   FontFamily="Bahnschrift" />
             <TextBox x:Name="NameTextBox"
-                     Grid.Column="1" Margin="10,25,500,25" />
+                     Grid.Column="1"
+                     Margin="10,25,500,25"
+                     BorderBrush="Black" />
         </Grid>
 
         <Grid Grid.Row="1">
@@ -51,30 +49,58 @@
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition  Width="7*" />
             </Grid.ColumnDefinitions>
+            
             <Label  Grid.Column="0"
                     Content="Beskrivelse:"
-                    Foreground="Blue"
+                    Foreground="White"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Margin="20,0,0,0" />
-            <TextBox x:Name="BeskrivelseTextBox"
+                    Margin="20,0,0,0"
+                    FontWeight="Bold"
+                    FontFamily="Bahnschrift" />
+            <TextBox x:Name="DescriptionTextBox"
                      Grid.Column="1"
-                     Margin="10,25,500,25" />
+                     Margin="10,25,500,25"
+                     BorderBrush="Black" />
         </Grid>
 
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition  Width="7*" />
+                <ColumnDefinition Width="0.225*" />
+                <ColumnDefinition  Width="0.2*" />
+                <ColumnDefinition  Width="0.18*" />
+                <ColumnDefinition  Width="*" />
             </Grid.ColumnDefinitions>
+
+            <RadioButton x:Name="ThatchingTypeRadioButton"
+                         Grid.Column="1"
+                         Content="Tække"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Center"
+                         Foreground="White" />
+            
+            <RadioButton x:Name="WoodTypeRadioButton"
+                         Grid.Column="2"
+                         Content="Træ"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Center"
+                         Foreground="White" />
+            
+            <RadioButton x:Name="VariousTypeRadioButton"
+                         Grid.Column="3"
+                         Content="Diverse"
+                         HorizontalAlignment="Left"
+                         VerticalAlignment="Center"
+                         Foreground="White" />
+
             <Label  Grid.Column="0"
                     Content="Type:"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Margin="20,0,0,0" />
-            <TextBox x:Name="AntalTextBox"
-                     Grid.Column="1"
-                     Margin="10,25,500,25" />
+                    Margin="20,0,0,0"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    FontFamily="Bahnschrift" />
         </Grid>
 
         <Grid Grid.Row="3">
@@ -82,21 +108,62 @@
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition  Width="7*" />
             </Grid.ColumnDefinitions>
+            
             <Label  Grid.Column="0"
                     Content="Antal:"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Margin="20,0,0,0" />
-            <TextBox Grid.Column="1"
-                     Margin="10,25,500,25" />
+                    Margin="20,0,0,0"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    FontFamily="Bahnschrift" />
+            <TextBox x:Name="StockCountTextBox"
+                     Grid.Column="1"
+                     Margin="10,25,500,25"
+                     BorderBrush="Black"
+                     Text="0" />
         </Grid>
-        
-        <Button Grid.Row="4"
-                Margin ="600,30,30,30"
-                Content="Gem"
-                Background="Blue"
-                BorderBrush="DeepPink"/>
 
-</Grid>
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition  Width="7*" />
+            </Grid.ColumnDefinitions>
+            
+            <Label  Grid.Column="0"
+                    Content="Lager ID:"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Margin="20,0,0,0"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    FontFamily="Bahnschrift" />
+            <TextBox x:Name="StorageIDTextBox"
+                     Grid.Column="1"
+                     Margin="10,25,500,25"
+                     BorderBrush="Black"
+                     Text="1" 
+                     IsEnabled="False"/>
+        </Grid>
+
+        <Button x:Name="Save_Button"
+                Grid.Row="5"
+                Margin="600,30,30,16"
+                Content="Gem"
+                Background="#FFFFC500"
+                BorderBrush="Black"
+                Foreground="Black"
+                Command="{Binding CreateMaterialCMD}"
+                CommandParameter="{Binding}">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius"
+                            Value="7.5" />
+                </Style>
+            </Button.Resources>
+        </Button>
+
+
+    </Grid>
 
 </Window>

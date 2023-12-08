@@ -16,10 +16,9 @@ namespace Nordlangelands_Tækkemand.Model
         public string MaterialDescription { get; set; }
         public string MaterialImagePath { get; set; }
         public int MaterialStockCount { get; set; }
-        public string MaterialType { get; set; }    
+        public string MaterialType { get; set; }
         public int MaterialTypeID { get; set; }
-        public int StorageID { get; set; }
-
+        public int StorageID { get; set ; }
 
         //Constructor
         public ThatchingMaterial()
