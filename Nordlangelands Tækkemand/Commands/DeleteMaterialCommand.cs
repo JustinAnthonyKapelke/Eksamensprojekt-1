@@ -76,9 +76,10 @@ namespace Nordlangelands_Tækkemand.Commands
                     {
                         mvm.AllMaterialsVM.Remove(materialToRemove);
                     }
-                    
+                    mvm.LogTextCMD.Execute(mvm);
                 }
-                                  
+                       
+                
                 if (result == MessageBoxResult.No)
                 {                    
                 }

@@ -9,7 +9,8 @@
         Height="450"
         Width="800"
         Background="#FF4A4A4A"
-        Icon="/Images/Icon.jpg">
+        Icon="/Images/Icon.jpg"
+        WindowStartupLocation="CenterScreen">
 
     <Grid>
 

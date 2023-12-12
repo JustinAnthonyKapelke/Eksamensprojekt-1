@@ -25,7 +25,17 @@ namespace Nordlangelands_Tækkemand
         public CreateMaterialWindow(MainViewModel mvm)
         {
             InitializeComponent();
-            DataContext = mvm;
-        }    
+            DataContext = mvm;            
+            this.Closing += CreateMaterialWindow_Closing;
+        }
+
+        private void CreateMaterialWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            // Cancel the closing of the window
+            e.Cancel = true;
+
+            // Hide the window
+            this.Hide();
+        }
     }
 }

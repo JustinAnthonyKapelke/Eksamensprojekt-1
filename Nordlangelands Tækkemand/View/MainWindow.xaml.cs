@@ -23,10 +23,10 @@ namespace Nordlangelands_Tækkemand
     /// </summary>
     public partial class MainWindow : Window
     {
-
         MainViewModel mvm;
         public CreateMaterialWindow CreateMaterialWindow;
         public UpdateMaterialWindow UpdateMaterialWindow;
+        public CreateWorkplaceWindow CreateWorkplaceWindow;
 
         public MainWindow()
         {
@@ -37,6 +37,8 @@ namespace Nordlangelands_Tækkemand
             DataContext = mvm;
             CreateMaterialWindow = new CreateMaterialWindow(mvm);
             UpdateMaterialWindow = new UpdateMaterialWindow(mvm);
+            CreateWorkplaceWindow = new CreateWorkplaceWindow(mvm);
+            mvm.LogTextCMD.Execute(mvm);
         }
 
         private void SearchMaterialTextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -60,23 +62,6 @@ namespace Nordlangelands_Tækkemand
             {
                 textBox.Text = "Søg materiale";
             }
-        }
-
-        private void CreateMaterialButton_Click(object sender, RoutedEventArgs e)
-        {
-            //CreateMaterialWindow createMaterialWindow = new CreateMaterialWindow();
-            CreateMaterialWindow.Show();
-        }
-
-        private void UpdateMaterialButton_Click(object sender, RoutedEventArgs e)
-        {
-            //CreateMaterialWindow createMaterialWindow = new CreateMaterialWindow();
-            UpdateMaterialWindow.Show();
-            mvm.UpdateRadioButtonsCMD.Execute(mvm);
-            //GetTypeFromRadioButton();
-
-
-
-        }
+        }          
     }
 }

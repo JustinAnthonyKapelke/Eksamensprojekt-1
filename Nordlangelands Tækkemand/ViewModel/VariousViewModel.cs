@@ -22,15 +22,84 @@ namespace Nordlangelands_Tækkemand.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        //Auto-Implemented Properties
-        public int MaterialID { get; set; }
-        public string MaterialName { get; set; }
-        public string MaterialDescription { get; set; }
-        public string MaterialImagePath { get; set; }      
-        public string MaterialType { get; set; }
-        public int MaterialTypeID { get; set; }
-        public int StorageID { get; set; }
+        //Properties
+        private int _materialID;
+        public int MaterialID
+        {
+            get { return _materialID; }
+            set
+            {
+                if (_materialID != value)
+                {
+                    _materialID = value;
+                    OnPropertyChanged(nameof(MaterialID));
 
+                }
+            }
+        }
+
+
+        private string _materialName;
+        public string MaterialName
+        {
+            get { return _materialName; }
+            set
+            {
+                if (_materialName != value)
+                {
+                    _materialName = value;
+                    OnPropertyChanged(nameof(MaterialName));
+
+                }
+            }
+        }
+
+        private string _materialDescription;
+        public string MaterialDescription
+        {
+            get { return _materialDescription; }
+            set
+            {
+                if (_materialDescription != value)
+                {
+                    _materialDescription = value;
+                    OnPropertyChanged(nameof(MaterialDescription));
+
+                }
+            }
+        }
+
+        private string _materialType;
+        public string MaterialType
+        {
+            get { return _materialType; }
+            set
+            {
+                if (_materialType != value)
+                {
+                    _materialType = value;
+                    OnPropertyChanged(nameof(MaterialType));
+
+                }
+            }
+        }
+
+
+
+        private string _materialImagePath;
+        public string MaterialImagePath
+        {
+            get { return _materialImagePath; }
+            set
+            {
+                if (_materialImagePath != value)
+                {
+                    _materialImagePath = value;
+                    OnPropertyChanged(nameof(MaterialImagePath));
+
+                }
+            }
+        }
 
         private int _materialStockCount;
         public int MaterialStockCount
@@ -42,6 +111,37 @@ namespace Nordlangelands_Tækkemand.ViewModel
                 {
                     _materialStockCount = value;
                     OnPropertyChanged(nameof(MaterialStockCount));
+
+                }
+            }
+        }
+
+        private int _materialTypeID;
+        public int MaterialTypeID
+        {
+            get { return _materialTypeID; }
+            set
+            {
+                if (_materialTypeID != value)
+                {
+                    _materialTypeID = value;
+                    OnPropertyChanged(nameof(MaterialTypeID));
+
+                }
+            }
+        }
+
+
+        private int _storageID;
+        public int StorageID
+        {
+            get { return _storageID; }
+            set
+            {
+                if (_storageID != value)
+                {
+                    _storageID = value;
+                    OnPropertyChanged(nameof(StorageID));
 
                 }
             }

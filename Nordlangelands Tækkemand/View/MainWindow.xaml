@@ -10,31 +10,88 @@
         Title="Nordlangelands Tækkemand"
         Height="659"
         Width="1052"
-        Icon="/Images/Icon.jpg">
+        Icon="/Images/Icon.jpg"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.Resources>
+        <Style TargetType="TabItem">
+            <!-- Baggrundsfarve for tab -->
+            <Setter Property="Background"
+                    Value="#FF555577" />
+            <!-- Tekstfarve -->
+            <Setter Property="Foreground"
+                    Value="#FFE3D8D8" />
+            <!-- Skrifttype og størrelse -->
+            <Setter Property="FontFamily"
+                    Value="Segoe UI" />
+            <Setter Property="FontSize"
+                    Value="12" />
+            <!-- Padding og marginer -->
+            <Setter Property="Padding"
+                    Value="10,5" />
+
+            <!-- Border til at adskille tab fra indhold -->
+            <Setter Property="BorderBrush"
+                    Value="#CCCCCC" />
+            <Setter Property="BorderThickness"
+                    Value="0,0,0,1" />
+            <!-- Skyggeeffekt (valgfri) -->
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Gray"
+                                      Opacity="0.5"
+                                      BlurRadius="5" />
+                </Setter.Value>
+            </Setter>
 
 
-    <TabControl Margin="0,46,0,0">
+
+
+            <!-- Yderligere stiltilpasninger kan tilføjes her -->
+        </Style>
+    </Window.Resources>
+
+
+    <TabControl TabStripPlacement="Left">
         <TabItem Header="Forside"
                  HorizontalAlignment="Left"
                  Width="100"
                  BorderBrush="Black"
                  BorderThickness="2"
-                 Margin="-2,-2,0,0">
+                 Margin="-2,-2,0,-3"
+                 FontWeight="Bold">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="139*" />
                     <ColumnDefinition Width="112*" />
-                    <ColumnDefinition Width="795*" />
+                    <ColumnDefinition Width="143*" />
+                    <ColumnDefinition Width="652*" />
                 </Grid.ColumnDefinitions>
                 <Image Source="/Images/Homepage.png"
-                       Margin="-94,0,-94,-52"
-                       Grid.ColumnSpan="3" />
+                       Margin="-138,-8,-95,-13"
+                       Grid.ColumnSpan="4" />
                 <TextBox Text="Brugernavn"
-                         Margin="227,181,398,341"
-                         Grid.Column="2" />
+                         Margin="84,181,398,414"
+                         Grid.Column="3"
+                         Background="#FF69B4"
+                         Foreground="#FFE3D8D8"
+                         BorderBrush="DarkSlateGray">
+                    <TextBox.Effect>
+                        <DropShadowEffect />
+                    </TextBox.Effect>
+
+
+                </TextBox>
                 <TextBox Text="Adgangskode"
-                         Margin="227,252,398,275"
-                         Grid.Column="2" />
+                         Margin="84,252,398,343"
+                         Grid.Column="3"
+                         Background="#FF69B4"
+                         Foreground="#FFE3D8D8"
+                         BorderBrush="DarkSlateGray">
+                    <TextBox.Effect>
+                        <DropShadowEffect />
+                    </TextBox.Effect>
+                </TextBox>
 
 
             </Grid>
@@ -44,21 +101,21 @@
                  Width="100"
                  BorderBrush="Black"
                  BorderThickness="2"
-                 Height="22"
+                 Height="36"
                  VerticalAlignment="Top"
                  Margin="-3,-1,0,0">
             <Grid Background="#FF4A4A4A">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="41*" />
-                    <ColumnDefinition Width="220*" />
-                    <ColumnDefinition Width="785*" />
+                    <ColumnDefinition Width="41" />
+                    <ColumnDefinition Width="44*" />
+                    <ColumnDefinition Width="157*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="10*" />
                 </Grid.RowDefinitions>
-                
+
                 <Grid Grid.Row="0"
                       Grid.ColumnSpan="3">
                     <Grid.ColumnDefinitions>
@@ -69,17 +126,37 @@
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
 
+
+                    <TextBlock x:Name="LogTextTextBlock"
+                               Grid.ColumnSpan="5"
+                               Text="{Binding LogText}"
+                               FontWeight="Bold"
+                               Margin="47,599,49,-576"><Run Language="da-dk"
+                                                            Text="LogText" />
+                    </TextBlock>
                     <Button x:Name="CreateMaterialButton"
                             Grid.Column="4"
                             Margin="10"
                             Content="Opret Materiale +"
-                            Click="CreateMaterialButton_Click"
                             BorderBrush="Black"
-                            Background="#FFFFC500">
+                            Background="#FFFFC500"
+                            Command="{Binding OpenCreateMaterialCMD}"
+                            CommandParameter="{Binding}">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius"
                                         Value="7.5" />
+                                <Setter Property="BorderBrush"
+                                        Value="#CCCCCC" />
+                                <Setter Property="BorderThickness"
+                                        Value="0,0,0,1" />
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="Gray"
+                                                          Opacity="0.5"
+                                                          BlurRadius="5" />
+                                    </Setter.Value>
+                                </Setter>
                             </Style>
                         </Button.Resources>
                     </Button>
@@ -87,16 +164,26 @@
                     <Button x:Name="DeleteMaterialButton"
                             Grid.Column="2"
                             Margin="10"
-                            Content="Slet Materiale -"                          
+                            Content="Slet Materiale -"
                             BorderBrush="Black"
                             Background="IndianRed"
                             Command="{Binding DeleteMaterialCMD}"
-                            CommandParameter="{Binding}"
-                            >
+                            CommandParameter="{Binding}">
                         <Button.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="CornerRadius"
                                         Value="7.5" />
+                                <Setter Property="BorderBrush"
+                                        Value="#CCCCCC" />
+                                <Setter Property="BorderThickness"
+                                        Value="0,0,0,1" />
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="Gray"
+                                                          Opacity="0.5"
+                                                          BlurRadius="5" />
+                                    </Setter.Value>
+                                </Setter>
                             </Style>
                         </Button.Resources>
                     </Button>
@@ -152,7 +239,51 @@
                              TextChanged="SearchMaterialTextBox_TextChanged"
                              BorderBrush="Black"
                              BorderThickness="1">
+                        <TextBox.Resources>
+                            <Style TargetType="Border">
+                                <Setter Property="CornerRadius"
+                                        Value="7.5" />
+                                <Setter Property="BorderBrush"
+                                        Value="#CCCCCC" />
+                                <Setter Property="BorderThickness"
+                                        Value="0,0,0,1" />
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="Gray"
+                                                          Opacity="0.5"
+                                                          BlurRadius="5" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </TextBox.Resources>
                     </TextBox>
+                    <Button x:Name="UpdateButton"
+                            Grid.Column="3"
+                            Margin="122,101,87,-81"
+                            Content="Redigér materiale"
+                            BorderBrush="Black"
+                            Background="IndianRed"
+                            Grid.ColumnSpan="2"
+                            Command="{Binding OpenUpdateMaterialCMD}"
+                            CommandParameter="{Binding}">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius"
+                                        Value="7.5" />
+                                <Setter Property="BorderBrush"
+                                        Value="#CCCCCC" />
+                                <Setter Property="BorderThickness"
+                                        Value="0,0,0,1" />
+                                <Setter Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="Gray"
+                                                          Opacity="0.5"
+                                                          BlurRadius="5" />
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Button.Resources>
+                    </Button>
 
 
 
@@ -264,7 +395,7 @@
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />                                    
+                                    <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Image Grid.Row="0"
                                        Grid.Column="0"
@@ -280,15 +411,11 @@
                                            Grid.Column="1"
                                            Margin="5,-15,0,0">                                
                                             <Run Text="Antal på lager: "
-                                          FontStyle="Italic" />
+                                                 FontStyle="Italic" />
                                          <Run Text="{Binding MaterialStockCount}" />
                                 </TextBlock>
-                                <Button x:Name="UpdateMaterialButton"
-                                        Grid.Row="0"
-                                        Grid.Column="1"
-                                        Margin="750,0,0,0"
-                                        Content="Redigér"
-                                        Click="UpdateMaterialButton_Click" />
+
+
                             </Grid>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -302,13 +429,95 @@
                  Width="100"
                  BorderBrush="Black"
                  BorderThickness="2"
-                 Margin="-4,-2,0,0">
+                 Margin="-4,-2,0,-6">
             <Grid Background="#FF4A4A4A">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="20*" />
                     <ColumnDefinition Width="225*" />
                     <ColumnDefinition Width="802*" />
                 </Grid.ColumnDefinitions>
+                
+                <ListBox Name="WorkplaceListBox"
+                         Margin="4,68,45,45"
+                         ItemsSource="{Binding WorkplaceVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                         BorderBrush="Black"
+                         BorderThickness="2"
+                         Grid.ColumnSpan="2"
+                         Grid.Column="1"
+                         SelectedItem="{Binding SelectedWorkplace}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Margin"
+                                    Value="0,07" />
+                            <Setter Property="ToolTip">
+                                <Setter.Value>
+                                    <TextBlock Text="{Binding WorkplaceAddress}" />
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Row="0"
+                                       Grid.Column="0"
+                                       Source="{Binding WorkplaceImagePath}"
+                                       Width="32"
+                                       Height="32" />
+                                <TextBlock Grid.Row="0"
+                                           Grid.Column="1"
+                                           Text="{Binding WorkplaceName}"
+                                           Margin="5,0,0,0"
+                                           FontWeight="Bold" />
+                                <TextBlock Grid.Row="1"
+                                           Grid.Column="1"
+                                           Margin="5,-15,0,0">                                
+                                            <Run Text="Adresse: "
+                                                 FontStyle="Italic" />
+                                         <Run Text="{Binding WorkplaceAddress}" />
+                                </TextBlock>
+
+
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Button x:Name="CreateWorkplace"
+                        Grid.Column="2"
+                        Margin="493,10,61,594"
+                        Content="Opret Arbejdsplads +"
+                        BorderBrush="Black"
+                        Background="#FFFFC500"
+                        Command="{Binding OpenCreateWorkplaceCMD}"
+                        CommandParameter="{Binding}">
+                    <Button.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="CornerRadius"
+                                    Value="7.5" />
+                            <Setter Property="BorderBrush"
+                                    Value="#CCCCCC" />
+                            <Setter Property="BorderThickness"
+                                    Value="0,0,0,1" />
+                            <Setter Property="Effect">
+                                <Setter.Value>
+                                    <DropShadowEffect Color="Gray"
+                                                      Opacity="0.5"
+                                                      BlurRadius="5" />
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
             </Grid>
         </TabItem>
 

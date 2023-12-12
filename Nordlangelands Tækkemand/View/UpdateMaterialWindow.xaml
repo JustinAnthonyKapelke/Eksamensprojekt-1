@@ -8,7 +8,8 @@
         Title="UpdateMaterialWindow"
         Height="450"
         Width="800"
-        Background="#FF4A4A4A">
+        Background="#FF4A4A4A"
+        WindowStartupLocation="CenterScreen">
     <Grid>
 
 

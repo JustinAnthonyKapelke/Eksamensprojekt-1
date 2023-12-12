@@ -2008,11 +2008,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Justin\\Datamatiker\\Programmering\\Kode\\Nordlangelands Tækkemand\\Nordlangelands Tækkemand\\Nordlangelands Tækkemand.csproj",
+      "projectUniqueName": "C:\\Users\\Justin\\Desktop\\Test3\\Nordlangelands Tækkemand\\Nordlangelands Tækkemand\\Nordlangelands Tækkemand.csproj",
       "projectName": "Nordlangelands Tækkemand",
-      "projectPath": "C:\\Users\\Justin\\Datamatiker\\Programmering\\Kode\\Nordlangelands Tækkemand\\Nordlangelands Tækkemand\\Nordlangelands Tækkemand.csproj",
+      "projectPath": "C:\\Users\\Justin\\Desktop\\Test3\\Nordlangelands Tækkemand\\Nordlangelands Tækkemand\\Nordlangelands Tækkemand.csproj",
       "packagesPath": "C:\\Users\\Justin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Justin\\Datamatiker\\Programmering\\Kode\\Nordlangelands Tækkemand\\Nordlangelands Tækkemand\\obj\\",
+      "outputPath": "C:\\Users\\Justin\\Desktop\\Test3\\Nordlangelands Tækkemand\\Nordlangelands Tækkemand\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Justin\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -22,78 +22,86 @@ namespace Nordlangelands_Tækkemand.Commands
         {
             return parameter is MainViewModel mvm && mvm.SelectedMaterial != null;
         }
-    
+
         public void Execute(object? parameter)
         {
             //Tager kun imod tal ELLER tektsboks kan kun tage imod tal (reagerer ikke på bogstaver og tegn)
             if (parameter is MainViewModel mvm)
             {
-                int newStockCountAmount = int.Parse(mvm.MainWindowInstance.NewStockCountTextBox.Text);               
-                int selectedMaterialID = mvm.SelectedMaterial.MaterialID;
 
-                object currentVM = mvm.CurrentVM;
-
-
-                if (currentVM == mvm.ThatchingVM)
+                try
                 {
-                    // Update material stock count in database
-                    mvm.TVM.thatchingRepo.UpdateStockCountInDatabase(selectedMaterialID, newStockCountAmount);
+                    int newStockCountAmount = int.Parse(mvm.MainWindowInstance.NewStockCountTextBox.Text);
+                    int selectedMaterialID = mvm.SelectedMaterial.MaterialID;
 
-                    // Retrieve the updated material
-                    var updatedMaterial = mvm.TVM.thatchingRepo.ReadMaterialByIDFromDatabase(selectedMaterialID);
+                    object currentVM = mvm.CurrentVM;
 
-                    if (updatedMaterial != null)
+
+                    if (currentVM == mvm.ThatchingVM)
                     {
-                        mvm.SelectedMaterial.MaterialStockCount = updatedMaterial.MaterialStockCount;
+                        // Update material stock count in database
+                        mvm.TVM.thatchingRepo.UpdateStockCountInDatabase(selectedMaterialID, newStockCountAmount);
+
+                        // Retrieve the updated material
+                        var updatedMaterial = mvm.TVM.thatchingRepo.ReadMaterialByIDFromDatabase(selectedMaterialID);
+
+                        if (updatedMaterial != null)
+                        {
+                            mvm.SelectedMaterial.MaterialStockCount = updatedMaterial.MaterialStockCount;
+                        }
+                    }
+
+                    //woooooody
+                    if (currentVM == mvm.WoodVM)
+                    {
+                        // Update material stock count in database
+                        mvm.WDVM.woodRepo.UpdateStockCountInDatabase(selectedMaterialID, newStockCountAmount);
+
+                        // Retrieve the updated material
+                        var updatedMaterial = mvm.WDVM.woodRepo.ReadMaterialByIDFromDatabase(selectedMaterialID);
+
+                        if (updatedMaterial != null)
+                        {
+                            mvm.SelectedMaterial.MaterialStockCount = updatedMaterial.MaterialStockCount;
+                        }
+                    }
+
+                    //vari
+                    if (currentVM == mvm.VariousVM)
+                    {
+                        // Update material stock count in database
+                        mvm.VVM.variousRepo.UpdateStockCountInDatabase(selectedMaterialID, newStockCountAmount);
+
+                        // Retrieve the updated material
+                        var updatedMaterial = mvm.VVM.variousRepo.ReadMaterialByIDFromDatabase(selectedMaterialID);
+
+                        if (updatedMaterial != null)
+                        {
+                            mvm.SelectedMaterial.MaterialStockCount = updatedMaterial.MaterialStockCount;
+                        }
+                    }
+
+                    //AllMaterials
+                    if (currentVM == mvm.AllMaterialsVM)
+                    {
+                        // Update material stock count in database
+                        mvm.VVM.variousRepo.UpdateStockCountInDatabase(selectedMaterialID, newStockCountAmount);
+
+                        // Retrieve the updated material
+                        var updatedMaterial = mvm.VVM.variousRepo.ReadMaterialByIDFromDatabase(selectedMaterialID);
+
+                        if (updatedMaterial != null)
+                        {
+                            mvm.SelectedMaterial.MaterialStockCount = updatedMaterial.MaterialStockCount;
+                        }
                     }
                 }
 
-                //woooooody
-                if (currentVM == mvm.WoodVM)
+                catch (Exception)
                 {
-                    // Update material stock count in database
-                    mvm.WDVM.woodRepo.UpdateStockCountInDatabase(selectedMaterialID, newStockCountAmount);
-
-                    // Retrieve the updated material
-                    var updatedMaterial = mvm.WDVM.woodRepo.ReadMaterialByIDFromDatabase(selectedMaterialID);
-
-                    if (updatedMaterial != null)
-                    {
-                        mvm.SelectedMaterial.MaterialStockCount = updatedMaterial.MaterialStockCount;
-                    }
-                }
-
-                //vari
-                if (currentVM == mvm.VariousVM)
-                {
-                    // Update material stock count in database
-                    mvm.VVM.variousRepo.UpdateStockCountInDatabase(selectedMaterialID, newStockCountAmount);
-
-                    // Retrieve the updated material
-                    var updatedMaterial = mvm.VVM.variousRepo.ReadMaterialByIDFromDatabase(selectedMaterialID);
-
-                    if (updatedMaterial != null)
-                    {
-                        mvm.SelectedMaterial.MaterialStockCount = updatedMaterial.MaterialStockCount;
-                    }
-                }
-
-                //AllMaterials
-                if (currentVM == mvm.AllMaterialsVM)
-                {
-                    // Update material stock count in database
-                    mvm.VVM.variousRepo.UpdateStockCountInDatabase(selectedMaterialID, newStockCountAmount);
-
-                    // Retrieve the updated material
-                    var updatedMaterial = mvm.VVM.variousRepo.ReadMaterialByIDFromDatabase(selectedMaterialID);
-
-                    if (updatedMaterial != null)
-                    {
-                        mvm.SelectedMaterial.MaterialStockCount = updatedMaterial.MaterialStockCount;
-                    }
+                    MessageBox.Show("Indtast et gyldigt tal");
                 }
             }
-
         }
     }
 }

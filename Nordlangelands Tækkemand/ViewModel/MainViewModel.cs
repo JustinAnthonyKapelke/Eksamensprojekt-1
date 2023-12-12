@@ -17,8 +17,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-
-
         //public CreateMaterialWindow CreateMaterialWindow { get; set; }
 
         //Command Properties
@@ -28,9 +26,11 @@ namespace Nordlangelands_Tækkemand.ViewModel
         public ICommand AddStockCountCMD { get; set; } = new AddStockCountCommand();
         public ICommand RemoveStockCountCMD { get; set; } = new RemoveStockCountCommand();
         public ICommand DeleteMaterialCMD { get; set; } = new DeleteMaterialCommand();
-        public ICommand UpdateMaterialCMD { get; set; } = new DeleteMaterialCommand();
+        public ICommand UpdateMaterialCMD { get; set; } = new UpdateMaterialCommand();       
+        public ICommand LogTextCMD { get; set; } = new LogTextCommand();
 
-        public ICommand UpdateRadioButtonsCMD { get; set; } = new UpdateRadioButtons();
+        public ICommand OpenUpdateMaterialCMD { get; set; } = new OpenUpdateMaterialWindowCommand();
+        public ICommand OpenCreateWorkplaceCMD { get; set; } = new OpenCreateWorkplaceWindowCommand();
 
         // INotifyPropertyChanged EventHandler
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -40,10 +40,33 @@ namespace Nordlangelands_Tækkemand.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        //Search Property
+        
+        //Fields
+        private string _logText;
         private string _searchText;
+        private object _currentVM;
+        private IMaterialViewModel _selectedMaterial;
+        private Workplace _selectedWorkplace;
+        private string _selectedMaterialType;
+        private MainWindow _mainWindowInstance;
+        //private bool _isThatchingTypeChecked; // husk at fjerne denne
 
+
+        //LogText Property
+        public string LogText
+        {
+            get { return _logText; }
+            set
+            {
+                if (_logText != value)
+                {
+                    _logText = value;
+                    OnPropertyChanged(nameof(LogText)); // Implement INotifyPropertyChanged
+                }
+            }
+        }      
+
+        //SearchText Property
         public string SearchText
         {
             get { return _searchText; }
@@ -58,22 +81,49 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        //ViewModel Properties
-        public ThatchingViewModel TVM { get; set; }
-        public VariousViewModel VVM { get; set; }
-        public WoodViewModel WDVM { get; set; }
-        public WorkplaceViewModel WKVM { get; set; }
+        //SelectedMaterial Property
+        public IMaterialViewModel SelectedMaterial
+        {
+            get { return _selectedMaterial; }
+            set
+            {
+                if (_selectedMaterial != value )
+                {
+                    _selectedMaterial = value;
+                    OnPropertyChanged("SelectedMaterial");
+                }
+            }
+        }
 
-        //ObservableCollection Fields
-        private ObservableCollection<ThatchingViewModel> _thatchingVM;
-        private ObservableCollection<VariousViewModel> _variousVM;
-        private ObservableCollection<WoodViewModel> _woodVM;
-        private ObservableCollection<WorkplaceViewModel> _workplaceVM;
-        private ObservableCollection<IMaterialViewModel> _allMaterialsVM;
+        //SelectedMaterialType Property
+        public string SelectedMaterialType
+        {
+            get { return _selectedMaterialType; }
+            set
+            {
+                if (_selectedMaterialType != value)
+                {
+                    _selectedMaterialType = value;
+                    OnPropertyChanged(nameof(SelectedMaterialType));                    
+                }
+            }
+        }
+
+        //SelectedWorkplace Property
+        public Workplace SelectedWorkplace
+        {
+            get { return _selectedWorkplace; }
+            set
+            {
+                if (_selectedWorkplace != value)
+                {
+                    _selectedWorkplace = value;
+                    OnPropertyChanged(nameof(SelectedWorkplace));
+                }
+            }
+        }
 
         // Current ViewModel object to store the selected viewmodel. It is used to change datacontext for the materialListbox
-        private object _currentVM;
-
         public object CurrentVM
         {
             get { return _currentVM; }
@@ -86,23 +136,45 @@ namespace Nordlangelands_Tækkemand.ViewModel
                 }
             }
         }
-
-        //Selected material in listbox
-
-        private IMaterialViewModel _selectedMaterial;
-
-        public IMaterialViewModel SelectedMaterial
+        
+        public MainWindow MainWindowInstance
         {
-            get { return _selectedMaterial; }
+            get { return _mainWindowInstance; }
             set
             {
-                if (_selectedMaterial != value)
+                if (_mainWindowInstance != value)
                 {
-                    _selectedMaterial = value;
-                    OnPropertyChanged("SelectedMaterial");
+                    _mainWindowInstance = value;
+                    OnPropertyChanged(nameof(MainWindow));
                 }
             }
         }
+        
+        //public bool IsThatchingTypeChecked
+        //{
+        //    get => _isThatchingTypeChecked;
+        //    set
+        //    {
+        //        if (_isThatchingTypeChecked != value)
+        //        {
+        //            _isThatchingTypeChecked = value;
+        //            OnPropertyChanged(nameof(IsThatchingTypeChecked)); // Ensure this calls PropertyChanged event
+        //        }
+        //    }
+        //}
+        
+        //ViewModel Properties
+        public ThatchingViewModel TVM { get; set; }
+        public VariousViewModel VVM { get; set; }
+        public WoodViewModel WDVM { get; set; }
+        public WorkplaceViewModel WKVM { get; set; }
+
+        //ObservableCollection Fields
+        private ObservableCollection<ThatchingViewModel> _thatchingVM;
+        private ObservableCollection<VariousViewModel> _variousVM;
+        private ObservableCollection<WoodViewModel> _woodVM;
+        private ObservableCollection<WorkplaceViewModel> _workplaceVM;
+        private ObservableCollection<IMaterialViewModel> _allMaterialsVM;
 
         //Observable Collection Properties       
         public ObservableCollection<ThatchingViewModel> ThatchingVM
@@ -148,29 +220,16 @@ namespace Nordlangelands_Tækkemand.ViewModel
         public ObservableCollection<WorkplaceViewModel> WorkplaceVM
         {
             get { return _workplaceVM; }
-            set { _workplaceVM = value; }
-        }
-
-
-
-        private MainWindow _mainWindowInstance;
-
-        public MainWindow MainWindowInstance
-        {
-            get { return _mainWindowInstance; }
             set
             {
-                if (_mainWindowInstance != value)
-                {
-                    _mainWindowInstance = value;
-                    OnPropertyChanged(nameof(MainWindow));
-                }
+                _workplaceVM = value;
+                OnPropertyChanged(nameof(WorkplaceVM));
             }
         }
+
         //Constructor
         public MainViewModel(MainWindow mainWindow)
         {
-
             _mainWindowInstance = mainWindow;
             ThatchingVM = new ObservableCollection<ThatchingViewModel>();
             VariousVM = new ObservableCollection<VariousViewModel>();
@@ -183,19 +242,24 @@ namespace Nordlangelands_Tækkemand.ViewModel
             TVM = new ThatchingViewModel(new ThatchingMaterial());
             VVM = new VariousViewModel(new VariousMaterial());
             WDVM = new WoodViewModel(new WoodMaterial());
+            WKVM = new WorkplaceViewModel(new Workplace());
 
             // Initialize ThatchingVM
+            ThatchingVM.Clear();
             InitializeThatchingVM();
+            VariousVM.Clear();
             InitializeVariousVM();
+            WoodVM.Clear(); 
             InitializeWoodVM();
             InitializeAllMaterialsVM();
-            //GetTypeFromRadioButton();
+
+            InitializeWorkplaceVM();
 
         }
 
         // Get the list of thatching materials from the repository
         public void InitializeThatchingVM()
-        {
+        {  
             List<ThatchingMaterial> thatchingMaterials = TVM.thatchingRepo.GetAllMaterials();
 
             // Go through each of the materials from the repository and create a ThatchingViewModel for them
@@ -227,8 +291,8 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        public void InitializeAllMaterialsVM()      
-        {           
+        public void InitializeAllMaterialsVM()
+        {
             // Add Thatching materials to the AllMaterials collection
             foreach (var thatchingViewModel in ThatchingVM)
             {
@@ -247,43 +311,18 @@ namespace Nordlangelands_Tækkemand.ViewModel
                 AllMaterialsVM.Add(woodViewModel);
             }
 
-            // Add any other material categories in a similar fashion
-
-
-
         }
-
-        private bool _isThatchingTypeChecked;
-
-        public bool IsThatchingTypeChecked
+        public void InitializeWorkplaceVM()
         {
-            get => _isThatchingTypeChecked;
-            set
+            List<Workplace> workplaces = WKVM.workplaceRepo.GetAllWorkplaces();
+
+            // Go through each of the materials from the repository and create a VariousViewModel for them
+            foreach (Workplace workplace in workplaces)
             {
-                if (_isThatchingTypeChecked != value)
-                {
-                    _isThatchingTypeChecked = value;
-                    OnPropertyChanged(nameof(IsThatchingTypeChecked)); // Ensure this calls PropertyChanged event
-                }
+                WorkplaceVM.Add(new WorkplaceViewModel(workplace));
             }
         }
 
-        //public void GetTypeFromRadioButton()
-        //{
-        //    // Ensure that SelectedMaterial is not null before trying to access its properties
-        //    if (SelectedMaterial != null)
-        //    {
-        //        //var selectedMaterialType = mvm.SelectedMaterial.MaterialType;
 
-        //        // Update the ViewModel property instead of directly setting the RadioButton
-        //        if (CurrentVM == ThatchingVM)
-        //            MainWindowInstance.UpdateMaterialWindow.ThatchingTypeRadioButton.IsChecked = true;
-        //    }
-        //    else
-        //    {
-        //        // Reset the ViewModel property if SelectedMaterial is null
-        //        MainWindowInstance.UpdateMaterialWindow.ThatchingTypeRadioButton.IsChecked = false;
-        //    }
-        //}
     }
 }

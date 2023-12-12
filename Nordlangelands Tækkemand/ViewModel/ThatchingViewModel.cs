@@ -37,7 +37,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-
         private string _materialName;
         public string MaterialName
         {
@@ -145,7 +144,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
                 }
             }
         }
-
 
         //Constructor
         public ThatchingViewModel(ThatchingMaterial material)

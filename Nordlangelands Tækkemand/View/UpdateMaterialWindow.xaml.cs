@@ -23,42 +23,20 @@ namespace Nordlangelands_Tækkemand.View
 
         public UpdateMaterialWindow(MainViewModel mvm)
         {
-            InitializeComponent();                                  
-            DataContext = mvm;
+            InitializeComponent();
+            DataContext = mvm;           
+            this.Closing += CreateMaterialWindow_Closing;
         }
 
 
-        //public void GetTypeFromRadioButton(MainViewModel mvm)
-        //{
-        //    // Ensure that SelectedMaterial is not null before trying to access its properties
-        //    if (mvm.SelectedMaterial != null)
-        //    {
-        //        //var selectedMaterialType = mvm.SelectedMaterial.MaterialType;
+        private void CreateMaterialWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            // Cancel the closing of the window
+            e.Cancel = true;
 
-        //        // Update the ViewModel property instead of directly setting the RadioButton
-        //        if(mvm.CurrentVM == mvm.ThatchingVM)              
-        //        ThatchingTypeRadioButton.IsChecked = true;
-        //    }
-        //    else
-        //    {
-        //        // Reset the ViewModel property if SelectedMaterial is null
-        //        ThatchingTypeRadioButton.IsChecked = false;
-        //    }
-        //}
-
-        //mvm.CurrentVM
-
-        //if(mvm.CurrentVM = mvm. ThatchingVM)
-        //  {
-        //      isThatchingChecked == true;
-        //  }
-
-        //bool IsThatchingChecked
-       
-
-
-
-
+            // Hide the window
+            this.Hide();
+        }
     }
 }
     
