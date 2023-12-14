@@ -26,7 +26,7 @@ namespace Nordlangelands_Tækkemand
         MainViewModel mvm;
         public CreateMaterialWindow CreateMaterialWindow;
         public UpdateMaterialWindow UpdateMaterialWindow;
-        public CreateWorkplaceWindow CreateWorkplaceWindow;
+        public WorkplaceWindow WorkplaceWindow;
 
         public MainWindow()
         {
@@ -37,7 +37,7 @@ namespace Nordlangelands_Tækkemand
             DataContext = mvm;
             CreateMaterialWindow = new CreateMaterialWindow(mvm);
             UpdateMaterialWindow = new UpdateMaterialWindow(mvm);
-            CreateWorkplaceWindow = new CreateWorkplaceWindow(mvm);
+            WorkplaceWindow = new WorkplaceWindow(mvm);
             mvm.LogTextCMD.Execute(mvm);
         }
 
@@ -62,6 +62,13 @@ namespace Nordlangelands_Tækkemand
             {
                 textBox.Text = "Søg materiale";
             }
-        }          
+        }
+
+        private void Stonna(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+       
     }
 }

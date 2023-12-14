@@ -30,6 +30,8 @@ namespace Nordlangelands_Tækkemand.Model
         //Signature Delegate For Initalize
         public delegate T InitializeCreateDelegate<T>(int materialID, string materialName, string materialDescription, string materialImagePath, int materialStockCount, string materialType, int storageID);
 
+      
+
         //Material List
         protected List<T> _materials = new List<T>();
 
@@ -137,6 +139,8 @@ namespace Nordlangelands_Tækkemand.Model
                 }
             }
         }
+
+       
 
         //Create Material In Database
         public void CreateMaterialInDatabase(string materialName, string materialDescription, int materialStockCount, int materialTypeID, int storageID)

@@ -8238,11 +8238,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Justin\\Desktop\\Test3\\Nordlangelands Tækkemand\\UnitTest\\UnitTest.csproj",
+      "projectUniqueName": "C:\\Users\\Justin\\Datamatiker\\Programmering\\Kode\\Nordlangelands Tækkemand\\UnitTest\\UnitTest.csproj",
       "projectName": "UnitTest",
-      "projectPath": "C:\\Users\\Justin\\Desktop\\Test3\\Nordlangelands Tækkemand\\UnitTest\\UnitTest.csproj",
+      "projectPath": "C:\\Users\\Justin\\Datamatiker\\Programmering\\Kode\\Nordlangelands Tækkemand\\UnitTest\\UnitTest.csproj",
       "packagesPath": "C:\\Users\\Justin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Justin\\Desktop\\Test3\\Nordlangelands Tækkemand\\UnitTest\\obj\\",
+      "outputPath": "C:\\Users\\Justin\\Datamatiker\\Programmering\\Kode\\Nordlangelands Tækkemand\\UnitTest\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Justin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -8259,8 +8259,8 @@
         "net7.0-windows7.0": {
           "targetAlias": "net7.0-windows",
           "projectReferences": {
-            "C:\\Users\\Justin\\Desktop\\Test3\\Nordlangelands Tækkemand\\Nordlangelands Tækkemand\\Nordlangelands Tækkemand.csproj": {
-              "projectPath": "C:\\Users\\Justin\\Desktop\\Test3\\Nordlangelands Tækkemand\\Nordlangelands Tækkemand\\Nordlangelands Tækkemand.csproj"
+            "C:\\Users\\Justin\\Datamatiker\\Programmering\\Kode\\Nordlangelands Tækkemand\\Nordlangelands Tækkemand\\Nordlangelands Tækkemand.csproj": {
+              "projectPath": "C:\\Users\\Justin\\Datamatiker\\Programmering\\Kode\\Nordlangelands Tækkemand\\Nordlangelands Tækkemand\\Nordlangelands Tækkemand.csproj"
             }
           }
         }

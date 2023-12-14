@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Nordlangelands_Tækkemand.Model;
-
+using Nordlangelands_Tækkemand.Interfaces;
 
 namespace Nordlangelands_Tækkemand.Model
 {
@@ -28,6 +28,7 @@ namespace Nordlangelands_Tækkemand.Model
         string DatabaseUpdateQuery { get; set; } = "EXEC sp_NTCreateWorkplace @MorkplaceID, @WorkplaceName, @WorkplaceAddress, @WorkplaceImagePath, @StorageID";
         string ReadWorkplaceByIDQuery { get; set; } = "EXEC sp_NTGetWorkplaceByID @WorkplaceID";
         string ReadLogTextQuery { get; set; } = ""; // Tilføje her 
+       
 
         //Constructor
         public WorkplaceRepository()
@@ -230,7 +231,42 @@ namespace Nordlangelands_Tækkemand.Model
             return default(string);
         }
 
-      
+
+        //private List<ThatchingMaterial> _allMaterials;
+        //public void InitializeWorkplaceMaterials()
+        //{
+        //    using (SqlConnection connection = new SqlConnection(_connectionString))
+        //    {
+
+        //        connection.Open();
+
+        //        //Use a stored procedure to prevent sql injection.
+        //        string query = RepoInitializeQuery;
+                
+
+        //        using (SqlCommand command = new SqlCommand(query, connection))
+        //        using (SqlDataReader reader = command.ExecuteReader())
+        //        {
+        //            while (reader.Read())
+        //            {
+        //                int materialID = (int)reader["MaterialID"];
+        //                string materialName = (string)reader["MaterialName"];
+        //                string materialDescription = (string)reader["MaterialDescription"];
+        //                int materialStockCount = (int)reader["MaterialStockCount"];
+        //                string materialType = (string)reader["MaterialType"];
+        //                string materialImagePath = (string)reader["MaterialImagePath"];
+        //                int storageID = (int)reader["StorageID"];
+
+        //               // Indhent alle materialer
+        //                  ThatchingMaterial newMaterial = new (materialID, materialName, materialDescription, materialImagePath, materialStockCount, materialType, storageID);
+
+        //                _allMaterials.Add(newMaterial);
+                        
+        //            }
+        //        }
+        //    }
+        //}
+
     }
 }
 

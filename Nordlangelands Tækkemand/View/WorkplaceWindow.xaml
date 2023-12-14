@@ -1,0 +1,466 @@
+﻿<Window x:Class="Nordlangelands_Tækkemand.WorkplaceWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Nordlangelands_Tækkemand"
+        Icon="/Images/Logo.png"
+        mc:Ignorable="d"
+        WindowStyle="SingleBorderWindow"
+        Height="800" Width="1500">
+
+    <Border>
+        <Border.Background>
+        <LinearGradientBrush StartPoint="0,0"
+                             EndPoint="1,0.7">
+            <GradientStop Color="{StaticResource secondaryBackColor1}"
+                          Offset="0" />
+            <GradientStop Color="{StaticResource secondaryBackColor2}"
+                          Offset="1" />
+        </LinearGradientBrush>
+    </Border.Background>
+
+    <Grid>
+
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition  Width="1.5*" />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition Width="150" />
+
+
+        </Grid.ColumnDefinitions>
+
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80" />
+            <RowDefinition Height="70" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+
+        <TextBox x:Name="SearchMaterialTextBox"
+                 Grid.Row="0"
+                 Grid.Column="0"
+                 Grid.ColumnSpan="1"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Center"
+                 Width="350"
+                 Height="35"
+                 Text="{Binding Path = SearchText, UpdateSourceTrigger=PropertyChanged}"
+                 FontSize="20"
+                 FontFamily="Bahnschrift"
+               
+                 BorderThickness="1"
+                 BorderBrush="Black">
+            <TextBox.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius"
+                            Value="7.5" />
+                    <Setter Property="BorderBrush"
+                            Value="#CCCCCC" />
+                    <Setter Property="BorderThickness"
+                            Value="0,0,0,1" />
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="Gray"
+                                              Opacity="0.5"
+                                              BlurRadius="5" />
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TextBox.Resources>
+        </TextBox>
+
+        <TextBlock x:Name="LogTextTextBlock"
+                   Text="{Binding LogText}"
+                   Foreground="White"
+                   FontWeight="Bold"
+                   VerticalAlignment="Bottom"
+                   HorizontalAlignment="Left"
+                   Margin="25,0,0,0"
+                   Grid.Row="1"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2">
+            <Run Language="da-dk"
+                 Text="LogText" />
+        </TextBlock>
+
+        <Button x:Name="AddMaterialButton"
+                Grid.Row="0"
+                Grid.Column="1"
+                Grid.ColumnSpan="1"
+                Height="55"
+                Width="200"
+                Content="Tilføj Materiale +"
+                BorderBrush="Black"
+                Command="{Binding OpenAddMaterialCMD}"
+                CommandParameter="{Binding}"
+                FontWeight="Bold"
+                FontSize="15">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius"
+                            Value="7.5" />
+                    <Setter Property="BorderBrush"
+                            Value="#CCCCCC" />
+                    <Setter Property="BorderThickness"
+                            Value="0,0,0,1" />
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="Gray"
+                                              Opacity="0.5"
+                                              BlurRadius="5" />
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Resources>
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1"
+                                     StartPoint="0.5,0">
+                    <GradientStop Color="Gray"
+                                  Offset="1" />
+                    <GradientStop Color="SlateGray"
+                                  Offset="0.75" />
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+
+        <Button x:Name="RemoveMaterialButton"
+                Grid.Row="0"
+                Grid.Column="2"
+                Content="Fjern Materiale -"
+                BorderBrush="Black"
+                Height="55"
+                Width="200"
+                Padding="15"
+                VerticalAlignment="Center"
+                Command="{Binding RemoveMaterialCMD}"
+                CommandParameter="{Binding}"
+                FontWeight="Bold"
+                FontSize="15">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius"
+                            Value="7.5" />
+                    <Setter Property="BorderBrush"
+                            Value="#CCCCCC" />
+                    <Setter Property="BorderThickness"
+                            Value="0,0,0,1" />
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="Gray"
+                                              Opacity="0.5"
+                                              BlurRadius="5" />
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Resources>
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1"
+                                     StartPoint="0.5,0">
+                    <GradientStop Color="Gray"
+                                  Offset="1" />
+                    <GradientStop Color="SlateGray"
+                                  Offset="0.75" />
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+
+        <Button x:Name="UpdateWorkplaceButton"
+                Grid.Row="0"
+                Grid.Column="3"
+                Grid.ColumnSpan="1"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Padding="15"
+                Height="55"
+                Width="200"
+                Content="Redigér Arbejdsplads"
+                BorderBrush="Black"
+                Command="{Binding UpdateWorkplaceCMD}"
+                CommandParameter="{Binding}"
+                FontSize="15"
+                FontWeight="Bold">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius"
+                            Value="7.5" />
+                    <Setter Property="BorderBrush"
+                            Value="#CCCCCC" />
+                    <Setter Property="BorderThickness"
+                            Value="0,0,0,1" />
+                    <Setter Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect                                       Color="Gray"
+                                                                                    Opacity="0.5"
+                                                                                    BlurRadius="5" />
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Button.Resources>
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1"
+                                     StartPoint="0.5,0">
+                    <GradientStop Color="Gray"
+                                  Offset="1" />
+                    <GradientStop Color="SlateGray"
+                                  Offset="0.75" />
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+
+<Button x:Name="DeleteWorkplaceButton"
+        Grid.Row="0"
+        Grid.Column="4"
+        Content="Slet Arbejdsplads"
+        BorderBrush="Black"
+        Height="55"
+        Width="200"
+        Padding="15"
+        VerticalAlignment="Center"
+        Command="{Binding DeleteWorkplaceCMD}"
+        CommandParameter="{Binding}"
+        FontWeight="Bold"
+        FontSize="15">
+    <Button.Resources>
+        <Style TargetType="Border">
+            <Setter Property="CornerRadius"
+                    Value="7.5" />
+            <Setter Property="BorderBrush"
+                    Value="#CCCCCC" />
+            <Setter Property="BorderThickness"
+                    Value="0,0,0,1" />
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect Color="Gray"
+                                      Opacity="0.5"
+                                      BlurRadius="5" />
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Button.Resources>
+    <Button.Background>
+        <LinearGradientBrush EndPoint="0.5,1"
+                             StartPoint="0.5,0">
+            <GradientStop Color="Gray"
+                          Offset="1" />
+            <GradientStop Color="SlateGray"
+                          Offset="0.75" />
+        </LinearGradientBrush>
+    </Button.Background>
+</Button>
+
+        <Grid Grid.Row="1"
+              Grid.Column="3"
+              VerticalAlignment="Bottom"
+              HorizontalAlignment="Center"
+              Height="100"
+              Width="200">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+
+            <Button x:Name="WorkplaceAddToStockButton"
+                    Grid.Column="2"
+                    Content="+"
+                    BorderBrush="Black"
+                    VerticalAlignment="Bottom"
+                    Command="{Binding WorkplaceAddStockCountCMD}"
+                    CommandParameter="{Binding}"
+                    Width="50"
+                    Height="50"
+                    Margin="0,0,0,10"
+                    FontSize="15"
+                    FontWeight="Bold"                    >
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius"
+                                Value="7.5" />
+                    </Style>
+                </Button.Resources>
+                
+                
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1"
+                                         StartPoint="0.5,0">
+                        <GradientStop Color="Gray"
+                                      Offset="1" />
+                        <GradientStop Color="SlateGray"
+                                      Offset="0.75" />
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+
+            <Button x:Name="RemoveFromStockButton"
+                    Content="-"
+                    BorderBrush="Black"
+                    Command="{Binding RemoveStockCountCMD}"
+                    CommandParameter="{Binding}"
+                    VerticalAlignment="Bottom"
+                    Width="50"
+                    Height="50"
+                    Margin="0,0,0,10"
+                    FontSize="15"
+                    FontWeight="Bold">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius"
+                                Value="7.5" />
+                    </Style>
+                </Button.Resources>
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0.5,1"
+                                         StartPoint="0.5,0">
+                        <GradientStop Color="Gray"
+                                      Offset="1" />
+                        <GradientStop Color="SlateGray"
+                                      Offset="0.75" />
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+
+            <TextBox x:Name="NewStockCountTextBox"
+                     Grid.Column="1"
+                     MinWidth="30"
+                     Text="1"
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Bottom"
+                     Padding="15"
+                     Margin="0,0,0,10">
+                <TextBox.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius"
+                                Value="7.5" />
+                        <Setter Property="BorderBrush"
+                                Value="#CCCCCC" />
+                        <Setter Property="BorderThickness"
+                                Value="0,0,0,1" />
+                        <Setter Property="Effect">
+                            <Setter.Value>
+                                <DropShadowEffect Color="Gray"
+                                                  Opacity="0.5"
+                                                  BlurRadius="5" />
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </TextBox.Resources>
+            </TextBox>
+
+        </Grid>
+
+
+        <Grid Grid.Row="1"
+              Grid.Column="0"
+              HorizontalAlignment="Center"
+              Width="350">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+
+            <RadioButton x:Name="Thatching_RadioButton"
+                         Content="Tække"
+                         Foreground="White"
+                         Grid.Column="0"
+                         Command="{Binding FilterMaterialCMD}"
+                         CommandParameter="{Binding}" />
+
+            <RadioButton x:Name="Wood_RadioButton"
+                         Content="Træ"
+                         Foreground="White"
+                         Grid.Column="1"
+                         Command="{Binding FilterMaterialCMD}"
+                         CommandParameter="{Binding}" />
+
+            <RadioButton x:Name="Various_RadioButton"
+                         Content="Diverse"
+                         Foreground="White"
+                         Grid.Column="2"
+                         Command="{Binding FilterMaterialCMD}"
+                         CommandParameter="{Binding}" />
+
+            <RadioButton x:Name="AllMaterials_RadioButton"
+                         Content="Alle materialer"
+                         Foreground="White"
+                         Grid.Column="3"
+                         Command="{Binding FilterMaterialCMD}"
+                         CommandParameter="{Binding}" />
+
+        </Grid>
+
+        <ListBox Name="materialListBox"
+                 Grid.Row="2"
+                 Grid.Column="0"
+                     ItemsSource="{Binding WorkplaceMaterialsVM, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 BorderBrush="Transparent"
+                 BorderThickness="2"
+                 Grid.ColumnSpan="4"
+                 Background="Transparent"
+                 Foreground="White"
+                     SelectedItem="{Binding WorkplaceSelectedMaterial}">
+
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Margin"
+                            Value="0,07" />
+                    <Setter Property="ToolTip">
+                        <Setter.Value>
+                            <TextBlock Text="{Binding MaterialDescription}" />
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Row="0"
+                               Grid.Column="0"
+                               Source="{Binding MaterialImagePath}"
+                               Width="32"
+                               Height="32" />
+                        <TextBlock Grid.Row="0"
+                                   Grid.Column="1"
+                                   Text="{Binding MaterialName}"
+                                   Margin="5,0,0,0"
+                                   FontWeight="Bold" />
+                        <TextBlock Grid.Row="1"
+                                   Grid.Column="1"
+                                   Margin="5,-15,0,0">                                
+                                <Run FontWeight="Normal"
+                                     Text="Antal på arbejdsplads: "
+                                     FontStyle="Italic" />
+                             <Run FontWeight="Normal"
+                                  Text="{Binding WorkplaceMaterialStockCount}" />
+                        </TextBlock>
+
+
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+    </Grid>
+
+    </Border>
+</Window>

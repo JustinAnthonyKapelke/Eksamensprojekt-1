@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media.Media3D;
 
 
+
 namespace Nordlangelands_Tækkemand.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
@@ -20,17 +21,18 @@ namespace Nordlangelands_Tækkemand.ViewModel
         //public CreateMaterialWindow CreateMaterialWindow { get; set; }
 
         //Command Properties
-        public ICommand SearchMaterialCMD { get; set; } = new SearchMaterialCommand();
-        public ICommand CreateMaterialCMD { get; set; } = new CreateMaterialCommand();
-        public ICommand FilterMaterialCMD { get; set; } = new FilterMaterialCommand();
         public ICommand AddStockCountCMD { get; set; } = new AddStockCountCommand();
-        public ICommand RemoveStockCountCMD { get; set; } = new RemoveStockCountCommand();
+        public ICommand CreateMaterialCMD { get; set; } = new CreateMaterialCommand();
         public ICommand DeleteMaterialCMD { get; set; } = new DeleteMaterialCommand();
-        public ICommand UpdateMaterialCMD { get; set; } = new UpdateMaterialCommand();       
+        public ICommand FilterMaterialCMD { get; set; } = new FilterMaterialCommand();
         public ICommand LogTextCMD { get; set; } = new LogTextCommand();
-
+        public ICommand OpenCreateMaterialCMD { get; set; } = new OpenCreateMaterialWindowCommand();
         public ICommand OpenUpdateMaterialCMD { get; set; } = new OpenUpdateMaterialWindowCommand();
-        public ICommand OpenCreateWorkplaceCMD { get; set; } = new OpenCreateWorkplaceWindowCommand();
+        public ICommand OpenWorkplaceCMD { get; set; } = new OpenWorkplaceWindowCommand();
+        public ICommand RemoveStockCountCMD { get; set; } = new RemoveStockCountCommand();
+        public ICommand SearchMaterialCMD { get; set; } = new SearchMaterialCommand();
+        public ICommand UpdateMaterialCMD { get; set; } = new UpdateMaterialCommand();
+        public ICommand WorkplaceAddStockCountCMD { get; set; } = new WorkplaceAddStockCountCommand();
 
         // INotifyPropertyChanged EventHandler
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -46,9 +48,10 @@ namespace Nordlangelands_Tækkemand.ViewModel
         private string _searchText;
         private object _currentVM;
         private IMaterialViewModel _selectedMaterial;
-        private Workplace _selectedWorkplace;
+        private WorkplaceViewModel _selectedWorkplace;
         private string _selectedMaterialType;
         private MainWindow _mainWindowInstance;
+        private WorkplaceMaterialViewModel _workplaceSelectedMaterial;
         //private bool _isThatchingTypeChecked; // husk at fjerne denne
 
 
@@ -81,7 +84,7 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        //SelectedMaterial Property
+        //Selected Material Property
         public IMaterialViewModel SelectedMaterial
         {
             get { return _selectedMaterial; }
@@ -91,6 +94,21 @@ namespace Nordlangelands_Tækkemand.ViewModel
                 {
                     _selectedMaterial = value;
                     OnPropertyChanged("SelectedMaterial");
+                }
+            }
+        }
+
+
+        //Selected WorkplaceMaterial Property
+        public WorkplaceMaterialViewModel WorkplaceSelectedMaterial
+        {
+            get { return _workplaceSelectedMaterial; }
+            set
+            {
+                if (_workplaceSelectedMaterial != value)
+                {
+                    _workplaceSelectedMaterial = value;
+                    OnPropertyChanged("WorkplaceSelectedMaterial");
                 }
             }
         }
@@ -110,7 +128,7 @@ namespace Nordlangelands_Tækkemand.ViewModel
         }
 
         //SelectedWorkplace Property
-        public Workplace SelectedWorkplace
+        public WorkplaceViewModel SelectedWorkplace
         {
             get { return _selectedWorkplace; }
             set
@@ -118,7 +136,7 @@ namespace Nordlangelands_Tækkemand.ViewModel
                 if (_selectedWorkplace != value)
                 {
                     _selectedWorkplace = value;
-                    OnPropertyChanged(nameof(SelectedWorkplace));
+                    OnPropertyChanged("SelectedWorkplace");
                 }
             }
         }
@@ -168,6 +186,8 @@ namespace Nordlangelands_Tækkemand.ViewModel
         public VariousViewModel VVM { get; set; }
         public WoodViewModel WDVM { get; set; }
         public WorkplaceViewModel WKVM { get; set; }
+        public WorkplaceMaterialViewModel WKMVM { get; set; }
+      
 
         //ObservableCollection Fields
         private ObservableCollection<ThatchingViewModel> _thatchingVM;
@@ -175,6 +195,7 @@ namespace Nordlangelands_Tækkemand.ViewModel
         private ObservableCollection<WoodViewModel> _woodVM;
         private ObservableCollection<WorkplaceViewModel> _workplaceVM;
         private ObservableCollection<IMaterialViewModel> _allMaterialsVM;
+        private ObservableCollection<WorkplaceMaterialViewModel> _workplaceMaterialsVM;
 
         //Observable Collection Properties       
         public ObservableCollection<ThatchingViewModel> ThatchingVM
@@ -217,6 +238,16 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
+        public ObservableCollection<WorkplaceMaterialViewModel> WorkplaceMaterialsVM
+        {
+            get { return _workplaceMaterialsVM; }
+            set
+            {
+                _workplaceMaterialsVM = value;
+                OnPropertyChanged(nameof(WorkplaceMaterialsVM));
+            }
+        }
+
         public ObservableCollection<WorkplaceViewModel> WorkplaceVM
         {
             get { return _workplaceVM; }
@@ -234,15 +265,16 @@ namespace Nordlangelands_Tækkemand.ViewModel
             ThatchingVM = new ObservableCollection<ThatchingViewModel>();
             VariousVM = new ObservableCollection<VariousViewModel>();
             WoodVM = new ObservableCollection<WoodViewModel>();
-            WorkplaceVM = new ObservableCollection<WorkplaceViewModel>();
-            WorkplaceVM = new ObservableCollection<WorkplaceViewModel>();
+            WorkplaceVM = new ObservableCollection<WorkplaceViewModel>();          
             AllMaterialsVM = new ObservableCollection<IMaterialViewModel>();
+            WorkplaceMaterialsVM = new ObservableCollection<WorkplaceMaterialViewModel>();
 
             // Initialize ThatchingViewModel
             TVM = new ThatchingViewModel(new ThatchingMaterial());
             VVM = new VariousViewModel(new VariousMaterial());
             WDVM = new WoodViewModel(new WoodMaterial());
             WKVM = new WorkplaceViewModel(new Workplace());
+            WKMVM = new WorkplaceMaterialViewModel(new WorkplaceMaterial());
 
             // Initialize ThatchingVM
             ThatchingVM.Clear();
@@ -253,7 +285,8 @@ namespace Nordlangelands_Tækkemand.ViewModel
             InitializeWoodVM();
             InitializeAllMaterialsVM();
 
-            InitializeWorkplaceVM();
+            InitializeWorkplaceVM();  
+
 
         }
 
@@ -312,6 +345,9 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
 
         }
+       
+
+
         public void InitializeWorkplaceVM()
         {
             List<Workplace> workplaces = WKVM.workplaceRepo.GetAllWorkplaces();
@@ -323,6 +359,19 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
+
+        public void InitializeWorkplaceMaterialsVM()
+        {
+
+            
+            List<WorkplaceMaterial> workplaceMaterials = WKMVM.WorkplaceMaterialRepo.GetAll();
+
+            // Go through each of the materials from the repository and create a WoodViewModel for them
+            foreach (WorkplaceMaterial workplaceMaterial in workplaceMaterials)
+            {
+                WorkplaceMaterialsVM.Add(new WorkplaceMaterialViewModel(workplaceMaterial));
+            }
+        }
 
     }
 }

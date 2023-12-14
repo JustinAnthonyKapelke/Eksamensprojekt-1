@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Justin\Desktop\Test3\Nordlangelands Tækkemand\Nordlangelands Tækkemand\obj\Debug\net7.0-windows\
+C:\Users\Justin\Datamatiker\Programmering\Kode\Nordlangelands Tækkemand\Nordlangelands Tækkemand\obj\Debug\net7.0-windows\
 Nordlangelands_Tækkemand
 none
 false
 TRACE;DEBUG;NET;NET7_0;NETCOREAPP
-C:\Users\Justin\Desktop\Test3\Nordlangelands Tækkemand\Nordlangelands Tækkemand\App.xaml
-4613208206
+C:\Users\Justin\Datamatiker\Programmering\Kode\Nordlangelands Tækkemand\Nordlangelands Tækkemand\App.xaml
+7-1752514492
 1-927714103
-35-1943925935
+42276885542
 213-1876603712
-View\CreateMaterialWindow.xaml;View\CreateWorkplaceWindow.xaml;View\MainWindow.xaml;View\UpdateMaterialWindow.xaml;
+Styles\Styles.xaml;UIColors.xaml;View\CreateMaterialWindow.xaml;View\CreateWorkplaceWindow.xaml;View\MainWindow.xaml;View\UpdateMaterialWindow.xaml;View\WorkplaceWindow.xaml;
 
-False
+True
 

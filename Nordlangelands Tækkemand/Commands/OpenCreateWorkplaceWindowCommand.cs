@@ -21,7 +21,7 @@ namespace Nordlangelands_Tækkemand.Commands
         {
             if (parameter is MainViewModel mvm)
             {
-                mvm.MainWindowInstance.CreateWorkplaceWindow.Show();
+                mvm.MainWindowInstance.WorkplaceWindow.Show();
             }
         }
     }
