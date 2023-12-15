@@ -20,15 +20,17 @@ namespace Nordlangelands_Tækkemand
     /// </summary>
     public partial class WorkplaceWindow : Window
     {
+   
         public WorkplaceWindow(MainViewModel mvm)
         {
-            InitializeComponent();
+            InitializeComponent();            
             DataContext = mvm;
             this.Closing += WorkplaceWindow_Closing;
         }
 
         private void WorkplaceWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
+
             // Cancel the closing of the window
             e.Cancel = true;
 

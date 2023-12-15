@@ -10,21 +10,29 @@ namespace Nordlangelands_Tækkemand.ViewModel
 {
     public class WorkplaceMaterialViewModel : INotifyPropertyChanged
     {
-     public WorkplaceMaterialsRepository WorkplaceMaterialRepo;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
+        // INotifyPropertyChanged Method
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
-
+        //Fields
+        public WorkplaceMaterialsRepository WorkplaceMaterialRepo;
         private int _materialID;
+        private string _materialName;
+        private string _materialDescription;
+        private int _workplaceMaterialStockCount;
+        private int _storageID;
+        private int _workplaceID;
 
+        //Properties
         public int MaterialID
         {
             get { return _materialID; }
             set { _materialID = value; }
         }
-
-
-
-        private string _materialName;
 
         public string MaterialName
         {
@@ -32,21 +40,12 @@ namespace Nordlangelands_Tækkemand.ViewModel
             set { _materialName = value; }
         }
 
-
-     
-
-        private string _materialDescription;
-
         public string MaterialDescription
         {
             get { return _materialDescription; }
             set { _materialDescription = value; }
         }
 
-
-
-
-        private int _workplaceMaterialStockCount;
         public int WorkplaceMaterialStockCount
         {
             get { return _workplaceMaterialStockCount; }
@@ -61,34 +60,19 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        private int _storageID;
-
         public int StorageID
         {
             get { return _storageID; }
             set { _storageID = value; }
         }
 
-        private int _workplaceID;
-
-
         public int WorkplaceID
         {
             get { return _workplaceID; }
             set { _workplaceID = value; }
         }   
-       
-        public event PropertyChangedEventHandler? PropertyChanged;
 
-
-        // INotifyPropertyChanged Method
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-
-
+        //Constructor
         public WorkplaceMaterialViewModel( WorkplaceMaterial workplaceMaterial)         
         {
             MaterialID = workplaceMaterial.MaterialID;

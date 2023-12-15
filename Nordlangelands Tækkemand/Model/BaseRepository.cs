@@ -319,8 +319,8 @@ namespace Nordlangelands_Tækkemand.Model
                 using (SqlCommand command = new SqlCommand(query, connection))
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    while (reader.Read())                    {
-
+                    while (reader.Read())                   
+                    {
                         string logText = (string)reader["LogText"];                        
                         return logText;
                     }

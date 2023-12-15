@@ -12,13 +12,19 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media.Media3D;
 
-
-
 namespace Nordlangelands_Tækkemand.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
     {
         //public CreateMaterialWindow CreateMaterialWindow { get; set; }
+        // INotifyPropertyChanged EventHandler
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        // INotifyPropertyChanged Method
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         //Command Properties
         public ICommand AddStockCountCMD { get; set; } = new AddStockCountCommand();
@@ -33,16 +39,8 @@ namespace Nordlangelands_Tækkemand.ViewModel
         public ICommand SearchMaterialCMD { get; set; } = new SearchMaterialCommand();
         public ICommand UpdateMaterialCMD { get; set; } = new UpdateMaterialCommand();
         public ICommand WorkplaceAddStockCountCMD { get; set; } = new WorkplaceAddStockCountCommand();
+        public ICommand LoginCMD { get; set; } = new LoginCommand();
 
-        // INotifyPropertyChanged EventHandler
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        // INotifyPropertyChanged Method
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        
         //Fields
         private string _logText;
         private string _searchText;
@@ -53,7 +51,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
         private MainWindow _mainWindowInstance;
         private WorkplaceMaterialViewModel _workplaceSelectedMaterial;
         //private bool _isThatchingTypeChecked; // husk at fjerne denne
-
 
         //LogText Property
         public string LogText
@@ -187,7 +184,8 @@ namespace Nordlangelands_Tækkemand.ViewModel
         public WoodViewModel WDVM { get; set; }
         public WorkplaceViewModel WKVM { get; set; }
         public WorkplaceMaterialViewModel WKMVM { get; set; }
-      
+        public UserViewModel UVM { get; set; }
+
 
         //ObservableCollection Fields
         private ObservableCollection<ThatchingViewModel> _thatchingVM;
@@ -196,6 +194,7 @@ namespace Nordlangelands_Tækkemand.ViewModel
         private ObservableCollection<WorkplaceViewModel> _workplaceVM;
         private ObservableCollection<IMaterialViewModel> _allMaterialsVM;
         private ObservableCollection<WorkplaceMaterialViewModel> _workplaceMaterialsVM;
+        private ObservableCollection<UserViewModel> _userVM;
 
         //Observable Collection Properties       
         public ObservableCollection<ThatchingViewModel> ThatchingVM
@@ -258,9 +257,20 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
+        public ObservableCollection<UserViewModel> UserVM
+        {
+            get { return _userVM; }
+            set
+            {
+                _userVM = value;
+                OnPropertyChanged(nameof(UserVM));
+            }
+        }
+
         //Constructor
         public MainViewModel(MainWindow mainWindow)
         {
+            //Instantiate ObservableCollections
             _mainWindowInstance = mainWindow;
             ThatchingVM = new ObservableCollection<ThatchingViewModel>();
             VariousVM = new ObservableCollection<VariousViewModel>();
@@ -268,15 +278,17 @@ namespace Nordlangelands_Tækkemand.ViewModel
             WorkplaceVM = new ObservableCollection<WorkplaceViewModel>();          
             AllMaterialsVM = new ObservableCollection<IMaterialViewModel>();
             WorkplaceMaterialsVM = new ObservableCollection<WorkplaceMaterialViewModel>();
+            UserVM = new ObservableCollection<UserViewModel>();
 
-            // Initialize ThatchingViewModel
+            //Instantiate ViewModels
             TVM = new ThatchingViewModel(new ThatchingMaterial());
             VVM = new VariousViewModel(new VariousMaterial());
             WDVM = new WoodViewModel(new WoodMaterial());
             WKVM = new WorkplaceViewModel(new Workplace());
             WKMVM = new WorkplaceMaterialViewModel(new WorkplaceMaterial());
+            UVM = new UserViewModel(new User());
 
-            // Initialize ThatchingVM
+            //Initialize ViewModels
             ThatchingVM.Clear();
             InitializeThatchingVM();
             VariousVM.Clear();
@@ -284,13 +296,10 @@ namespace Nordlangelands_Tækkemand.ViewModel
             WoodVM.Clear(); 
             InitializeWoodVM();
             InitializeAllMaterialsVM();
-
             InitializeWorkplaceVM();  
-
-
         }
 
-        // Get the list of thatching materials from the repository
+        //Methods
         public void InitializeThatchingVM()
         {  
             List<ThatchingMaterial> thatchingMaterials = TVM.thatchingRepo.GetAllMaterials();
@@ -343,11 +352,8 @@ namespace Nordlangelands_Tækkemand.ViewModel
             {
                 AllMaterialsVM.Add(woodViewModel);
             }
-
         }
        
-
-
         public void InitializeWorkplaceVM()
         {
             List<Workplace> workplaces = WKVM.workplaceRepo.GetAllWorkplaces();
@@ -359,11 +365,8 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-
         public void InitializeWorkplaceMaterialsVM()
-        {
-
-            
+        {      
             List<WorkplaceMaterial> workplaceMaterials = WKMVM.WorkplaceMaterialRepo.GetAll();
 
             // Go through each of the materials from the repository and create a WoodViewModel for them
@@ -373,5 +376,15 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
+        public void InitializUserVM()
+        {
+            List<User> users = UVM.UserRepo.GetAllUsers();
+
+            // Go through each of the materials from the repository and create a VariousViewModel for them
+            foreach (User user in users)
+            {
+                UserVM.Add(new UserViewModel(user));
+            }
+        }
     }
 }

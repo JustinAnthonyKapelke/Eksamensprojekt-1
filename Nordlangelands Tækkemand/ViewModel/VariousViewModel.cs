@@ -11,8 +11,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
 {
     public class VariousViewModel : INotifyPropertyChanged, IMaterialViewModel
     {
-        public VariousRepository variousRepo;
-
         // Property changed event
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -21,9 +19,19 @@ namespace Nordlangelands_Tækkemand.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        
+        //Fields
+        public VariousRepository variousRepo;
+        private int _materialID;
+        private string _materialName;
+        private string _materialDescription;
+        private string _materialType;
+        private string _materialImagePath;
+        private int _materialStockCount;
+        private int _materialTypeID;
+        private int _storageID;
 
         //Properties
-        private int _materialID;
         public int MaterialID
         {
             get { return _materialID; }
@@ -38,8 +46,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-
-        private string _materialName;
         public string MaterialName
         {
             get { return _materialName; }
@@ -54,7 +60,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        private string _materialDescription;
         public string MaterialDescription
         {
             get { return _materialDescription; }
@@ -69,7 +74,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        private string _materialType;
         public string MaterialType
         {
             get { return _materialType; }
@@ -84,9 +88,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-
-
-        private string _materialImagePath;
         public string MaterialImagePath
         {
             get { return _materialImagePath; }
@@ -101,7 +102,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        private int _materialStockCount;
         public int MaterialStockCount
         {
             get { return _materialStockCount; }
@@ -116,7 +116,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        private int _materialTypeID;
         public int MaterialTypeID
         {
             get { return _materialTypeID; }
@@ -132,7 +131,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
         }
 
 
-        private int _storageID;
         public int StorageID
         {
             get { return _storageID; }
@@ -163,7 +161,7 @@ namespace Nordlangelands_Tækkemand.ViewModel
             variousRepo = new VariousRepository(CreateDelegate, InitializeDelegate);
         }
        
-        // Constructor Overload  
+        //Constructor Overload  
         public VariousViewModel()
         {
            variousRepo = new VariousRepository(CreateDelegate, InitializeDelegate);
@@ -179,12 +177,13 @@ namespace Nordlangelands_Tækkemand.ViewModel
             return new VariousMaterial(materialID, materialName, materialDescription,materialImagePath, materialStockCount, materialType, storageID);
         }
 
-        //Method
+        //Methods
         public void CreateMaterial(string materialName, string materialDescription, int materialStockCount, int materialTypeID, int storageID)
         {
             variousRepo.CreateMaterialInDatabase(materialName, materialDescription, materialStockCount, materialTypeID, storageID);
             variousRepo.InitializeMaterials();
         }
+
         public void DeleteMaterial(int materialID)
         {
             variousRepo.DeleteMaterialFromDatabase(materialID);

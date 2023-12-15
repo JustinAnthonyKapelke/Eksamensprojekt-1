@@ -12,8 +12,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
 {
     public class ThatchingViewModel : INotifyPropertyChanged, IMaterialViewModel
     {
-        public ThatchingRepository thatchingRepo;
-
         public event PropertyChangedEventHandler? PropertyChanged;
 
         // INotifyPropertyChanged Method
@@ -21,8 +19,18 @@ namespace Nordlangelands_Tækkemand.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }        
-
+        
+        //Fields
+        public ThatchingRepository thatchingRepo;
         private int _materialID;
+        private string _materialName;
+        private string _materialDescription;
+        private string _materialType;
+        private string _materialImagePath;
+        private int _materialStockCount;
+        private int _materialTypeID;
+        private int _storageID;
+
         public int MaterialID
         {
             get { return _materialID; }
@@ -37,7 +45,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        private string _materialName;
         public string MaterialName
         {
             get { return _materialName; }
@@ -52,7 +59,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        private string _materialDescription;
         public string MaterialDescription
         {
             get { return _materialDescription; }
@@ -67,7 +73,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        private string _materialType;
         public string MaterialType
         {
             get { return _materialType; }
@@ -81,10 +86,7 @@ namespace Nordlangelands_Tækkemand.ViewModel
                 }
             }
         }
-
-
-        
-        private string _materialImagePath;
+      
         public string MaterialImagePath
         {
             get { return _materialImagePath; }
@@ -99,7 +101,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        private int _materialStockCount;
         public int MaterialStockCount
         {
             get { return _materialStockCount; }
@@ -114,7 +115,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        private int _materialTypeID;
         public int MaterialTypeID
         {
             get { return _materialTypeID; }
@@ -129,8 +129,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-
-        private int _storageID;
         public int StorageID
         {
             get { return _storageID; }

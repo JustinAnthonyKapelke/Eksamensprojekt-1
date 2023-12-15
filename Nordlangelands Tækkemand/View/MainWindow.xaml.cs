@@ -69,6 +69,13 @@ namespace Nordlangelands_Tækkemand
 
         }
 
-       
+
+        //Luk programmet
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
+
+                
     }
 }

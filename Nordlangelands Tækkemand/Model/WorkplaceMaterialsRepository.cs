@@ -63,5 +63,12 @@ namespace Nordlangelands_Tækkemand.Model
                 }
             }
         }
+
+        // Clear workplace materials in repo
+        public void ClearMaterialsInRepo()
+        {
+            _workplaceMaterials.Clear();
+        }
+
     }
 }

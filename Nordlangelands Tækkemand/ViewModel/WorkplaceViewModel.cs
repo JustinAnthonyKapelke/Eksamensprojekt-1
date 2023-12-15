@@ -11,10 +11,7 @@ namespace Nordlangelands_Tækkemand.ViewModel
 {
     public class WorkplaceViewModel : INotifyPropertyChanged
     {     
-        public WorkplaceRepository workplaceRepo;
-
         public event PropertyChangedEventHandler? PropertyChanged;
-
 
         // INotifyPropertyChanged Method
         protected virtual void OnPropertyChanged(string propertyName)
@@ -22,8 +19,15 @@ namespace Nordlangelands_Tækkemand.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        //Properties
+        //Fields
+        public WorkplaceRepository workplaceRepo;
         private int _workplaceID;
+        private string _workplaceName;
+        private string _workplaceAddress;
+        private string _workplaceImagePath;
+        private int _storageID;
+
+        //Properties
         public int WorkplaceID
         {
             get { return _workplaceID; }
@@ -38,7 +42,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        private string _workplaceName;
         public string WorkplaceName
         {
             get { return _workplaceName; }
@@ -53,7 +56,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        private string _workplaceAddress;
         public string WorkplaceAddress
         {
             get { return _workplaceAddress; }
@@ -68,7 +70,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        private string _workplaceImagePath;
         public string WorkplaceImagePath
         {
             get { return _workplaceImagePath; }
@@ -83,8 +84,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-
-        private int _storageID;
         public int StorageID
         {
             get { return _storageID; }
@@ -110,12 +109,5 @@ namespace Nordlangelands_Tækkemand.ViewModel
             StorageID = workplace.StorageID;
             workplaceRepo = new WorkplaceRepository();
         }
-
-        ////Method
-        //public void CreateAndInsertMaterial(string workplaceName, string workplaceAddress, string workplaceImagePath, int storageID)
-        //{
-        //    workplaceRepo.CreateWorkplaceInRepository(workplaceName, workplaceAddress,workplaceImagePath, storageID);
-        //    workplaceRepo.CreateWorkplaceInDatabase(workplaceName, workplaceAddress,workplaceImagePath, storageID);
-        //}
     }
 }

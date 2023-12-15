@@ -12,9 +12,25 @@ namespace Nordlangelands_Tækkemand.ViewModel
 {
     public class WoodViewModel : INotifyPropertyChanged, IMaterialViewModel
     {
-        public WoodRepository woodRepo;
+        public event PropertyChangedEventHandler? PropertyChanged;
+        // INotifyPropertyChanged Method
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
+        //Fields
+        public WoodRepository woodRepo;
         private int _materialID;
+        private string _materialName;
+        private string _materialDescription;
+        private string _materialType;
+        private string _materialImagePath;
+        private int _materialStockCount;
+        private int _materialTypeID;
+        private int _storageID;
+
+        //Properties
         public int MaterialID
         {
             get { return _materialID; }
@@ -29,8 +45,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-
-        private string _materialName;
         public string MaterialName
         {
             get { return _materialName; }
@@ -45,7 +59,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        private string _materialDescription;
         public string MaterialDescription
         {
             get { return _materialDescription; }
@@ -60,7 +73,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        private string _materialType;
         public string MaterialType
         {
             get { return _materialType; }
@@ -75,9 +87,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-
-
-        private string _materialImagePath;
         public string MaterialImagePath
         {
             get { return _materialImagePath; }
@@ -92,7 +101,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        private int _materialStockCount;
         public int MaterialStockCount
         {
             get { return _materialStockCount; }
@@ -107,7 +115,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        private int _materialTypeID;
         public int MaterialTypeID
         {
             get { return _materialTypeID; }
@@ -122,8 +129,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-
-        private int _storageID;
         public int StorageID
         {
             get { return _storageID; }
@@ -138,14 +143,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-        // INotifyPropertyChanged Method
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-      
         //Constructor
         public WoodViewModel(WoodMaterial material)
         {
@@ -178,7 +175,7 @@ namespace Nordlangelands_Tækkemand.ViewModel
             return new WoodMaterial(materialID, materialName, materialDescription, materialImagePath, materialStockCount, materialType, storageID);
         }
 
-        //Method
+        //Methods
         public void CreateMaterial(string materialName, string materialDescription, int materialStockCount, int materialTypeID, int storageID)
         {
             woodRepo.CreateMaterialInDatabase(materialName, materialDescription, materialStockCount, materialTypeID, storageID);
