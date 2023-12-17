@@ -2,10 +2,12 @@
 using Microsoft.Identity.Client.Extensions.Msal;
 using Nordlangelands_Tækkemand.Interfaces;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Automation.Peers;
 using System.Windows.Media.Media3D;
@@ -30,7 +32,9 @@ namespace Nordlangelands_Tækkemand.Model
         //Signature Delegate For Initalize
         public delegate T InitializeCreateDelegate<T>(int materialID, string materialName, string materialDescription, string materialImagePath, int materialStockCount, string materialType, int storageID);
 
-      
+
+        // Lock object
+        private readonly object _lock = new object();
 
         //Material List
         protected List<T> _materials = new List<T>();
@@ -45,11 +49,16 @@ namespace Nordlangelands_Tækkemand.Model
         protected virtual string ReadMaterialByIDQuery { get; set; } = "";
         protected string ReadLogTextQuery { get; set; } = "SELECT TOP 1 LogText FROM NTLog ORDER BY LogID DESC";
 
+
         //Constructor
         public BaseRepository(CreateDelegate<T> createDelegate)
         {
-            _createDelegate = createDelegate;
-            InitializeMaterials();
+            _createDelegate = createDelegate;           
+
+            //Seperate thread to initialize materials
+            Thread initializeThread = new Thread(InitializeMaterials);
+            initializeThread.Start();
+
         }
 
         //Constructor overload
@@ -57,90 +66,96 @@ namespace Nordlangelands_Tækkemand.Model
         {
             _createDelegate = createDelegate;
             _initializeCreateDelegate = initializeCreateDelegate;
-            InitializeMaterials();
+
+            Thread thread = new(InitializeMaterials);
+            thread.Start();
+            thread.Join();
+
+            //// Initialize and start the worker thread
+            //_workerThread = new Thread(Work);
+            //_workerThread.Start();
+
+            //// Enqueue material initialization task
+            //EnqueueTask(InitializeMaterials);
+
         }
 
-        //CRUD Methods
+        //Forsøg på tråde
 
-        //public T CreateMaterialInRepository(string materialName, string materialDescription, string materialImagePath, int materialStockCount, int materialTypeID, int storageID)
+        //private readonly Thread _workerThread;
+        //private readonly ConcurrentQueue<Action> _taskQueue = new ConcurrentQueue<Action>();
+        //private readonly AutoResetEvent _signal = new AutoResetEvent(false);
+        //private bool _running = true;
+
+        //private void Work()
         //{
-        //    T newMaterial = _createDelegate(materialName, materialDescription, materialImagePath, materialStockCount, materialTypeID, storageID);
-        //    _materials.Add(newMaterial);
-        //    return newMaterial;
-        //}
-
-        //Bliver brugt i UpdateStockCountCommand
-        
-        //public T ReadMaterialFromRepository(int materialID)
-        //{
-        //    return _materials.FirstOrDefault(m => m.MaterialID == materialID);
-        //}
-
-        //public void UpdateMaterialInRepository(int materialID, string newMaterialName, string newMaterialDescription, int newMaterialStockCount, int MaterialTypeID, int newStorageID)
-        //{
-        //    T updatedMaterial = _materials.FirstOrDefault(m => m.MaterialID == materialID);
-
-        //    if (updatedMaterial != null)
+        //    while (_running)
         //    {
-        //        updatedMaterial.MaterialName = newMaterialName;
-        //        updatedMaterial.MaterialDescription = newMaterialDescription;
-        //        updatedMaterial.MaterialStockCount = newMaterialStockCount;
-        //        //updatedMaterial.MaterialTypeID = MaterialTypeID;
-        //        updatedMaterial.StorageID = newStorageID;
+        //        if (_taskQueue.TryDequeue(out Action task))
+        //        {
+        //            task.Invoke();
+        //        }
+        //        else
+        //        {
+        //            _signal.WaitOne(); // Wait for a signal to check the queue again
+        //        }
         //    }
         //}
 
-     
 
-        //public void DeleteMaterialFromRepisitory(int materialID)
+        //protected void EnqueueTask(Action task)
         //{
-        //    T deletedMaterial = _materials.FirstOrDefault(m => m.MaterialID == materialID);
-
-        //    if (deletedMaterial != null)
-        //    {
-        //        _materials.Remove(deletedMaterial);
-        //    }
+        //    _taskQueue.Enqueue(task);
+        //    _signal.Set(); // Signal the worker thread
         //}
 
-        //Database Operation Methods
+        //public void Stop()
+        //{
+        //    _running = false;
+        //    _signal.Set(); // Signal to stop the thread
+        //    _workerThread.Join(); // Optionally wait for the thread to finish
+        //}
+
+        //CRUD Methods     
 
         //Initialize Materials From Database (gør create material in repository overflødig)
         public void InitializeMaterials()
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                
-                connection.Open();
 
-                //Use a stored procedure to prevent sql injection.
-                string query = RepoInitializeQuery;
-                string foundMaterialType = MaterialType;
-
-                using (SqlCommand command = new SqlCommand(query, connection))
-                using (SqlDataReader reader = command.ExecuteReader())
+                lock (_lock)
                 {
-                    while (reader.Read())
+                    connection.Open();
+
+                    //Use a stored procedure to prevent sql injection.
+                    string foundMaterialType = MaterialType;
+                    using (SqlCommand command = new SqlCommand(RepoInitializeQuery, connection))
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        int materialID = (int)reader["MaterialID"];
-                        string materialName = (string)reader["MaterialName"];
-                        string materialDescription = (string)reader["MaterialDescription"];
-                        int materialStockCount = (int)reader["MaterialStockCount"];
-                        string materialType = (string)reader["MaterialType"];
-                        string materialImagePath = (string)reader["MaterialImagePath"];
-                        int storageID = (int)reader["StorageID"];
-
-                        if (foundMaterialType == materialType)
+                        while (reader.Read())
                         {
-                            T newMaterial = _initializeCreateDelegate(materialID, materialName, materialDescription, materialImagePath, materialStockCount, materialType, storageID);
+                            int materialID = (int)reader["MaterialID"];
+                            string materialName = (string)reader["MaterialName"];
+                            string materialDescription = (string)reader["MaterialDescription"];
+                            int materialStockCount = (int)reader["MaterialStockCount"];
+                            string materialType = (string)reader["MaterialType"];
+                            string materialImagePath = (string)reader["MaterialImagePath"];
+                            int storageID = (int)reader["StorageID"];
 
-                            _materials.Add(newMaterial);
+                            if (foundMaterialType == materialType)
+                            {
+                                T newMaterial = _initializeCreateDelegate(materialID, materialName, materialDescription, materialImagePath, materialStockCount, materialType, storageID);
+
+                                _materials.Add(newMaterial);
+                            }
                         }
+
                     }
                 }
             }
         }
-
-       
+               
 
         //Create Material In Database
         public void CreateMaterialInDatabase(string materialName, string materialDescription, int materialStockCount, int materialTypeID, int storageID)
@@ -150,8 +165,7 @@ namespace Nordlangelands_Tækkemand.Model
                 connection.Open();
 
                 //Use a stored procedure to prevent an sql injection
-                string query = RepoCreateQuery;
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlCommand command = new SqlCommand(RepoCreateQuery, connection))
                 {
                     command.Parameters.AddWithValue("@MaterialName", materialName);
                     command.Parameters.AddWithValue("@MaterialDescription", materialDescription);                  
@@ -171,8 +185,7 @@ namespace Nordlangelands_Tækkemand.Model
                 connection.Open();
 
                 //Use a stored procedure to prevent an sql injection
-                string query = DatabaseUpdateQuery;
-                using (SqlCommand command = new SqlCommand(query, connection))
+                using (SqlCommand command = new SqlCommand(DatabaseUpdateQuery, connection))
                 {
                     command.Parameters.AddWithValue("@MaterialID", materialID);
                     command.Parameters.AddWithValue("@MaterialName", materialName);
@@ -192,10 +205,8 @@ namespace Nordlangelands_Tækkemand.Model
             {
                 connection.Open();
 
-                // Updated query to include all needed columns
-                string query = RepoReadQuery;
-
-                using (SqlCommand command = new SqlCommand(query, connection))
+                // Updated query to include all needed columns        
+                using (SqlCommand command = new SqlCommand(RepoReadQuery, connection))
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -218,18 +229,17 @@ namespace Nordlangelands_Tækkemand.Model
             return default(T);
         }
 
-        //Update Material In Database
+     
 
         //Delete Material From Database
-        public void DeleteMaterialFromDatabase(int materialID)
+        public void DeleteMaterialFromDatabaseByID(int materialID)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
 
-                //Use a stored procedure to prevent an sql injection
-                string query = RepoDeleteQuery;
-                using (SqlCommand command = new SqlCommand(query, connection))
+                //Use a stored procedure to prevent an sql injection              
+                using (SqlCommand command = new SqlCommand(RepoDeleteQuery, connection))
                 {
                     command.Parameters.AddWithValue("@MaterialID", materialID);
 
@@ -241,12 +251,18 @@ namespace Nordlangelands_Tækkemand.Model
         //Get all materials method
         public List<T> GetAllMaterials()
         {
-            return _materials.ToList();
+            lock (_lock)
+            {
+                return _materials.ToList();
+            }
         }
 
         public void ClearMaterialsInRepo()
         {
-            _materials.Clear();
+            lock (_lock)
+            {
+                _materials.Clear();
+            }
         }
 
         //Method to update the material stock count in the database.
@@ -256,9 +272,8 @@ namespace Nordlangelands_Tækkemand.Model
             {
                 connection.Open();
 
-                //Use a stored procedure to prevent an sql injection
-                string query = UpdateStockCountQuery;
-                using (SqlCommand command = new SqlCommand(query, connection))
+                //Use a stored procedure to prevent an sql injection               
+                using (SqlCommand command = new SqlCommand(UpdateStockCountQuery, connection))
                 {
                     command.Parameters.AddWithValue("@MaterialID", materialID);
                     command.Parameters.AddWithValue("@NewMaterialAmount", newMaterialAmount);
@@ -274,10 +289,8 @@ namespace Nordlangelands_Tækkemand.Model
             {
                 connection.Open();
 
-                // Updated query to include all needed columns
-                string query = ReadMaterialByIDQuery;
-
-                using (SqlCommand command = new SqlCommand(query, connection))
+                // Updated query to include all needed columns              
+                using (SqlCommand command = new SqlCommand(ReadMaterialByIDQuery, connection))
                 {
                     // Tilføj parameteren til kommandoen
                     command.Parameters.AddWithValue("@MaterialID", materialID);
@@ -313,10 +326,8 @@ namespace Nordlangelands_Tækkemand.Model
             {
                 connection.Open();
 
-                // Updated query to include all needed columns
-                string query = ReadLogTextQuery;
-
-                using (SqlCommand command = new SqlCommand(query, connection))
+                // Updated query to include all needed columns              
+                using (SqlCommand command = new SqlCommand(ReadLogTextQuery, connection))
                 using (SqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())                   

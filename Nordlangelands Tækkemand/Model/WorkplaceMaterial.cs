@@ -8,6 +8,7 @@ namespace Nordlangelands_Tækkemand.Model
 {
     public class WorkplaceMaterial
     {
+        //Auto-Implemented Properties
         public int MaterialID { get; private set; }
         public string MaterialName { get; private set; }
         public string MaterialDescription { get; private set;}
@@ -16,13 +17,10 @@ namespace Nordlangelands_Tækkemand.Model
         public int WorkplaceID { get; private set; }
 
 
-
-        public WorkplaceMaterial()
-        {
-        }
+        //Constructor
+        public WorkplaceMaterial() {}
 
         // Constructor overload
-
         public WorkplaceMaterial(int materialID, string materialName, string materialDescription, int materialStockCount, int storageID, int workplaceID)
         {
             MaterialID = materialID;
@@ -32,9 +30,5 @@ namespace Nordlangelands_Tækkemand.Model
             StorageID = storageID;
             WorkplaceID = workplaceID;
         }
-
-
-
-
     }
 }

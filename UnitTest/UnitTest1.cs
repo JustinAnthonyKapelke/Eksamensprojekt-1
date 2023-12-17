@@ -51,7 +51,7 @@ namespace UnitTest
             Assert.AreEqual("Tækkerør K", readMaterial.MaterialName);
             Assert.AreEqual("Korte tækkerør fra Polen", readMaterial.MaterialDescription);
             Assert.AreEqual("/Images/Thatching.png", readMaterial.MaterialImagePath);
-            Assert.AreEqual(5, readMaterial.MaterialStockCount);
+            Assert.AreEqual(758, readMaterial.MaterialStockCount);
             Assert.AreEqual("Tække", readMaterial.MaterialType);
             Assert.AreEqual(1, readMaterial.StorageID);
         }

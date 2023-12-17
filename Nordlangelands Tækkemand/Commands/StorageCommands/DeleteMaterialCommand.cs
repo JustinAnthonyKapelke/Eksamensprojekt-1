@@ -42,7 +42,7 @@ namespace Nordlangelands_Tækkemand.Commands.StorageCommands
                 if (result == MessageBoxResult.Yes)
                 {
                     if (currentVM == mvm.ThatchingVM)
-                        mvm.TVM.thatchingRepo.DeleteMaterialFromDatabase(materialID);
+                        mvm.TVM.DeleteMaterialFromDatabaseByID(materialID);
 
                     var thatchingMaterialToRemove = mvm.ThatchingVM.FirstOrDefault(m => m.MaterialID == materialID);
                     if (thatchingMaterialToRemove != null)
@@ -51,7 +51,7 @@ namespace Nordlangelands_Tækkemand.Commands.StorageCommands
                     }
 
                     if (currentVM == mvm.WoodVM)
-                        mvm.WDVM.woodRepo.DeleteMaterialFromDatabase(materialID);
+                        mvm.WDVM.DeleteMaterialFromDatabaseByID(materialID);
 
                     var woodMaterialToRemove = mvm.WoodVM.FirstOrDefault(m => m.MaterialID == materialID);
                     if (woodMaterialToRemove != null)
@@ -60,7 +60,7 @@ namespace Nordlangelands_Tækkemand.Commands.StorageCommands
                     }
 
                     if (currentVM == mvm.VariousVM)
-                        mvm.VVM.variousRepo.DeleteMaterialFromDatabase(materialID);
+                        mvm.VVM.DeleteMaterialFromDatabaseByID(materialID);
 
                     var variousMaterialToRemove = mvm.VariousVM.FirstOrDefault(m => m.MaterialID == materialID);
                     if (variousMaterialToRemove != null)
@@ -69,7 +69,7 @@ namespace Nordlangelands_Tækkemand.Commands.StorageCommands
                     }
 
                     if (currentVM == mvm.AllMaterialsVM)
-                        mvm.VVM.variousRepo.DeleteMaterialFromDatabase(materialID);
+                        mvm.VVM.DeleteMaterialFromDatabaseByID(materialID);
 
                     var materialToRemove = mvm.AllMaterialsVM.FirstOrDefault(m => m.MaterialID == materialID);
                     if (materialToRemove != null)

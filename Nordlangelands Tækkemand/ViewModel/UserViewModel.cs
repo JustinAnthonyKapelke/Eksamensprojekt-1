@@ -10,6 +10,7 @@ namespace Nordlangelands_Tækkemand.ViewModel
 {
     public class UserViewModel : INotifyPropertyChanged
     {
+        
         public event PropertyChangedEventHandler? PropertyChanged;
 
         // INotifyPropertyChanged Method
@@ -51,7 +52,7 @@ namespace Nordlangelands_Tækkemand.ViewModel
 
                 }
             }
-       }
+        }
 
         public string UserPassword
         {
@@ -67,13 +68,20 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        public UserViewModel(User user) 
-        { 
+        public UserViewModel(User user)
+        {
             UserID = user.UserID;
             UserName = user.UserName;
             UserPassword = user.UserPassword;
             UserRepo = new UserRepository();
         }
+
+
+        ////Methods
+        //public List<User> GetAllUsers()
+        //{
+        //    return UserRepo.GetAllUsers();
+        //}
 
     }
 }

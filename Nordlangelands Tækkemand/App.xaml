@@ -4,8 +4,6 @@
              xmlns:local="clr-namespace:Nordlangelands_Tækkemand"
              StartupUri="View/MainWindow.xaml">
     <Application.Resources>
-        <ResourceDictionary Source="/Styles/Styles.xaml" />
-
-
+        <ResourceDictionary Source="/Styles/ColorsUI.xaml" />
     </Application.Resources>
 </Application>

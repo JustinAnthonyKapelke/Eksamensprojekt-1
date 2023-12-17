@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 namespace Nordlangelands_Tækkemand.ViewModel
 {
     public class WorkplaceViewModel : INotifyPropertyChanged
-    {     
+    {
+        // INotifyPropertyChanged Event
         public event PropertyChangedEventHandler? PropertyChanged;
 
         // INotifyPropertyChanged Method
@@ -109,5 +110,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             StorageID = workplace.StorageID;
             workplaceRepo = new WorkplaceRepository();
         }
+        
     }
 }

@@ -31,7 +31,7 @@ namespace Nordlangelands_Tækkemand.Commands
 
                 try
                 {
-                    int newStockCountAmount = int.Parse(mvm.MainWindowInstance.NewStockCountTextBox.Text);
+                    int newStockCountAmount = mvm.NewStockCount;
                     int selectedMaterialID = mvm.SelectedMaterial.MaterialID;
 
                     object currentVM = mvm.CurrentVM;
@@ -40,10 +40,10 @@ namespace Nordlangelands_Tækkemand.Commands
                     if (currentVM == mvm.ThatchingVM)
                     {
                         // Update material stock count in database
-                        mvm.TVM.thatchingRepo.UpdateStockCountInDatabase(selectedMaterialID, newStockCountAmount);
+                        mvm.TVM.UpdateStockCountInDatabase(selectedMaterialID, newStockCountAmount);
 
                         // Retrieve the updated material
-                        var updatedMaterial = mvm.TVM.thatchingRepo.ReadMaterialByIDFromDatabase(selectedMaterialID);
+                        var updatedMaterial = mvm.TVM.ReadMaterialByIDFromDatabase(selectedMaterialID);
 
                         if (updatedMaterial != null)
                         {
@@ -55,10 +55,10 @@ namespace Nordlangelands_Tækkemand.Commands
                     if (currentVM == mvm.WoodVM)
                     {
                         // Update material stock count in database
-                        mvm.WDVM.woodRepo.UpdateStockCountInDatabase(selectedMaterialID, newStockCountAmount);
+                        mvm.WDVM.UpdateStockCountInDatabase(selectedMaterialID, newStockCountAmount);
 
                         // Retrieve the updated material
-                        var updatedMaterial = mvm.WDVM.woodRepo.ReadMaterialByIDFromDatabase(selectedMaterialID);
+                        var updatedMaterial = mvm.WDVM.ReadMaterialByIDFromDatabase(selectedMaterialID);
 
                         if (updatedMaterial != null)
                         {
@@ -70,10 +70,10 @@ namespace Nordlangelands_Tækkemand.Commands
                     if (currentVM == mvm.VariousVM)
                     {
                         // Update material stock count in database
-                        mvm.VVM.variousRepo.UpdateStockCountInDatabase(selectedMaterialID, newStockCountAmount);
+                        mvm.VVM.UpdateStockCountInDatabase(selectedMaterialID, newStockCountAmount);
 
                         // Retrieve the updated material
-                        var updatedMaterial = mvm.VVM.variousRepo.ReadMaterialByIDFromDatabase(selectedMaterialID);
+                        var updatedMaterial = mvm.VVM.ReadMaterialByIDFromDatabase(selectedMaterialID);
 
                         if (updatedMaterial != null)
                         {
@@ -85,10 +85,10 @@ namespace Nordlangelands_Tækkemand.Commands
                     if (currentVM == mvm.AllMaterialsVM)
                     {
                         // Update material stock count in database
-                        mvm.VVM.variousRepo.UpdateStockCountInDatabase(selectedMaterialID, newStockCountAmount);
+                        mvm.VVM.UpdateStockCountInDatabase(selectedMaterialID, newStockCountAmount);
 
                         // Retrieve the updated material
-                        var updatedMaterial = mvm.VVM.variousRepo.ReadMaterialByIDFromDatabase(selectedMaterialID);
+                        var updatedMaterial = mvm.VVM.ReadMaterialByIDFromDatabase(selectedMaterialID);
 
                         if (updatedMaterial != null)
                         {

@@ -21,7 +21,8 @@ namespace Nordlangelands_Tækkemand.Commands.StorageCommands
         {
             if (parameter is MainViewModel mvm)
             {
-                mvm.MainWindowInstance.CreateMaterialWindow.Show();
+                CreateMaterialWindow createMaterialWindow = new(mvm);
+                createMaterialWindow.Show();
             }
         }
     }

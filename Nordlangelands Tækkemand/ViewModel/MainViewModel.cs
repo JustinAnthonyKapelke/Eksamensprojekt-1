@@ -1,5 +1,8 @@
 ﻿using Microsoft.Identity.Client.Extensions.Msal;
 using Nordlangelands_Tækkemand.Commands;
+using Nordlangelands_Tækkemand.Commands.MainCommands;
+using Nordlangelands_Tækkemand.Commands.StorageCommands;
+using Nordlangelands_Tækkemand.Commands.WorkplaceCommands;
 using Nordlangelands_Tækkemand.Interfaces;
 using Nordlangelands_Tækkemand.Model;
 using System;
@@ -8,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Media.Media3D;
@@ -16,7 +20,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        //public CreateMaterialWindow CreateMaterialWindow { get; set; }
         // INotifyPropertyChanged EventHandler
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -42,15 +45,97 @@ namespace Nordlangelands_Tækkemand.ViewModel
         public ICommand LoginCMD { get; set; } = new LoginCommand();
 
         //Fields
-        private string _logText;
+  
         private string _searchText;
+        private string _logText;
         private object _currentVM;
         private IMaterialViewModel _selectedMaterial;
         private WorkplaceViewModel _selectedWorkplace;
         private string _selectedMaterialType;
         private MainWindow _mainWindowInstance;
         private WorkplaceMaterialViewModel _workplaceSelectedMaterial;
-        //private bool _isThatchingTypeChecked; // husk at fjerne denne
+        private string _userName;
+        private string _userPassword;
+        private int _newStockCount;
+
+
+
+        //Constructor
+        public MainViewModel()
+        {
+           //Instantiate ObservableCollections        
+            ThatchingVM = new ObservableCollection<ThatchingViewModel>();
+            VariousVM = new ObservableCollection<VariousViewModel>();
+            WoodVM = new ObservableCollection<WoodViewModel>();
+            WorkplaceVM = new ObservableCollection<WorkplaceViewModel>();
+            AllMaterialsVM = new ObservableCollection<IMaterialViewModel>();
+            WorkplaceMaterialsVM = new ObservableCollection<WorkplaceMaterialViewModel>();
+            UserVM = new ObservableCollection<UserViewModel>();
+
+            //Instantiate ViewModels
+            TVM = new ThatchingViewModel(new ThatchingMaterial());
+            VVM = new VariousViewModel(new VariousMaterial());
+            WDVM = new WoodViewModel(new WoodMaterial());
+            WKVM = new WorkplaceViewModel(new Workplace());
+            WKMVM = new WorkplaceMaterialViewModel(new WorkplaceMaterial());
+            UVM = new UserViewModel(new User());
+
+            //Initialize ViewModels
+            ThatchingVM.Clear();
+            InitializeThatchingVM();
+            VariousVM.Clear();
+            InitializeVariousVM();
+            WoodVM.Clear();
+            InitializeWoodVM();
+            AllMaterialsVM.Clear();
+            InitializeAllMaterialsVM();          
+            InitializeWorkplaceVM();
+            InitializeUserVM();
+
+            //Set the default value of new stock count
+            _newStockCount = 1;
+        }
+
+        //MainWindow
+        private bool _storageTabIsEnabled;
+        public bool StorageTabIsEnabled
+        {
+            get { return _storageTabIsEnabled; }
+            set
+            {
+                if (_storageTabIsEnabled != value)
+                {
+                    _storageTabIsEnabled = value;
+                    OnPropertyChanged(nameof(StorageTabIsEnabled)); // Implement INotifyPropertyChanged
+                }
+            }
+        }
+
+        private bool _workplaceTabIsEnabled;
+        public bool WorkplaceTabIsEnabled
+        {
+            get { return _workplaceTabIsEnabled; }
+            set
+            {
+                if (_workplaceTabIsEnabled != value)
+                {
+                    _workplaceTabIsEnabled = value;
+                    OnPropertyChanged(nameof(WorkplaceTabIsEnabled)); // Implement INotifyPropertyChanged
+                }
+            }
+        }
+
+       //Selected tab index
+        private int _selectedTabIndex;
+        public int SelectedTabIndex
+        {
+            get { return _selectedTabIndex; }
+            set
+            {
+                _selectedTabIndex = value;
+                OnPropertyChanged(nameof(SelectedTabIndex)); // Assuming INotifyPropertyChanged implementation
+            }
+        }
 
         //LogText Property
         public string LogText
@@ -151,33 +236,258 @@ namespace Nordlangelands_Tækkemand.ViewModel
                 }
             }
         }
-        
-        public MainWindow MainWindowInstance
+
+
+        //UserName Property      
+
+        public string UserName
         {
-            get { return _mainWindowInstance; }
+            get { return _userName; }
             set
             {
-                if (_mainWindowInstance != value)
+                if (_userName != value)
                 {
-                    _mainWindowInstance = value;
-                    OnPropertyChanged(nameof(MainWindow));
+                    _userName = value;
+                    OnPropertyChanged(nameof(UserName));
                 }
             }
         }
-        
-        //public bool IsThatchingTypeChecked
-        //{
-        //    get => _isThatchingTypeChecked;
-        //    set
-        //    {
-        //        if (_isThatchingTypeChecked != value)
-        //        {
-        //            _isThatchingTypeChecked = value;
-        //            OnPropertyChanged(nameof(IsThatchingTypeChecked)); // Ensure this calls PropertyChanged event
-        //        }
-        //    }
-        //}
-        
+
+        // User password property
+        public string UserPassword
+        {
+            get { return _userPassword; }
+            set
+            {
+                if (_userPassword != value)
+                {
+                    _userPassword = value;
+                    OnPropertyChanged(nameof(UserPassword));
+                }
+            }
+        }
+
+        // New stockcount property
+        public int NewStockCount 
+        {
+            get { return _newStockCount; } 
+            set
+            {
+                if (_newStockCount != value)
+                {
+                    _newStockCount = value;
+                    OnPropertyChanged(nameof(NewStockCount));
+                }
+            }
+        }       
+
+        //Stock Tab properties
+        private bool _storageIsThatchingChecked;
+        public bool StorageIsThatchingChecked
+        {
+            get { return _storageIsThatchingChecked; }
+            set
+            {
+                if (_storageIsThatchingChecked != value)
+                {
+                    _storageIsThatchingChecked = value;
+                    OnPropertyChanged(nameof(StorageIsThatchingChecked));
+                }
+            }
+        }
+       
+        private bool _storageIsWoodChecked;
+        public bool StorageIsWoodChecked
+        {
+            get { return _storageIsWoodChecked; }
+            set
+            {
+                if (_storageIsWoodChecked != value)
+                {
+                    _storageIsWoodChecked = value;
+                    OnPropertyChanged(nameof(StorageIsWoodChecked));
+                }
+            }
+        }
+
+
+        private bool _storageIsvariousChecked;
+        public bool StorageIsVariousChecked
+        {
+            get { return _storageIsvariousChecked; }
+            set
+            {
+                if (_storageIsvariousChecked != value)
+                {
+                    _storageIsvariousChecked = value;
+                    OnPropertyChanged(nameof(StorageIsVariousChecked));
+                }
+            }
+        }
+
+        private bool _storageIsAllChecked;
+        public bool StorageIsAllChecked
+        {
+            get { return _storageIsAllChecked; }
+            set
+            {
+                if (_storageIsAllChecked != value)
+                {
+                    _storageIsAllChecked = value;
+                    OnPropertyChanged(nameof(StorageIsAllChecked));
+                }
+            }
+        }
+
+
+        //Create material window properties            
+
+
+        private string _createMaterialName;
+        public string CreateMaterialName
+        {
+            get { return _createMaterialName; }
+            set
+            {
+                if (_createMaterialName != value)
+                {
+                    _createMaterialName = value;
+                    OnPropertyChanged(nameof(_mainWindowInstance));
+                }
+            }
+        }
+
+        private string _createMaterialDescription;
+        public string CreateMaterialDescription
+        {
+            get { return _createMaterialDescription; }
+            set
+            {
+                if (_createMaterialDescription != value)
+                {
+                    _createMaterialDescription = value;
+                    OnPropertyChanged(nameof(CreateMaterialDescription));
+                }
+            }
+        }
+
+
+        private string _createMaterialStockCount;
+        public string CreateMaterialStockCount
+        {
+            get { return _createMaterialStockCount; }
+            set
+            {
+                if (_createMaterialStockCount != value)
+                {
+                    _createMaterialStockCount = value;
+                    OnPropertyChanged(nameof(CreateMaterialStockCount));
+                }
+            }
+        }
+
+        private int _createMaterialStorageID;
+        public int CreateMaterialStorageID
+        {
+            get { return _createMaterialStorageID; }
+            set
+            {
+                if (_createMaterialStorageID != value)
+                {
+                    _createMaterialStorageID = value;
+                    OnPropertyChanged(nameof(CreateMaterialStorageID));
+                }
+            }
+        }
+
+        private bool _isThatchingChecked;
+        public bool IsThatchingChecked
+        {
+            get { return _isThatchingChecked; }
+            set
+            {
+                if (_isThatchingChecked != value)
+                {
+                    _isThatchingChecked = value;
+                    OnPropertyChanged(nameof(IsThatchingChecked));
+                }
+            }
+        }
+
+        private bool _isWoodChecked;
+        public bool IsWoodChecked
+        {
+            get { return _isWoodChecked; }
+            set
+            {
+                if (_isWoodChecked != value)
+                {
+                    _isWoodChecked = value;
+                    OnPropertyChanged(nameof(IsWoodChecked));
+                }
+            }
+        }
+
+
+        private bool _isvariousChecked;
+        public bool IsVariousChecked
+        {
+            get { return _isvariousChecked; }
+            set
+            {
+                if (_isvariousChecked != value)
+                {
+                    _isvariousChecked = value;
+                    OnPropertyChanged(nameof(IsVariousChecked));
+                }
+            }
+        }
+
+        //Update material window properties
+        private bool _updateIsThatchingChecked;
+        public bool UpdateIsThatchingChecked
+        {
+            get { return _updateIsThatchingChecked; }
+            set
+            {
+                if (_updateIsThatchingChecked != value)
+                {
+                    _updateIsThatchingChecked = value;
+                    OnPropertyChanged(nameof(UpdateIsThatchingChecked));
+                }
+            }
+        }
+
+        private bool _updateIsWoodChecked;
+        public bool UpdateIsWoodChecked
+        {
+            get { return _updateIsWoodChecked; }
+            set
+            {
+                if (_updateIsWoodChecked != value)
+                {
+                    _updateIsWoodChecked = value;
+                    OnPropertyChanged(nameof(UpdateIsWoodChecked));
+                }
+            }
+        }
+
+        private bool _updateIsVariousChecked;
+        public bool UpdateIsVariousChecked
+        {
+            get { return _updateIsVariousChecked; }
+            set
+            {
+                if (_updateIsVariousChecked != value)
+                {
+                    _updateIsVariousChecked = value;
+                    OnPropertyChanged(nameof(UpdateIsVariousChecked));
+                }
+            }
+        }
+
+
+
         //ViewModel Properties
         public ThatchingViewModel TVM { get; set; }
         public VariousViewModel VVM { get; set; }
@@ -267,37 +577,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        //Constructor
-        public MainViewModel(MainWindow mainWindow)
-        {
-            //Instantiate ObservableCollections
-            _mainWindowInstance = mainWindow;
-            ThatchingVM = new ObservableCollection<ThatchingViewModel>();
-            VariousVM = new ObservableCollection<VariousViewModel>();
-            WoodVM = new ObservableCollection<WoodViewModel>();
-            WorkplaceVM = new ObservableCollection<WorkplaceViewModel>();          
-            AllMaterialsVM = new ObservableCollection<IMaterialViewModel>();
-            WorkplaceMaterialsVM = new ObservableCollection<WorkplaceMaterialViewModel>();
-            UserVM = new ObservableCollection<UserViewModel>();
-
-            //Instantiate ViewModels
-            TVM = new ThatchingViewModel(new ThatchingMaterial());
-            VVM = new VariousViewModel(new VariousMaterial());
-            WDVM = new WoodViewModel(new WoodMaterial());
-            WKVM = new WorkplaceViewModel(new Workplace());
-            WKMVM = new WorkplaceMaterialViewModel(new WorkplaceMaterial());
-            UVM = new UserViewModel(new User());
-
-            //Initialize ViewModels
-            ThatchingVM.Clear();
-            InitializeThatchingVM();
-            VariousVM.Clear();
-            InitializeVariousVM();
-            WoodVM.Clear(); 
-            InitializeWoodVM();
-            InitializeAllMaterialsVM();
-            InitializeWorkplaceVM();  
-        }
 
         //Methods
         public void InitializeThatchingVM()
@@ -376,7 +655,7 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        public void InitializUserVM()
+        public void InitializeUserVM()
         {
             List<User> users = UVM.UserRepo.GetAllUsers();
 

@@ -42,7 +42,8 @@
             <TextBox x:Name="NameTextBox"
                      Grid.Column="1"
                      Margin="10,25,500,25"
-                     BorderBrush="Black" />
+                     BorderBrush="Black"
+                     Text="{Binding CreateMaterialName}"/>
         </Grid>
 
         <Grid Grid.Row="1">
@@ -62,7 +63,8 @@
             <TextBox x:Name="DescriptionTextBox"
                      Grid.Column="1"
                      Margin="10,25,500,25"
-                     BorderBrush="Black" />
+                     BorderBrush="Black"
+                     Text="{Binding CreateMaterialDescription}" />
         </Grid>
 
         <Grid Grid.Row="2">
@@ -78,21 +80,24 @@
                          Content="Tække"
                          HorizontalAlignment="Left"
                          VerticalAlignment="Center"
-                         Foreground="White" />
+                         Foreground="White"
+                         IsChecked="{Binding IsThatchingChecked}"/>
             
             <RadioButton x:Name="WoodTypeRadioButton"
                          Grid.Column="2"
                          Content="Træ"
                          HorizontalAlignment="Left"
                          VerticalAlignment="Center"
-                         Foreground="White" />
+                         Foreground="White"
+                         IsChecked="{Binding IsWoodChecked}" />
             
             <RadioButton x:Name="VariousTypeRadioButton"
                          Grid.Column="3"
                          Content="Diverse"
                          HorizontalAlignment="Left"
                          VerticalAlignment="Center"
-                         Foreground="White" />
+                         Foreground="White"
+                         IsChecked="{Binding IsVariousChecked}" />
 
             <Label  Grid.Column="0"
                     Content="Type:"
@@ -122,7 +127,7 @@
                      Grid.Column="1"
                      Margin="10,25,500,25"
                      BorderBrush="Black"
-                     Text="0" />
+                     Text="{Binding CreateMaterialStockCount}" />
         </Grid>
 
         <Grid Grid.Row="4">
@@ -142,9 +147,9 @@
             <TextBox x:Name="StorageIDTextBox"
                      Grid.Column="1"
                      Margin="10,25,500,25"
-                     BorderBrush="Black"
-                     Text="1" 
-                     IsEnabled="False"/>
+                     BorderBrush="Black"                     
+                     IsEnabled="False"
+                     Text="{Binding CreateMaterialStorageID}" />
         </Grid>
 
         <Button x:Name="Save_Button"

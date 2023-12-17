@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Nordlangelands_Tækkemand.Model;
 using Nordlangelands_Tækkemand.Interfaces;
+using System.Threading;
 
 namespace Nordlangelands_Tækkemand.Model
 {
@@ -34,7 +35,10 @@ namespace Nordlangelands_Tækkemand.Model
         public WorkplaceRepository()
         {
             _workplaces = new List<Workplace>();
-            InitializeWorkplaces();
+
+            //Seperate thread to initialize workplaces
+            Thread thread = new Thread(InitializeWorkplaces);
+            thread.Start();
         }
 
         public void InitializeWorkplaces()

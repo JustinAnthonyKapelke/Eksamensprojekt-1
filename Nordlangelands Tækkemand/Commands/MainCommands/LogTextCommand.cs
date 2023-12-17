@@ -21,7 +21,7 @@ namespace Nordlangelands_Tækkemand.Commands.MainCommands
         {
             if (parameter is MainViewModel mvm)
             {
-                string logText = mvm.TVM.thatchingRepo.ReadLogTextFromDatabase();
+                string logText = mvm.TVM.ReadLogTextFromDatabase();
                 mvm.LogText = logText;
             }
         }

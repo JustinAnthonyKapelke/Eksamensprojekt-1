@@ -20,7 +20,7 @@
         <ControlTemplate x:Key="TabItemTemplate"
                          TargetType="{x:Type TabItem}">
             <Grid>
-                <Border CornerRadius="500000"
+                <Border CornerRadius="20"
                         Background="{TemplateBinding Background}"
                         BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}">
@@ -161,7 +161,8 @@
 
             <TabControl TabStripPlacement="Left"
                         Margin="10,14,101,0"
-                        BorderBrush="Transparent">
+                        BorderBrush="Transparent"
+                        SelectedIndex="{Binding SelectedTabIndex}">
 
 
                 <TabItem x:Name="HomepageTab"
@@ -219,7 +220,7 @@
                                    RenderTransformOrigin="0.279,-0.031"
                                    Grid.ColumnSpan="1" />
 
-                            <Image Margin="112,0,0,49"
+                            <Image Margin="120,0,0,49"
                                    VerticalAlignment="Bottom"
                                    HorizontalAlignment="Left"
                                    Grid.Column="1"
@@ -230,7 +231,7 @@
                                    Height="16"
                                    Width="13" />
 
-                            <Image Margin="110,0,0,4"
+                            <Image Margin="120,0,0,4"
                                    VerticalAlignment="Bottom"
                                    HorizontalAlignment="Left"
                                    Grid.Column="1"
@@ -252,14 +253,15 @@
 
 
                                 <TextBox x:Name="Username_TextBox"
-                                         Text=""
+                                         Text="{Binding UserName}"
                                          Grid.Row="1"
                                          Grid.Column="1"
                                          Padding="2"
-                                         Margin="0,0,0,20"
+                                         Margin="10,0,0,20"
                                          Background="White"
                                          Foreground="#FF979797"
-                                         BorderBrush="DarkSlateGray">
+                                         BorderBrush="DarkSlateGray"
+                                         >
 
                                     <TextBox.Effect>
                                         <DropShadowEffect />
@@ -267,8 +269,9 @@
                                 </TextBox>
 
                                 <TextBox x:Name="Password_TextBox"
-                                         Text=""
+                                         Text="{Binding UserPassword}"
                                          Padding="2"
+                                         Margin="10,0,0,0"
                                          Background="White"
                                          Foreground="#FF979797"
                                          BorderBrush="DarkSlateGray">
@@ -282,7 +285,7 @@
 
                             <Button Grid.Column="1"
                                     Grid.Row="2"
-                                    Margin="58,36,58,31"
+                                    Margin="110,50,110,110"
                                     Content="Login"
                                     Command="{Binding LoginCMD}"
                                     CommandParameter="{Binding}">
@@ -327,7 +330,9 @@
                          FontWeight="Bold"
                          Margin="-6,0,0,0"
                          RenderTransformOrigin="0.5,0.5"
-                         IsEnabled="False">
+                         IsEnabled="{Binding StorageTabIsEnabled}"
+                         Height="28"
+                         VerticalAlignment="Top">
 
                     <Border Opacity="0.95"
                             Margin="0,-5,0,-5"
@@ -608,7 +613,7 @@
                                 <TextBox x:Name="NewStockCountTextBox"
                                          Grid.Column="1"
                                          MinWidth="30"
-                                         Text="1"
+                                         Text="{Binding NewStockCount}"
                                          HorizontalAlignment="Center"
                                          VerticalAlignment="Bottom"
                                          Padding="15"
@@ -652,6 +657,7 @@
                                              Content="Tække"
                                              Foreground="White"
                                              Grid.Column="0"
+                                             IsChecked="{Binding StorageIsThatchingChecked}"
                                              Command="{Binding FilterMaterialCMD}"
                                              CommandParameter="{Binding}" />
 
@@ -659,6 +665,7 @@
                                              Content="Træ"
                                              Foreground="White"
                                              Grid.Column="1"
+                                             IsChecked="{Binding StorageIsWoodChecked}"
                                              Command="{Binding FilterMaterialCMD}"
                                              CommandParameter="{Binding}" />
 
@@ -666,6 +673,7 @@
                                              Content="Diverse"
                                              Foreground="White"
                                              Grid.Column="2"
+                                             IsChecked="{Binding StorageIsVariousChecked}"
                                              Command="{Binding FilterMaterialCMD}"
                                              CommandParameter="{Binding}" />
 
@@ -673,6 +681,7 @@
                                              Content="Alle materialer"
                                              Foreground="White"
                                              Grid.Column="2"
+                                             IsChecked="{Binding StorageIsAllChecked}"
                                              Command="{Binding FilterMaterialCMD}"
                                              CommandParameter="{Binding}"
                                              Grid.ColumnSpan="2"
@@ -753,7 +762,7 @@
                          FontWeight="Bold"
                          Margin="-6,0,0,0"
                          RenderTransformOrigin="0.5,0.5"
-                         IsEnabled="False">
+                         IsEnabled="{Binding WorkplaceTabIsEnabled}">
 
                     <Border Opacity="0.95"
                             Margin="0,-5,0,-5"

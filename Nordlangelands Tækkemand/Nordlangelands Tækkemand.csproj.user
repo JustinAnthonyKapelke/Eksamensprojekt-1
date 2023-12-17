@@ -18,10 +18,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="Styles\Styles.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="UIColors.xaml">
+    <Page Update="Styles\ColorsUI.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="View\CreateMaterialWindow.xaml">

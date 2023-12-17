@@ -21,6 +21,10 @@ namespace Nordlangelands_Tækkemand.Model
         public int StorageID { get; set; }
 
         //Constructor
+        public VariousMaterial() {}
+
+
+        // Constructor Overload
         public VariousMaterial(int materialID, string materialName, string materialDescription, string materialImagePath, int materialStockCount, string materialType, int storageID)
         {
             MaterialID = materialID;
@@ -32,7 +36,6 @@ namespace Nordlangelands_Tækkemand.Model
             StorageID = storageID;
         }
 
-        // Constructor Overload
         public VariousMaterial(string materialName, string materialDescription, string materialImagePath, int materialStockCount, string materialType, int storageID)
         {
             MaterialName = materialName;
@@ -49,13 +52,9 @@ namespace Nordlangelands_Tækkemand.Model
             MaterialDescription = materialDescription;
             MaterialImagePath = materialImagePath;
             MaterialStockCount = materialStockCount;
-            MaterialTypeID= materialTypeID;
+            MaterialTypeID = materialTypeID;
             StorageID = storageID;
         }
 
-        public VariousMaterial()
-        {
-
-        }
     }
 }

@@ -12,7 +12,9 @@ namespace Nordlangelands_Tækkemand.ViewModel
 {
     public class WoodViewModel : INotifyPropertyChanged, IMaterialViewModel
     {
+        // INotifyPropertyChanged Event
         public event PropertyChangedEventHandler? PropertyChanged;
+        
         // INotifyPropertyChanged Method
         protected virtual void OnPropertyChanged(string propertyName)
         {
@@ -175,17 +177,46 @@ namespace Nordlangelands_Tækkemand.ViewModel
             return new WoodMaterial(materialID, materialName, materialDescription, materialImagePath, materialStockCount, materialType, storageID);
         }
 
+
         //Methods
-        public void CreateMaterial(string materialName, string materialDescription, int materialStockCount, int materialTypeID, int storageID)
+        public void InitializeMaterials()
         {
-            woodRepo.CreateMaterialInDatabase(materialName, materialDescription, materialStockCount, materialTypeID, storageID);
             woodRepo.InitializeMaterials();
         }
 
-        public void DeleteMaterial(int materialID)
+        public WoodMaterial ReadMaterialByIDFromDatabase(int materialID)
         {
-            woodRepo.DeleteMaterialFromDatabase(materialID);
-            woodRepo.InitializeMaterials();
+            return woodRepo.ReadMaterialByIDFromDatabase(materialID);
+        }
+
+        public void UpdateStockCountInDatabase(int materialID, int newMaterialAmount)
+        {
+            woodRepo.UpdateStockCountInDatabase(materialID, newMaterialAmount);
+        }
+
+        public void CreateMaterialInDatabase(string materialName, string materialDescription, int materialStockCount, int materialTypeID, int storageID)
+        {
+            woodRepo.CreateMaterialInDatabase(materialName, materialDescription, materialStockCount, materialTypeID, storageID);
+        }
+
+        public WoodMaterial ReadLastAddedMaterialFromDatabase()
+        {
+            return woodRepo.ReadLastAddedMaterialFromDatabase();
+        }
+
+        public void DeleteMaterialFromDatabaseByID(int materialID)
+        {
+            woodRepo.DeleteMaterialFromDatabaseByID(materialID);
+        }
+
+        public void UpdateMaterialInDatabase(int materialID, string materialName, string materialDescription, int materialTypeID, int materialStockCount, int storageID)
+        {
+            woodRepo.UpdateMaterialInDatabase(materialID, materialName, materialDescription, materialTypeID, materialStockCount, storageID);
+        }
+
+        public void ClearMaterialsInRepo()
+        {
+            woodRepo.ClearMaterialsInRepo();
         }
     }
 }

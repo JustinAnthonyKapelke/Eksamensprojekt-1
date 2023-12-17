@@ -23,54 +23,24 @@ namespace Nordlangelands_Tækkemand
     /// </summary>
     public partial class MainWindow : Window
     {
-        MainViewModel mvm;
-        public CreateMaterialWindow CreateMaterialWindow;
-        public UpdateMaterialWindow UpdateMaterialWindow;
-        public WorkplaceWindow WorkplaceWindow;
+        MainViewModel mvm = new MainViewModel();
+
 
         public MainWindow()
-        {
-            //Instansier MainVievModel med den aktuelle instans af MainWindow
-            mvm = new MainViewModel(this);
+        {          
             InitializeComponent();
-            // Indstil DataContext for MainWindow til MainViewModel
-            DataContext = mvm;
-            CreateMaterialWindow = new CreateMaterialWindow(mvm);
-            UpdateMaterialWindow = new UpdateMaterialWindow(mvm);
-            WorkplaceWindow = new WorkplaceWindow(mvm);
+            // Set DataContext for MainWindow to MainViewModel mvm
+            DataContext = mvm;  
             mvm.LogTextCMD.Execute(mvm);
         }
 
+        //Execute the command everytime the text is changed
         private void SearchMaterialTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             mvm.SearchMaterialCMD.Execute(mvm);
         }
-
-        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            var textBox = sender as TextBox;
-            if (textBox != null && textBox.Text == "Søg materiale")
-            {
-                textBox.Text = string.Empty;
-            }
-        }
-
-        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
-        {
-            var textBox = sender as TextBox;
-            if (textBox != null && string.IsNullOrWhiteSpace(textBox.Text))
-            {
-                textBox.Text = "Søg materiale";
-            }
-        }
-
-        private void Stonna(object sender, MouseButtonEventArgs e)
-        {
-
-        }
-
-
-        //Luk programmet
+   
+        //Close the program
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();

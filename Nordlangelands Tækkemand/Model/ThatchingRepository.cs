@@ -14,6 +14,7 @@ namespace Nordlangelands_Tækkemand.Model
     //The class inherits the BaseRepository class
     public class ThatchingRepository : BaseRepository<ThatchingMaterial>
     {
+   
         //Overwrite RepoQuery Inherited From BaseRepository
 
         //Huske rigtig navnestonna
@@ -33,13 +34,11 @@ namespace Nordlangelands_Tækkemand.Model
         //Constructor
         public ThatchingRepository(CreateDelegate<ThatchingMaterial> createDelegate) : base(createDelegate)
         {
-            
         }
 
         //Constructor Overload
         public ThatchingRepository(CreateDelegate<ThatchingMaterial> createDelegate, InitializeCreateDelegate<ThatchingMaterial> initializeCreateDelegate) : base(createDelegate, initializeCreateDelegate)
         {
-           
         }
     }
 }

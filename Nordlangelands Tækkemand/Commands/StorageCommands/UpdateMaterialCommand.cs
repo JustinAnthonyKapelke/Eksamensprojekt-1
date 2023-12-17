@@ -32,12 +32,11 @@ namespace Nordlangelands_Tækkemand.Commands.StorageCommands
                 string materialDescription = mvm.SelectedMaterial.MaterialDescription;
                 int storageID = mvm.SelectedMaterial.StorageID;
                 int materialStockCount = mvm.SelectedMaterial.MaterialStockCount;
-                bool? thatchingIsChecked = mvm.MainWindowInstance.UpdateMaterialWindow.ThatchingTypeRadioButton.IsChecked;
-                bool? woodIsChecked = mvm.MainWindowInstance.UpdateMaterialWindow.WoodTypeRadioButton.IsChecked;
-                bool? variousIsChecked = mvm.MainWindowInstance.UpdateMaterialWindow.VariousTypeRadioButton.IsChecked;
+                bool thatchingIsChecked = mvm.UpdateIsThatchingChecked;
+                bool woodIsChecked = mvm.UpdateIsWoodChecked;
+                bool variousIsChecked = mvm.UpdateIsVariousChecked;
                 string materialType = mvm.SelectedMaterial.MaterialType;
 
-                object _lock = new object();
 
                 if (string.IsNullOrWhiteSpace(materialName))
                 {
@@ -45,46 +44,29 @@ namespace Nordlangelands_Tækkemand.Commands.StorageCommands
                     return; // Exit the method if the stock count is not a number
                 }
 
+                //Thatching
                 if (thatchingIsChecked == true)
                 {
-
                     int materialTypeID = 1;
-
-
                     var woodMaterialToRemove = mvm.WoodVM.FirstOrDefault(m => m.MaterialID == materialID);
                     if (woodMaterialToRemove != null)
                     {
-
                         mvm.WoodVM.Remove(woodMaterialToRemove);
-
                     }
-
                     var variousMaterialToRemove = mvm.VariousVM.FirstOrDefault(m => m.MaterialID == materialID);
                     if (variousMaterialToRemove != null)
                     {
-
                         mvm.VariousVM.Remove(variousMaterialToRemove);
-
                     }
-
-
-                    mvm.TVM.thatchingRepo.UpdateMaterialInDatabase(materialID, materialName, materialDescription, materialTypeID, materialStockCount, storageID);
-                    mvm.TVM.thatchingRepo.ClearMaterialsInRepo();
-
-
+                    mvm.TVM.UpdateMaterialInDatabase(materialID, materialName, materialDescription, materialTypeID, materialStockCount, storageID);
+                    mvm.TVM.ClearMaterialsInRepo();
                     mvm.ThatchingVM.Clear();
-
-                    mvm.TVM.thatchingRepo.InitializeMaterials();
-
-
-                    mvm.InitializeThatchingVM();
-                    mvm.MainWindowInstance.UpdateMaterialWindow.Close();
-
-
+                    mvm.TVM.InitializeMaterials();
+                    mvm.InitializeThatchingVM();                   
                 }
 
-                //Woodthread
-
+             
+                //Wood
                 if (woodIsChecked == true)
                 {
                     int materialTypeID = 2;
@@ -101,18 +83,11 @@ namespace Nordlangelands_Tækkemand.Commands.StorageCommands
                         mvm.VariousVM.Remove(variousMaterialToRemove);
                     }
 
-                    mvm.WDVM.woodRepo.UpdateMaterialInDatabase(materialID, materialName, materialDescription, materialTypeID, materialStockCount, storageID);
-                    mvm.WDVM.woodRepo.ClearMaterialsInRepo();
-
-
+                    mvm.WDVM.UpdateMaterialInDatabase(materialID, materialName, materialDescription, materialTypeID, materialStockCount, storageID);
+                    mvm.WDVM.ClearMaterialsInRepo();
                     mvm.WoodVM.Clear();
-
-                    mvm.WDVM.woodRepo.InitializeMaterials();
-
-
-                    mvm.InitializeWoodVM();
-                    mvm.MainWindowInstance.UpdateMaterialWindow.Close();
-
+                    mvm.WDVM.InitializeMaterials();
+                    mvm.InitializeWoodVM();   
                 }
 
 
@@ -120,7 +95,7 @@ namespace Nordlangelands_Tækkemand.Commands.StorageCommands
 
 
 
-                //Variousthread
+                //Various
 
                 if (variousIsChecked == true)
                 {
@@ -137,19 +112,11 @@ namespace Nordlangelands_Tækkemand.Commands.StorageCommands
                     }
 
                     int materialTypeID = 3;
-                    mvm.VVM.variousRepo.UpdateMaterialInDatabase(materialID, materialName, materialDescription, materialTypeID, materialStockCount, storageID);
-                    mvm.VVM.variousRepo.ClearMaterialsInRepo();
-
-
+                    mvm.VVM.UpdateMaterialInDatabase(materialID, materialName, materialDescription, materialTypeID, materialStockCount, storageID);
+                    mvm.VVM.ClearMaterialsInRepo();
                     mvm.VariousVM.Clear();
-
-
-                    mvm.VVM.variousRepo.InitializeMaterials();
-
-
-                    mvm.InitializeVariousVM();
-                    mvm.MainWindowInstance.UpdateMaterialWindow.Close();
-
+                    mvm.VVM.InitializeMaterials();
+                    mvm.InitializeVariousVM();    
                 }
 
 

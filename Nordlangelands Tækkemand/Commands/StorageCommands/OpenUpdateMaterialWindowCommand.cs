@@ -1,4 +1,5 @@
-﻿using Nordlangelands_Tækkemand.ViewModel;
+﻿using Nordlangelands_Tækkemand.View;
+using Nordlangelands_Tækkemand.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,29 +26,24 @@ namespace Nordlangelands_Tækkemand.Commands.StorageCommands
         {
             if (parameter is MainViewModel mvm)
             {
-                mvm.MainWindowInstance.UpdateMaterialWindow.Show();
+                UpdateMaterialWindow updateMaterialWindow = new(mvm);
+                updateMaterialWindow.Show();
 
 
                 //Update radiobuttons based on the selected material
                 if (mvm.SelectedMaterial != null)
                 {
                     var SelectedMaterialType = mvm.SelectedMaterial.MaterialType;
-
-
-                    // Update the ViewModel property instead of directly setting the RadioButton
-                    //if (SelectedMaterialType == "Tække")
-                    //    mvm.MainWindowInstance.UpdateMaterialWindow.ThatchingTypeRadioButton.IsChecked = true;
-
                     switch (SelectedMaterialType)
                     {
                         case "Tække":
-                            mvm.MainWindowInstance.UpdateMaterialWindow.ThatchingTypeRadioButton.IsChecked = true;
+                            mvm.UpdateIsThatchingChecked = true;
                             break;
                         case "Træ":
-                            mvm.MainWindowInstance.UpdateMaterialWindow.WoodTypeRadioButton.IsChecked = true;
+                            mvm.UpdateIsWoodChecked= true;
                             break;
                         case "Diverse":
-                            mvm.MainWindowInstance.UpdateMaterialWindow.VariousTypeRadioButton.IsChecked = true;
+                            mvm.UpdateIsVariousChecked = true;
                             break;
                     }
                 }

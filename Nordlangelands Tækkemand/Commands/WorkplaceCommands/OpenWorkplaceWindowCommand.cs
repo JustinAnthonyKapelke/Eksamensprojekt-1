@@ -24,30 +24,19 @@ namespace Nordlangelands_Tækkemand.Commands.WorkplaceCommands
         {
             if (parameter is MainViewModel mvm)
             {
-                Thread databaseInteraction = new Thread(() =>
+                WorkplaceWindow workplaceWindow = new(mvm);
+                workplaceWindow.Show();
+
+                //Update workplace materials based on the selected workplace
+                if (mvm.SelectedWorkplace != null)
                 {
                     // Clear existing materials in repo and observablecollection
-                    mvm.WKMVM.WorkplaceMaterialRepo.ClearMaterialsInRepo();
-
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        mvm.WorkplaceMaterialsVM.Clear();
-                        mvm.MainWindowInstance.WorkplaceWindow.Show();
-                    }
-                    );
-
-
+                    mvm.WKMVM.ClearMaterialsInRepo();
+                    mvm.WorkplaceMaterialsVM.Clear();
                     int selectedWorkplaceID = mvm.SelectedWorkplace.WorkplaceID;
-                    mvm.WKMVM.WorkplaceMaterialRepo.InitializeWorkplaceMaterials(selectedWorkplaceID);
-
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        mvm.InitializeWorkplaceMaterialsVM();
-                    }
-                    );
+                    mvm.WKMVM.InitializeWorkplaceMaterialsByWorkplaceID(selectedWorkplaceID);                 
+                    mvm.InitializeWorkplaceMaterialsVM();
                 }
-                );
-                databaseInteraction.Start();
             }
         }
     }

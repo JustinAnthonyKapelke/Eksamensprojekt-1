@@ -83,5 +83,16 @@ namespace Nordlangelands_Tækkemand.ViewModel
             WorkplaceID = workplaceMaterial.WorkplaceID;
             WorkplaceMaterialRepo = new WorkplaceMaterialsRepository();
         }
+
+        //Methods
+        public void InitializeWorkplaceMaterialsByWorkplaceID(int workplaceID)
+        {
+            WorkplaceMaterialRepo.InitializeWorkplaceMaterialsByWorkplaceID(workplaceID);
+        }
+
+        public void ClearMaterialsInRepo()
+        {
+            WorkplaceMaterialRepo.ClearMaterialsInRepo();
+        }
     }
 }

@@ -14,28 +14,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace Nordlangelands_Tækkemand
-{
-    /// <summary>
-    /// Interaction logic for WorkplaceWindow.xaml
-    /// </summary>
+{   
     public partial class WorkplaceWindow : Window
     {
    
         public WorkplaceWindow(MainViewModel mvm)
         {
             InitializeComponent();            
-            DataContext = mvm;
-            this.Closing += WorkplaceWindow_Closing;
-        }
-
-        private void WorkplaceWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-
-            // Cancel the closing of the window
-            e.Cancel = true;
-
-            // Hide the window
-            this.Hide();
+            DataContext = mvm;            
         }
     }
 }

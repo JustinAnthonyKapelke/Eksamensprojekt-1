@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Nordlangelands_Tækkemand.Commands.MainCommands
@@ -21,7 +22,7 @@ namespace Nordlangelands_Tækkemand.Commands.MainCommands
         {
             if (parameter is MainViewModel mvm)
             {
-                if (string.IsNullOrWhiteSpace(mvm.MainWindowInstance.Username_TextBox.Text) || string.IsNullOrWhiteSpace(mvm.MainWindowInstance.Password_TextBox.Text))
+                if (string.IsNullOrWhiteSpace(mvm.UserName) || string.IsNullOrWhiteSpace(mvm.UserPassword))
                     return false;
             }
             return true;
@@ -31,23 +32,26 @@ namespace Nordlangelands_Tækkemand.Commands.MainCommands
         {
             if (parameter is MainViewModel mvm)
             {
-                var usernameInput = mvm.MainWindowInstance.Username_TextBox.Text;
-                var passwordInput = mvm.MainWindowInstance.Password_TextBox.Text;
+                var usernameInput = mvm.UserName;
+                var passwordInput = mvm.UserPassword;
 
-                User user = mvm.UVM.UserRepo.GetAllUsers().FirstOrDefault(u => u.UserName == usernameInput);
-
-
-                if (user != null)
+                UserViewModel userViewModel = mvm.UserVM.FirstOrDefault(u => u.UserName == usernameInput);
+                if (userViewModel != null)
                 {
                     // Sammenlign det indtastede kodeord med det gemte kodeord
-                    if (passwordInput == user.UserPassword)
+                    if (passwordInput == userViewModel.UserPassword)
                     {
-                        mvm.MainWindowInstance.StorageTab.IsEnabled = true;
-                        mvm.MainWindowInstance.WorkplaceTab.IsEnabled = true;
-                        mvm.MainWindowInstance.StorageTab.Focus();
+                        mvm.StorageTabIsEnabled = true;
+                        mvm.WorkplaceTabIsEnabled = true;
+                        // Set focus to StorageTab
+                        mvm.SelectedTabIndex = 1;
                     }
                 }
-
+                else
+                {
+                    // Incorrect input
+                    MessageBox.Show("Ugyldigt brugernavn eller adgangskode");
+                }
             }
         }
 

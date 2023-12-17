@@ -464,8 +464,7 @@ C:\Users\Justin\Desktop\Eksamensprojekt 13-12-2023 NY\Nordlangelands Tækkemand\
 C:\Users\Justin\Desktop\Eksamensprojekt 13-12-2023 NY\Nordlangelands Tækkemand\obj\Debug\net7.0-windows\App.baml
 C:\Users\Justin\Desktop\Eksamensprojekt 13-12-2023 NY\Nordlangelands Tækkemand\obj\Debug\net7.0-windows\View\WorkplaceWindow.g.cs
 C:\Users\Justin\Desktop\Eksamensprojekt 13-12-2023 NY\Nordlangelands Tækkemand\obj\Debug\net7.0-windows\View\WorkplaceWindow.baml
-C:\Users\Justin\Datamatiker\Programmering\Kode\Nordlangelands Tækkemand\Nordlangelands Tækkemand\obj\Debug\net7.0-windows\Styles\Styles.baml
-C:\Users\Justin\Datamatiker\Programmering\Kode\Nordlangelands Tækkemand\Nordlangelands Tækkemand\obj\Debug\net7.0-windows\UIColors.baml
 C:\Users\Justin\Datamatiker\Programmering\Kode\Nordlangelands Tækkemand\Nordlangelands Tækkemand\obj\Debug\net7.0-windows\View\WorkplaceWindow.g.cs
 C:\Users\Justin\Datamatiker\Programmering\Kode\Nordlangelands Tækkemand\Nordlangelands Tækkemand\obj\Debug\net7.0-windows\App.baml
 C:\Users\Justin\Datamatiker\Programmering\Kode\Nordlangelands Tækkemand\Nordlangelands Tækkemand\obj\Debug\net7.0-windows\View\WorkplaceWindow.baml
+C:\Users\Justin\Datamatiker\Programmering\Kode\Nordlangelands Tækkemand\Nordlangelands Tækkemand\obj\Debug\net7.0-windows\Styles\ColorsUI.baml

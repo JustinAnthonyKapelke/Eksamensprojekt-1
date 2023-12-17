@@ -18,6 +18,9 @@ namespace Nordlangelands_Tækkemand.Model
 
 
         //Constructor
+        public Workplace() {}
+
+        //Constructor Overload
         public Workplace(int workplaceID, string workplaceName, string workplaceAddress, string workplaceImagePath, int storageID)
         {
             WorkplaceID = workplaceID;
@@ -27,18 +30,12 @@ namespace Nordlangelands_Tækkemand.Model
             StorageID = storageID;
         }
 
-        //Constructor Overload
         public Workplace(string workplaceName, string workplaceAddress, string workplaceImagePath, int storageID)
         {
             WorkplaceName = workplaceName;
             WorkplaceAddress = workplaceAddress;
             WorkplaceImagePath = workplaceImagePath;
             StorageID = storageID;
-
-        }
-
-        public Workplace()
-        {
 
         }
     }

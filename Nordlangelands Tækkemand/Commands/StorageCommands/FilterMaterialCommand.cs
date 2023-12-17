@@ -27,10 +27,10 @@ namespace Nordlangelands_Tækkemand.Commands.StorageCommands
         {
             if (parameter is MainViewModel mvm)
             {
-                bool? isAllChecked = mvm.MainWindowInstance.AllMaterials_RadioButton.IsChecked;
-                bool? isThatchingChecked = mvm.MainWindowInstance.Thatching_RadioButton.IsChecked;
-                bool? isWoodChecked = mvm.MainWindowInstance.Wood_RadioButton.IsChecked;
-                bool? isVariousChecked = mvm.MainWindowInstance.Various_RadioButton.IsChecked;
+                bool isAllChecked = mvm.StorageIsAllChecked;
+                bool isThatchingChecked = mvm.StorageIsThatchingChecked;
+                bool isWoodChecked = mvm.StorageIsWoodChecked;
+                bool isVariousChecked = mvm.StorageIsVariousChecked;
 
                 if (isAllChecked == true)
                 {

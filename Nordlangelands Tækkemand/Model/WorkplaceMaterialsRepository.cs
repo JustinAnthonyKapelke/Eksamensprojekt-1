@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Nordlangelands_Tækkemand.Model
@@ -20,7 +21,7 @@ namespace Nordlangelands_Tækkemand.Model
         //Constructor
         public WorkplaceMaterialsRepository() 
         {
-            _workplaceMaterials = new List<WorkplaceMaterial>();
+            _workplaceMaterials = new List<WorkplaceMaterial>();        
         }
 
 
@@ -32,7 +33,7 @@ namespace Nordlangelands_Tækkemand.Model
 
 
         //Initialize WorkplaceMaterials From Database (gør create material in repository overflødig)
-        public void InitializeWorkplaceMaterials(int workplaceID)
+        public void InitializeWorkplaceMaterialsByWorkplaceID(int workplaceID)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {

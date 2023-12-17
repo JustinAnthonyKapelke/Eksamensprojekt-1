@@ -81,7 +81,7 @@
                          HorizontalAlignment="Left"
                          VerticalAlignment="Center"
                          Foreground="White"
-                         IsChecked="false" />
+                         IsChecked="{Binding UpdateIsThatchingChecked}" />
 
             <RadioButton x:Name="WoodTypeRadioButton"
                          Grid.Column="2"
@@ -89,7 +89,7 @@
                          HorizontalAlignment="Left"
                          VerticalAlignment="Center"
                          Foreground="White"
-                         IsChecked="false" />
+                         IsChecked="{Binding UpdateIsWoodChecked}" />
 
             <RadioButton x:Name="VariousTypeRadioButton"
                          Grid.Column="3"
@@ -97,7 +97,7 @@
                          HorizontalAlignment="Left"
                          VerticalAlignment="Center"
                          Foreground="White"
-                         IsChecked="false" />
+                         IsChecked="{Binding UpdateIsVariousChecked}" />
 
             <Label  Grid.Column="0"
                     Content="Type:"
