@@ -26,9 +26,6 @@ namespace Nordlangelands_Tækkemand.View
             InitializeComponent();
             DataContext = mvm;
         }
-
-        
-       
     }
 }
     

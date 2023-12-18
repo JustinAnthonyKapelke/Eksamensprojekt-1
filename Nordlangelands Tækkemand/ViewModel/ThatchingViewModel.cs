@@ -145,6 +145,12 @@ namespace Nordlangelands_Tækkemand.ViewModel
         }
 
         //Constructor
+        public ThatchingViewModel()
+        {
+            thatchingRepo = new ThatchingRepository(CreateDelegate, InitializeDelegate);
+        }
+
+        //Constructor overload
         public ThatchingViewModel(ThatchingMaterial material)
         {
             // Initialize properties using the ThatchingMaterial object
@@ -158,13 +164,7 @@ namespace Nordlangelands_Tækkemand.ViewModel
             StorageID = material.StorageID;
 
             thatchingRepo = new ThatchingRepository(CreateDelegate, InitializeDelegate);
-        }
-
-        //Constructor Overload
-        public ThatchingViewModel()
-        {         
-            thatchingRepo = new ThatchingRepository(CreateDelegate, InitializeDelegate);
-        }
+        }        
 
         //Delegates 
         public ThatchingMaterial CreateDelegate(string materialName, string materialDescription, string materialImagePath, int materialStockCount, int materialTypeID, int storageID)
@@ -177,8 +177,8 @@ namespace Nordlangelands_Tækkemand.ViewModel
             return new ThatchingMaterial(materialID, materialName, materialDescription, materialImagePath, materialStockCount, materialType, storageID);
         }
 
-        //Methods
 
+        //Methods
         public void InitializeMaterials()
         {
             thatchingRepo.InitializeMaterials();
@@ -219,9 +219,8 @@ namespace Nordlangelands_Tækkemand.ViewModel
         }
 
         public void ClearMaterialsInRepo()
-        { 
+        {
             thatchingRepo.ClearMaterialsInRepo();
-        }
-
+        }    
     }
 }

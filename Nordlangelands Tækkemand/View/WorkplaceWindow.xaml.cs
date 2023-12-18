@@ -16,8 +16,7 @@ using System.Windows.Shapes;
 namespace Nordlangelands_Tækkemand
 {   
     public partial class WorkplaceWindow : Window
-    {
-   
+    {   
         public WorkplaceWindow(MainViewModel mvm)
         {
             InitializeComponent();            

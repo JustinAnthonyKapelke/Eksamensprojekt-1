@@ -37,7 +37,6 @@ namespace Nordlangelands_Tækkemand.Commands.StorageCommands
                 bool variousIsChecked = mvm.UpdateIsVariousChecked;
                 string materialType = mvm.SelectedMaterial.MaterialType;
 
-
                 if (string.IsNullOrWhiteSpace(materialName))
                 {
                     MessageBox.Show("Indtast et gyldigt navn");
@@ -62,7 +61,7 @@ namespace Nordlangelands_Tækkemand.Commands.StorageCommands
                     mvm.TVM.ClearMaterialsInRepo();
                     mvm.ThatchingVM.Clear();
                     mvm.TVM.InitializeMaterials();
-                    mvm.InitializeThatchingVM();                   
+                    mvm.InitializeThatchingVM();
                 }
 
              

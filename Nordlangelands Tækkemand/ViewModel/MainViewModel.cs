@@ -44,60 +44,56 @@ namespace Nordlangelands_Tækkemand.ViewModel
         public ICommand WorkplaceAddStockCountCMD { get; set; } = new WorkplaceAddStockCountCommand();
         public ICommand LoginCMD { get; set; } = new LoginCommand();
 
-        //Fields
-  
+
+        //Fields  
         private string _searchText;
         private string _logText;
         private object _currentVM;
         private IMaterialViewModel _selectedMaterial;
         private WorkplaceViewModel _selectedWorkplace;
         private string _selectedMaterialType;
-        private MainWindow _mainWindowInstance;
         private WorkplaceMaterialViewModel _workplaceSelectedMaterial;
         private string _userName;
         private string _userPassword;
         private int _newStockCount;
-
-
-
-        //Constructor
-        public MainViewModel()
-        {
-           //Instantiate ObservableCollections        
-            ThatchingVM = new ObservableCollection<ThatchingViewModel>();
-            VariousVM = new ObservableCollection<VariousViewModel>();
-            WoodVM = new ObservableCollection<WoodViewModel>();
-            WorkplaceVM = new ObservableCollection<WorkplaceViewModel>();
-            AllMaterialsVM = new ObservableCollection<IMaterialViewModel>();
-            WorkplaceMaterialsVM = new ObservableCollection<WorkplaceMaterialViewModel>();
-            UserVM = new ObservableCollection<UserViewModel>();
-
-            //Instantiate ViewModels
-            TVM = new ThatchingViewModel(new ThatchingMaterial());
-            VVM = new VariousViewModel(new VariousMaterial());
-            WDVM = new WoodViewModel(new WoodMaterial());
-            WKVM = new WorkplaceViewModel(new Workplace());
-            WKMVM = new WorkplaceMaterialViewModel(new WorkplaceMaterial());
-            UVM = new UserViewModel(new User());
-
-            //Initialize ViewModels
-            ThatchingVM.Clear();
-            InitializeThatchingVM();
-            VariousVM.Clear();
-            InitializeVariousVM();
-            WoodVM.Clear();
-            InitializeWoodVM();
-            AllMaterialsVM.Clear();
-            InitializeAllMaterialsVM();          
-            InitializeWorkplaceVM();
-            InitializeUserVM();
-
-            //Set the default value of new stock count
-            _newStockCount = 1;
-        }
-
-        //MainWindow
+        private bool _workplaceTabIsEnabled;
         private bool _storageTabIsEnabled;
+        private int _selectedTabIndex;
+        private bool _storageIsThatchingChecked;
+        private bool _storageIsWoodChecked;
+        private bool _storageIsVariousChecked;
+        private bool _storageIsAllChecked;
+        private string _createMaterialName;
+        private string _createMaterialDescription;
+        private string _createMaterialStockCount;
+        private int _createMaterialStorageID;
+        private bool _isThatchingChecked;
+        private bool _isWoodChecked;
+        private bool _isVariousChecked;
+        private bool _updateIsVariousChecked;
+        private bool _updateIsWoodChecked;
+        private bool _updateIsThatchingChecked;
+
+        //ObservableCollection Fields
+        private ObservableCollection<ThatchingViewModel> _thatchingVM;
+        private ObservableCollection<VariousViewModel> _variousVM;
+        private ObservableCollection<WoodViewModel> _woodVM;
+        private ObservableCollection<WorkplaceViewModel> _workplaceVM;
+        private ObservableCollection<IMaterialViewModel> _allMaterialsVM;
+        private ObservableCollection<WorkplaceMaterialViewModel> _workplaceMaterialsVM;
+        private ObservableCollection<UserViewModel> _userVM;
+
+
+        //ViewModel Properties
+        public ThatchingViewModel TVM { get; set; }
+        public VariousViewModel VVM { get; set; }
+        public WoodViewModel WDVM { get; set; }
+        public WorkplaceViewModel WKVM { get; set; }
+        public WorkplaceMaterialViewModel WKMVM { get; set; }
+        public UserViewModel UVM { get; set; }
+
+
+        //Properties
         public bool StorageTabIsEnabled
         {
             get { return _storageTabIsEnabled; }
@@ -106,13 +102,12 @@ namespace Nordlangelands_Tækkemand.ViewModel
                 if (_storageTabIsEnabled != value)
                 {
                     _storageTabIsEnabled = value;
-                    OnPropertyChanged(nameof(StorageTabIsEnabled)); // Implement INotifyPropertyChanged
+                    OnPropertyChanged(nameof(StorageTabIsEnabled)); 
                 }
             }
         }
 
-        private bool _workplaceTabIsEnabled;
-        public bool WorkplaceTabIsEnabled
+       public bool WorkplaceTabIsEnabled
         {
             get { return _workplaceTabIsEnabled; }
             set
@@ -120,20 +115,19 @@ namespace Nordlangelands_Tækkemand.ViewModel
                 if (_workplaceTabIsEnabled != value)
                 {
                     _workplaceTabIsEnabled = value;
-                    OnPropertyChanged(nameof(WorkplaceTabIsEnabled)); // Implement INotifyPropertyChanged
+                    OnPropertyChanged(nameof(WorkplaceTabIsEnabled));
                 }
             }
         }
 
        //Selected tab index
-        private int _selectedTabIndex;
         public int SelectedTabIndex
         {
             get { return _selectedTabIndex; }
             set
             {
                 _selectedTabIndex = value;
-                OnPropertyChanged(nameof(SelectedTabIndex)); // Assuming INotifyPropertyChanged implementation
+                OnPropertyChanged(nameof(SelectedTabIndex));
             }
         }
 
@@ -146,7 +140,7 @@ namespace Nordlangelands_Tækkemand.ViewModel
                 if (_logText != value)
                 {
                     _logText = value;
-                    OnPropertyChanged(nameof(LogText)); // Implement INotifyPropertyChanged
+                    OnPropertyChanged(nameof(LogText)); 
                 }
             }
         }      
@@ -160,7 +154,7 @@ namespace Nordlangelands_Tækkemand.ViewModel
                 if (_searchText != value)
                 {
                     _searchText = value;
-                    OnPropertyChanged(nameof(SearchText)); // Implement INotifyPropertyChanged
+                    OnPropertyChanged(nameof(SearchText)); 
 
                 }
             }
@@ -282,7 +276,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
         }       
 
         //Stock Tab properties
-        private bool _storageIsThatchingChecked;
         public bool StorageIsThatchingChecked
         {
             get { return _storageIsThatchingChecked; }
@@ -296,7 +289,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
        
-        private bool _storageIsWoodChecked;
         public bool StorageIsWoodChecked
         {
             get { return _storageIsWoodChecked; }
@@ -310,22 +302,19 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-
-        private bool _storageIsvariousChecked;
         public bool StorageIsVariousChecked
         {
-            get { return _storageIsvariousChecked; }
+            get { return _storageIsVariousChecked; }
             set
             {
-                if (_storageIsvariousChecked != value)
+                if (_storageIsVariousChecked != value)
                 {
-                    _storageIsvariousChecked = value;
+                    _storageIsVariousChecked = value;
                     OnPropertyChanged(nameof(StorageIsVariousChecked));
                 }
             }
         }
 
-        private bool _storageIsAllChecked;
         public bool StorageIsAllChecked
         {
             get { return _storageIsAllChecked; }
@@ -339,11 +328,8 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-
         //Create material window properties            
-
-
-        private string _createMaterialName;
+        
         public string CreateMaterialName
         {
             get { return _createMaterialName; }
@@ -352,12 +338,12 @@ namespace Nordlangelands_Tækkemand.ViewModel
                 if (_createMaterialName != value)
                 {
                     _createMaterialName = value;
-                    OnPropertyChanged(nameof(_mainWindowInstance));
+                    OnPropertyChanged(nameof(CreateMaterialName));
                 }
             }
         }
 
-        private string _createMaterialDescription;
+
         public string CreateMaterialDescription
         {
             get { return _createMaterialDescription; }
@@ -371,8 +357,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-
-        private string _createMaterialStockCount;
         public string CreateMaterialStockCount
         {
             get { return _createMaterialStockCount; }
@@ -386,7 +370,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        private int _createMaterialStorageID;
         public int CreateMaterialStorageID
         {
             get { return _createMaterialStorageID; }
@@ -400,7 +383,7 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        private bool _isThatchingChecked;
+
         public bool IsThatchingChecked
         {
             get { return _isThatchingChecked; }
@@ -414,7 +397,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        private bool _isWoodChecked;
         public bool IsWoodChecked
         {
             get { return _isWoodChecked; }
@@ -428,23 +410,20 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-
-        private bool _isvariousChecked;
         public bool IsVariousChecked
         {
-            get { return _isvariousChecked; }
+            get { return _isVariousChecked; }
             set
             {
-                if (_isvariousChecked != value)
+                if (_isVariousChecked != value)
                 {
-                    _isvariousChecked = value;
+                    _isVariousChecked = value;
                     OnPropertyChanged(nameof(IsVariousChecked));
                 }
             }
         }
 
         //Update material window properties
-        private bool _updateIsThatchingChecked;
         public bool UpdateIsThatchingChecked
         {
             get { return _updateIsThatchingChecked; }
@@ -458,7 +437,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        private bool _updateIsWoodChecked;
         public bool UpdateIsWoodChecked
         {
             get { return _updateIsWoodChecked; }
@@ -472,7 +450,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
-        private bool _updateIsVariousChecked;
         public bool UpdateIsVariousChecked
         {
             get { return _updateIsVariousChecked; }
@@ -485,26 +462,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
                 }
             }
         }
-
-
-
-        //ViewModel Properties
-        public ThatchingViewModel TVM { get; set; }
-        public VariousViewModel VVM { get; set; }
-        public WoodViewModel WDVM { get; set; }
-        public WorkplaceViewModel WKVM { get; set; }
-        public WorkplaceMaterialViewModel WKMVM { get; set; }
-        public UserViewModel UVM { get; set; }
-
-
-        //ObservableCollection Fields
-        private ObservableCollection<ThatchingViewModel> _thatchingVM;
-        private ObservableCollection<VariousViewModel> _variousVM;
-        private ObservableCollection<WoodViewModel> _woodVM;
-        private ObservableCollection<WorkplaceViewModel> _workplaceVM;
-        private ObservableCollection<IMaterialViewModel> _allMaterialsVM;
-        private ObservableCollection<WorkplaceMaterialViewModel> _workplaceMaterialsVM;
-        private ObservableCollection<UserViewModel> _userVM;
 
         //Observable Collection Properties       
         public ObservableCollection<ThatchingViewModel> ThatchingVM
@@ -577,6 +534,41 @@ namespace Nordlangelands_Tækkemand.ViewModel
             }
         }
 
+        //Constructor
+        public MainViewModel()
+        {
+            //Instantiate ObservableCollections        
+            ThatchingVM = new ObservableCollection<ThatchingViewModel>();
+            VariousVM = new ObservableCollection<VariousViewModel>();
+            WoodVM = new ObservableCollection<WoodViewModel>();
+            WorkplaceVM = new ObservableCollection<WorkplaceViewModel>();
+            AllMaterialsVM = new ObservableCollection<IMaterialViewModel>();
+            WorkplaceMaterialsVM = new ObservableCollection<WorkplaceMaterialViewModel>();
+            UserVM = new ObservableCollection<UserViewModel>();
+
+            //Instantiate ViewModels
+            TVM = new ThatchingViewModel(new ThatchingMaterial());
+            VVM = new VariousViewModel(new VariousMaterial());
+            WDVM = new WoodViewModel(new WoodMaterial());
+            WKVM = new WorkplaceViewModel(new Workplace());
+            WKMVM = new WorkplaceMaterialViewModel(new WorkplaceMaterial());
+            UVM = new UserViewModel(new User());
+
+            //Initialize ViewModels
+            ThatchingVM.Clear();
+            InitializeThatchingVM();
+            VariousVM.Clear();
+            InitializeVariousVM();
+            WoodVM.Clear();
+            InitializeWoodVM();
+            AllMaterialsVM.Clear();
+            InitializeAllMaterialsVM();
+            InitializeWorkplaceVM();
+            InitializeUserVM();
+
+            //Set the default value of new stock count
+            _newStockCount = 1;
+        }
 
         //Methods
         public void InitializeThatchingVM()
