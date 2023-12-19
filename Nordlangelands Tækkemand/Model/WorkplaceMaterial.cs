@@ -16,7 +16,6 @@ namespace Nordlangelands_Tækkemand.Model
         public int StorageID { get; private set; }
         public int WorkplaceID { get; private set; }
 
-
         //Constructor
         public WorkplaceMaterial() {}
 

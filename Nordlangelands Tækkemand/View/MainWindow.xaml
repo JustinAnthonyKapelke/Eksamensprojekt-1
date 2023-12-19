@@ -9,7 +9,7 @@
         Title="Nordlangelands Tækkemand"
         Height="800"
         Width="1500"
-        Icon="/Images/Logo.png"
+        Icon="/Resources/Logo.png"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
         Background="Transparent"
@@ -215,7 +215,7 @@
                                    HorizontalAlignment="Center"
                                    Grid.Column="1"
                                    Grid.RowSpan="1"
-                                   Source="/Images/Logo.png"
+                                   Source="/Resources/Logo.png"
                                    Stretch="UniformToFill"
                                    RenderTransformOrigin="0.279,-0.031"
                                    Grid.ColumnSpan="1" />
@@ -226,7 +226,7 @@
                                    Grid.Column="1"
                                    Grid.Row="1"
                                    Grid.RowSpan="1"
-                                   Source="/Images/UserName.png"
+                                   Source="/Resources/UserName.png"
                                    RenderTransformOrigin="0.279,-0.031"
                                    Height="16"
                                    Width="13" />
@@ -237,7 +237,7 @@
                                    Grid.Column="1"
                                    Grid.Row="1"
                                    Grid.RowSpan="1"
-                                   Source="/Images/Password.png"
+                                   Source="/Resources/Password.png"
                                    RenderTransformOrigin="0.279,-0.031"
                                    Height="17"
                                    Width="17" />
@@ -330,9 +330,7 @@
                          FontWeight="Bold"
                          Margin="-6,0,0,0"
                          RenderTransformOrigin="0.5,0.5"
-                         IsEnabled="{Binding StorageTabIsEnabled}"
-                         Height="28"
-                         VerticalAlignment="Top">
+                         IsEnabled="{Binding StorageTabIsEnabled}">
 
                     <Border Opacity="0.95"
                             Margin="0,-5,0,-5"

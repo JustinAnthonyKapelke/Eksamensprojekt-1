@@ -12,6 +12,7 @@ namespace Nordlangelands_Tækkemand.ViewModel
 {
     public class ThatchingViewModel : INotifyPropertyChanged, IMaterialViewModel
     {
+        //INotifyPropertyChanged EventHandler
         public event PropertyChangedEventHandler? PropertyChanged;
 
         // INotifyPropertyChanged Method
@@ -162,7 +163,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             MaterialType = material.MaterialType;
             MaterialTypeID = material.MaterialTypeID;
             StorageID = material.StorageID;
-
             thatchingRepo = new ThatchingRepository(CreateDelegate, InitializeDelegate);
         }        
 
@@ -177,50 +177,46 @@ namespace Nordlangelands_Tækkemand.ViewModel
             return new ThatchingMaterial(materialID, materialName, materialDescription, materialImagePath, materialStockCount, materialType, storageID);
         }
 
-
         //Methods
-        public void InitializeMaterials()
-        {
-            thatchingRepo.InitializeMaterials();
+        public ThatchingMaterial ReadLastAddedMaterialFromDatabase()
+        { 
+            return thatchingRepo.ReadLastAddedMaterialFromDatabase();  
         }
+        
+        public ThatchingMaterial ReadMaterialByIDFromDatabase(int materialID)
+        {
+            return thatchingRepo.ReadMaterialByIDFromDatabase(materialID);
+        }      
+        
         public string ReadLogTextFromDatabase()
         {
             return thatchingRepo.ReadLogTextFromDatabase();
         }
-
-        public ThatchingMaterial ReadMaterialByIDFromDatabase(int materialID)
-        {
-            return thatchingRepo.ReadMaterialByIDFromDatabase(materialID);
-        }
-
-        public void UpdateStockCountInDatabase(int materialID, int newMaterialAmount)
-        {
-            thatchingRepo.UpdateStockCountInDatabase(materialID, newMaterialAmount);
-        }
-
+             
+        
         public void CreateMaterialInDatabase(string materialName, string materialDescription, int materialStockCount, int materialTypeID, int storageID)
         {
             thatchingRepo.CreateMaterialInDatabase(materialName, materialDescription, materialStockCount, materialTypeID, storageID);
-        }
-
-        public ThatchingMaterial ReadLastAddedMaterialFromDatabase()
-        { 
-            return thatchingRepo.ReadLastAddedMaterialFromDatabase();  
         }
 
         public void DeleteMaterialFromDatabaseByID(int materialID)
         { 
             thatchingRepo.DeleteMaterialFromDatabaseByID(materialID);
         }
-
-        public void UpdateMaterialInDatabase(int materialID, string materialName, string materialDescription, int materialTypeID, int materialStockCount, int storageID)
+        public void InitializeMaterials()
         {
-            thatchingRepo.UpdateMaterialInDatabase(materialID, materialName, materialDescription, materialTypeID, materialStockCount, storageID);
+            thatchingRepo.InitializeMaterials();
         }
 
-        public void ClearMaterialsInRepo()
+        public void UpdateMaterial(int materialID, string materialName, string materialDescription, int materialTypeID, int materialStockCount, int storageID)
         {
+            thatchingRepo.UpdateMaterialInDatabase(materialID, materialName, materialDescription, materialTypeID, materialStockCount, storageID);
             thatchingRepo.ClearMaterialsInRepo();
-        }    
+        }
+        
+        public void UpdateStockCountInDatabase(int materialID, int newMaterialAmount)
+        {
+            thatchingRepo.UpdateStockCountInDatabase(materialID, newMaterialAmount);
+        }
     }
 }

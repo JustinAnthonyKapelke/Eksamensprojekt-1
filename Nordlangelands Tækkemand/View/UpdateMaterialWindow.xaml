@@ -7,10 +7,21 @@
         mc:Ignorable="d"
         Title="UpdateMaterialWindow"
         Height="450"
-        Width="800"
-        Background="#FF4A4A4A"
+        Icon="/Resources/Logo.png"
+        Width="800"       
         WindowStartupLocation="CenterScreen">
-    <Grid>
+
+    <Border>
+        <Border.Background>
+            <LinearGradientBrush StartPoint="0,0"
+                                 EndPoint="1,0.7">
+                <GradientStop Color="{StaticResource secondaryBackColor1}"
+                              Offset="0" />
+                <GradientStop Color="{StaticResource secondaryBackColor2}"
+                              Offset="1" />
+            </LinearGradientBrush>
+        </Border.Background>
+        <Grid>
 
 
         <Grid.RowDefinitions>
@@ -171,5 +182,6 @@
         </Button>
 
 
-    </Grid>
+        </Grid>
+  </Border>
 </Window>

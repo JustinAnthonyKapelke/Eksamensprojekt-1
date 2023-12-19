@@ -12,15 +12,7 @@ namespace Nordlangelands_Tækkemand.Model
     //The class inherits the BaseRepository class
     public class WoodRepository : BaseRepository<WoodMaterial>
     {
-        //Overwrite RepoQuery Inherited From BaseRepository
-        protected override string RepoInitializeQuery { get; set; } = "SELECT * FROM NTCombinedMaterialView";
-        protected override string RepoCreateQuery { get; set; } = "EXEC sp_NTCreateMaterial @MaterialName, @MaterialDescription, @MaterialStockCount, @MaterialTypeID, @StorageID;";
-        protected override string RepoReadQuery { get; set; } = "EXEC sp_NTReadLastMaterial";
-        protected override string DatabaseUpdateQuery { get; set; } = "EXEC sp_NTUpdateMaterial @MaterialID, @MaterialName, @MaterialDescription, @MaterialStockCount, @MaterialTypeID, @StorageID";
-        protected override string RepoDeleteQuery { get; set; } = "EXEC sp_NTDeleteMaterial @MaterialID";
-        protected override string UpdateStockCountQuery { get; set; } = "EXEC sp_NTUpdateStockCount @MaterialID, @NewMaterialAmount";
-
-        protected override string ReadMaterialByIDQuery { get; set; } = "EXEC sp_NTGetMaterialByID @MaterialID";
+        //Database Query
         protected override string MaterialType { get; set; } = "Træ";
 
         //Constructor
@@ -30,7 +22,7 @@ namespace Nordlangelands_Tækkemand.Model
         }
 
         //Constructor Overload
-        public WoodRepository(CreateDelegate<WoodMaterial> createDelegate, InitializeCreateDelegate<WoodMaterial> initializeCreateDelegate) : base(createDelegate, initializeCreateDelegate)
+        public WoodRepository(CreateDelegate<WoodMaterial> createDelegate, InitializeDelegate<WoodMaterial> initializeCreateDelegate) : base(createDelegate, initializeCreateDelegate)
         {
 
         }

@@ -14,17 +14,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Images\Forside" />
-    <None Remove="Images\Homepage.png" />
-    <None Remove="Images\Icon.jpg" />
-    <None Remove="Images\Logo.png" />
-    <None Remove="Images\Password.png" />
-    <None Remove="Images\Stonna" />
-    <None Remove="Images\Stonna.png" />
-    <None Remove="Images\Thatching.png" />
-    <None Remove="Images\UserName.png" />
-    <None Remove="Images\Various.png" />
-    <None Remove="Images\Wood.png" />
+    <None Remove="Resources\Forside" />
+    <None Remove="Resources\Icon.jpg" />
+    <None Remove="Resources\Logo.png" />
+    <None Remove="Resources\Password.png" />
+    <None Remove="Resources\Stonna" />
+    <None Remove="Resources\Stonna.png" />
+    <None Remove="Resources\Thatching.png" />
+    <None Remove="Resources\UserName.png" />
+    <None Remove="Resources\Various.png" />
+    <None Remove="Resources\Wood.png" />
     <None Remove="View\Diverse.png" />
     <None Remove="View\Træ.png" />
     <None Remove="View\Tække.png" />
@@ -35,16 +34,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Images\Homepage.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Resource Include="Images\Password.png" />
-    <Resource Include="Images\UserName.png" />
-    <Resource Include="Images\Various.png" />
-    <Resource Include="Images\Icon.jpg" />
-    <Resource Include="Images\Logo.png" />
-    <Resource Include="Images\Thatching.png" />
-    <Resource Include="Images\Wood.png" />
+    <Resource Include="Resources\Password.png" />
+    <Resource Include="Resources\UserName.png" />
+    <Resource Include="Resources\Various.png" />
+    <Resource Include="Resources\Icon.jpg" />
+    <Resource Include="Resources\Logo.png" />
+    <Resource Include="Resources\Thatching.png" />
+    <Resource Include="Resources\Wood.png" />
   </ItemGroup>
 
 </Project>

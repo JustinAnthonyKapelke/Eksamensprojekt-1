@@ -17,6 +17,7 @@ namespace Nordlangelands_Tækkemand
 {   
     public partial class WorkplaceWindow : Window
     {   
+        //Constructor
         public WorkplaceWindow(MainViewModel mvm)
         {
             InitializeComponent();            

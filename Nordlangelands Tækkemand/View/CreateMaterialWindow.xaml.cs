@@ -21,11 +21,11 @@ namespace Nordlangelands_Tækkemand
    //  </summary>
     public partial class CreateMaterialWindow : Window
     {      
-
+        //Constructor
         public CreateMaterialWindow(MainViewModel mvm)
         {
             InitializeComponent();
             DataContext = mvm;    
-        }      
+        }       
     }
 }

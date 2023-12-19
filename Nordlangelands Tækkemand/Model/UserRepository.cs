@@ -23,7 +23,12 @@ namespace Nordlangelands_Tækkemand.Model
             InitializeUsers();
         }
 
-        //Initialize Users From Database
+        //Methods
+        public List<User> GetAllUsers()
+        {
+            return _users;
+        }
+        
         public void InitializeUsers()
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -43,17 +48,9 @@ namespace Nordlangelands_Tækkemand.Model
                         User newUser = new User(userID, userName, userPassword);
 
                         _users.Add(newUser);
-
-                        //return newUser?
                     }
                 }
             }
-        }
-
-        //Get all users method
-        public List<User> GetAllUsers()
-        {
-            return _users;
         }
     }
 }

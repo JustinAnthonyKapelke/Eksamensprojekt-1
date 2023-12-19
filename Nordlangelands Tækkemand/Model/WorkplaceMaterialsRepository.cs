@@ -10,12 +10,10 @@ namespace Nordlangelands_Tækkemand.Model
 {
     public class WorkplaceMaterialsRepository
     {
-
-
         //Database Connection String
         private string _connectionString = "Server=10.56.8.36; Database=DB_F23_TEAM_06; User Id=DB_F23_TEAM_06; Password=TEAMDB_DB_06; TrustServerCertificate=true";
 
-        //List of workplaces
+        //Fields
         private List<WorkplaceMaterial> _workplaceMaterials;
 
         //Constructor
@@ -24,20 +22,21 @@ namespace Nordlangelands_Tækkemand.Model
             _workplaceMaterials = new List<WorkplaceMaterial>();        
         }
 
-
-
+        //Methods
         public List<WorkplaceMaterial> GetAll() 
         {
             return _workplaceMaterials;
         }   
+        
+        public void ClearMaterialsInRepo()
+        {
+            _workplaceMaterials.Clear();
+        }
 
-
-        //Initialize WorkplaceMaterials From Database (gør create material in repository overflødig)
         public void InitializeWorkplaceMaterialsByWorkplaceID(int workplaceID)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-
                 connection.Open();
 
                 //Use a stored procedure to prevent sql injection.
@@ -53,23 +52,12 @@ namespace Nordlangelands_Tækkemand.Model
                         int storageID = (int)reader["StorageID"];
                         int materialID = (int)reader["MaterialID"];
                         int workplaceMaterialStockCount = (int)reader["StockCount"];
-                        
-
 
                         WorkplaceMaterial newWorkplaceMaterial = new (materialID,  materialName, materialDescription, workplaceMaterialStockCount, storageID,  workplaceID);
-
                         _workplaceMaterials.Add(newWorkplaceMaterial);
-
                     }
                 }
             }
         }
-
-        // Clear workplace materials in repo
-        public void ClearMaterialsInRepo()
-        {
-            _workplaceMaterials.Clear();
-        }
-
     }
 }

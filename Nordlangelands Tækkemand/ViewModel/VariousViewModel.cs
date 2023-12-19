@@ -11,10 +11,10 @@ namespace Nordlangelands_Tækkemand.ViewModel
 {
     public class VariousViewModel : INotifyPropertyChanged, IMaterialViewModel
     {
-        // Property changed event
+        //INotifyPropertyChanged EventHandler
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        // INotifyPropertyChanged Method
+        //INotifyPropertyChanged Method
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -167,6 +167,7 @@ namespace Nordlangelands_Tækkemand.ViewModel
             variousRepo = new VariousRepository(CreateDelegate, InitializeDelegate);
         }
 
+        //Methods
         public VariousMaterial CreateDelegate(string materialName, string materialDescription, string materialImagePath, int materialStockCount, int materialTypeID, int storageID)
         {
             return new VariousMaterial(materialName, materialDescription, materialImagePath, materialStockCount, materialTypeID, storageID);
@@ -177,45 +178,44 @@ namespace Nordlangelands_Tækkemand.ViewModel
             return new VariousMaterial(materialID, materialName, materialDescription, materialImagePath, materialStockCount, materialType, storageID);
         }
 
-        //Methods
-        public void InitializeMaterials()
+        public VariousMaterial ReadLastAddedMaterialFromDatabase()
         {
-            variousRepo.InitializeMaterials();
+            return variousRepo.ReadLastAddedMaterialFromDatabase();
         }
 
-    public VariousMaterial ReadMaterialByIDFromDatabase(int materialID)
+        public VariousMaterial ReadMaterialByIDFromDatabase(int materialID)
         {
             return variousRepo.ReadMaterialByIDFromDatabase(materialID);
         }
 
-        public void UpdateStockCountInDatabase(int materialID, int newMaterialAmount)
+        public string ReadLogTextFromDatabase()
         {
-            variousRepo.UpdateStockCountInDatabase(materialID, newMaterialAmount);
-        }
+            return variousRepo.ReadLogTextFromDatabase();
+        }      
 
         public void CreateMaterialInDatabase(string materialName, string materialDescription, int materialStockCount, int materialTypeID, int storageID)
         {
             variousRepo.CreateMaterialInDatabase(materialName, materialDescription, materialStockCount, materialTypeID, storageID);
         }
 
-        public VariousMaterial ReadLastAddedMaterialFromDatabase()
-        {
-            return variousRepo.ReadLastAddedMaterialFromDatabase();
-        }
-
         public void DeleteMaterialFromDatabaseByID(int materialID)
         {
             variousRepo.DeleteMaterialFromDatabaseByID(materialID);
         }
-
-        public void UpdateMaterialInDatabase(int materialID, string materialName, string materialDescription, int materialTypeID, int materialStockCount, int storageID)
+        public void InitializeMaterials()
         {
-            variousRepo.UpdateMaterialInDatabase(materialID, materialName, materialDescription, materialTypeID, materialStockCount, storageID);
+            variousRepo.InitializeMaterials();
         }
 
-        public void ClearMaterialsInRepo()
+        public void UpdateMaterial(int materialID, string materialName, string materialDescription, int materialTypeID, int materialStockCount, int storageID)
         {
+            variousRepo.UpdateMaterialInDatabase(materialID, materialName, materialDescription, materialTypeID, materialStockCount, storageID);
             variousRepo.ClearMaterialsInRepo();
+        }
+
+        public void UpdateStockCountInDatabase(int materialID, int newMaterialAmount)
+        {
+            variousRepo.UpdateStockCountInDatabase(materialID, newMaterialAmount);
         }
     }
 }

@@ -12,7 +12,7 @@ namespace Nordlangelands_Tækkemand.ViewModel
 {
     public class WoodViewModel : INotifyPropertyChanged, IMaterialViewModel
     {
-        // INotifyPropertyChanged Event
+        // INotifyPropertyChanged EventHandler
         public event PropertyChangedEventHandler? PropertyChanged;
         
         // INotifyPropertyChanged Method
@@ -157,16 +157,16 @@ namespace Nordlangelands_Tækkemand.ViewModel
             MaterialType = material.MaterialType;
             MaterialTypeID = material.MaterialTypeID;   
             StorageID = material.StorageID;
-
             woodRepo = new WoodRepository(CreateDelegate, InitializeDelegate);
         }
 
-        //Constructor Overlload
+        //Constructor Overload
         public WoodViewModel()
         {
             woodRepo = new WoodRepository(CreateDelegate, InitializeDelegate);
         }
 
+        //Methods
         public WoodMaterial CreateDelegate(string materialName, string materialDescription, string materialImagePath, int materialStockCount, int materialTypeID, int storageID)
         {
             return new WoodMaterial(materialName, materialDescription, materialImagePath, materialStockCount, materialTypeID, storageID);
@@ -177,11 +177,9 @@ namespace Nordlangelands_Tækkemand.ViewModel
             return new WoodMaterial(materialID, materialName, materialDescription, materialImagePath, materialStockCount, materialType, storageID);
         }
 
-
-        //Methods
-        public void InitializeMaterials()
+        public WoodMaterial ReadLastAddedMaterialFromDatabase()
         {
-            woodRepo.InitializeMaterials();
+            return woodRepo.ReadLastAddedMaterialFromDatabase();
         }
 
         public WoodMaterial ReadMaterialByIDFromDatabase(int materialID)
@@ -189,34 +187,34 @@ namespace Nordlangelands_Tækkemand.ViewModel
             return woodRepo.ReadMaterialByIDFromDatabase(materialID);
         }
 
-        public void UpdateStockCountInDatabase(int materialID, int newMaterialAmount)
+        public string ReadLogTextFromDatabase()
         {
-            woodRepo.UpdateStockCountInDatabase(materialID, newMaterialAmount);
+            return woodRepo.ReadLogTextFromDatabase();
         }
-
+     
         public void CreateMaterialInDatabase(string materialName, string materialDescription, int materialStockCount, int materialTypeID, int storageID)
         {
             woodRepo.CreateMaterialInDatabase(materialName, materialDescription, materialStockCount, materialTypeID, storageID);
-        }
-
-        public WoodMaterial ReadLastAddedMaterialFromDatabase()
-        {
-            return woodRepo.ReadLastAddedMaterialFromDatabase();
         }
 
         public void DeleteMaterialFromDatabaseByID(int materialID)
         {
             woodRepo.DeleteMaterialFromDatabaseByID(materialID);
         }
-
-        public void UpdateMaterialInDatabase(int materialID, string materialName, string materialDescription, int materialTypeID, int materialStockCount, int storageID)
+        public void InitializeMaterials()
         {
-            woodRepo.UpdateMaterialInDatabase(materialID, materialName, materialDescription, materialTypeID, materialStockCount, storageID);
+            woodRepo.InitializeMaterials();
         }
 
-        public void ClearMaterialsInRepo()
+        public void UpdateMaterial(int materialID, string materialName, string materialDescription, int materialTypeID, int materialStockCount, int storageID)
         {
+            woodRepo.UpdateMaterialInDatabase(materialID, materialName, materialDescription, materialTypeID, materialStockCount, storageID);
             woodRepo.ClearMaterialsInRepo();
+        }
+
+        public void UpdateStockCountInDatabase(int materialID, int newMaterialAmount)
+        {
+            woodRepo.UpdateStockCountInDatabase(materialID, newMaterialAmount);
         }
     }
 }

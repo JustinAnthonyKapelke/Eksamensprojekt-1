@@ -4,10 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Nordlangelands_Tækkemand"
-        Icon="/Images/Logo.png"
+        Icon="/Resources/Logo.png"
         mc:Ignorable="d"
         WindowStyle="SingleBorderWindow"
-        Height="800" Width="1500">
+        Height="800" Width="1500"
+        WindowStartupLocation="CenterScreen">
 
     <Border>
         <Border.Background>
@@ -28,7 +29,7 @@
             <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition />
-            <ColumnDefinition Width="150" />
+            <ColumnDefinition Width="280" />
 
 
         </Grid.ColumnDefinitions>

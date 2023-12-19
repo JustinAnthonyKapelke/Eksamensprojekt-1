@@ -23,24 +23,24 @@ namespace Nordlangelands_Tækkemand
     /// </summary>
     public partial class MainWindow : Window
     {
-        MainViewModel mvm = new MainViewModel();
+        //Field
+        MainViewModel MVM = new MainViewModel();
 
-
+        //Constructor
         public MainWindow()
         {          
             InitializeComponent();
-            // Set DataContext for MainWindow to MainViewModel mvm
-            DataContext = mvm;  
-            mvm.LogTextCMD.Execute(mvm);
+            DataContext = MVM;  
+            MVM.LogTextCMD.Execute(MVM);
         }
 
-        //Execute the command everytime the text is changed
+        //Execute SeacrMaterialCommand everytime the text in SearchMaterialTextBox is changed
         private void SearchMaterialTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            mvm.SearchMaterialCMD.Execute(mvm);
+            MVM.SearchMaterialCMD.Execute(MVM);
         }
    
-        //Close the program
+        //Close the application
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();

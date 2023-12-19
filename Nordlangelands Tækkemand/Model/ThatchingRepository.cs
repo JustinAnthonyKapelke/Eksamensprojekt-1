@@ -14,22 +14,9 @@ namespace Nordlangelands_Tækkemand.Model
     //The class inherits the BaseRepository class
     public class ThatchingRepository : BaseRepository<ThatchingMaterial>
     {
-   
-        //Overwrite RepoQuery Inherited From BaseRepository
-
-        //Huske rigtig navnestonna
-        protected override string RepoInitializeQuery { get; set; } = "SELECT * FROM NTCombinedMaterialView";
-        protected override string RepoCreateQuery { get; set; } = "EXEC sp_NTCreateMaterial @MaterialName, @MaterialDescription, @MaterialStockCount, @MaterialTypeID, @StorageID;";
-        protected override string RepoReadQuery { get; set; } = "EXEC sp_NTReadLastMaterial";
-        protected override string DatabaseUpdateQuery { get; set; } = "EXEC sp_NTUpdateMaterial @MaterialID, @MaterialName, @MaterialDescription, @MaterialStockCount, @MaterialTypeID, @StorageID";
-        protected override string RepoDeleteQuery { get; set; } = "EXEC sp_NTDeleteMaterial @MaterialID";
-        protected override string UpdateStockCountQuery { get; set; } = "EXEC sp_NTUpdateStockCount @MaterialID, @NewMaterialAmount";
-
-        protected override string ReadMaterialByIDQuery { get; set; } = "EXEC sp_NTGetMaterialByID @MaterialID";
+        //Database Query      
 
         protected override string MaterialType { get; set; } = "Tække";
-
-
 
         //Constructor
         public ThatchingRepository(CreateDelegate<ThatchingMaterial> createDelegate) : base(createDelegate)
@@ -37,7 +24,7 @@ namespace Nordlangelands_Tækkemand.Model
         }
 
         //Constructor Overload
-        public ThatchingRepository(CreateDelegate<ThatchingMaterial> createDelegate, InitializeCreateDelegate<ThatchingMaterial> initializeCreateDelegate) : base(createDelegate, initializeCreateDelegate)
+        public ThatchingRepository(CreateDelegate<ThatchingMaterial> createDelegate, InitializeDelegate<ThatchingMaterial> initializeCreateDelegate) : base(createDelegate, initializeCreateDelegate)
         {
         }
     }

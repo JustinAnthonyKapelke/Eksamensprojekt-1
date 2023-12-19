@@ -20,12 +20,12 @@ namespace Nordlangelands_Tækkemand.View
     /// </summary>
     public partial class UpdateMaterialWindow : Window
     {
-
+        //Constructor
         public UpdateMaterialWindow(MainViewModel mvm)
         {
             InitializeComponent();
             DataContext = mvm;
-        }
+        }               
     }
 }
     

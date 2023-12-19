@@ -10,13 +10,11 @@ namespace Nordlangelands_Tækkemand.Model
     {
         //Properties
         public int UserID { get; private set; }
-        public string UserName { get; private set; }
-       
+        public string UserName { get; private set; }    
         public string UserPassword { get; private set; }
 
         //Constructor
-        public User() { }
-        
+        public User() { }      
 
         //Constructor overload
         public User(int userID, string userName, string userPassword) 

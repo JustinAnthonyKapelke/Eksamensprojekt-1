@@ -42,7 +42,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
                 }
             }
         }
-
         public string WorkplaceName
         {
             get { return _workplaceName; }
@@ -109,7 +108,6 @@ namespace Nordlangelands_Tækkemand.ViewModel
             WorkplaceImagePath = workplace.WorkplaceImagePath;
             StorageID = workplace.StorageID;
             workplaceRepo = new WorkplaceRepository();
-        }
-        
+        }       
     }
 }
