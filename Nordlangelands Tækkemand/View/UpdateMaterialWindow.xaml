@@ -9,7 +9,8 @@
         Height="450"
         Icon="/Resources/Logo.png"
         Width="800"       
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize">
 
     <Border>
         <Border.Background>

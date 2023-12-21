@@ -276,7 +276,7 @@ namespace Nordlangelands_Tækkemand.ViewModel
         
         public int CreateMaterialStorageID
         {
-            get { return _createMaterialStorageID; }
+            get { return _createMaterialStorageID; } 
             set
             {
                 if (_createMaterialStorageID != value)
@@ -546,6 +546,8 @@ namespace Nordlangelands_Tækkemand.ViewModel
 
             //Set default value of newStockCount
             _newStockCount = 1;
+            // Set storageid to defaultvalue of 1. We currently only have the one storage
+            _createMaterialStorageID = 1;
         }
         
         //Methods

@@ -105,6 +105,7 @@ namespace Nordlangelands_Tækkemand.Commands.StorageCommands
                 
                 //Update the logtext
                 mvm.LogTextCMD.Execute(mvm);
+                MessageBox.Show($"Materiale med navnet: {name} er blevet oprettet i systemet");
             }
 
         }

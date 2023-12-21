@@ -408,8 +408,7 @@
 
                             <TextBlock x:Name="LogTextTextBlock"
                                        Text="{Binding LogText, UpdateSourceTrigger=PropertyChanged}"
-                                       Foreground="White"
-                                       FontWeight="Bold"
+                                       Foreground="White"                                      
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Left"
                                        Margin="25,0,0,0"
@@ -838,8 +837,7 @@
 
                             <TextBlock x:Name="WorkplaceLogTextTextBlock"
                                        Text="{Binding LogText, UpdateSourceTrigger=PropertyChanged}"
-                                       Foreground="White"
-                                       FontWeight="Bold"
+                                       Foreground="White"                                      
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Left"
                                        Margin="25,0,0,0"
