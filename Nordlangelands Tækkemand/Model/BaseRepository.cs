@@ -51,8 +51,8 @@ namespace Nordlangelands_Tækkemand.Model
             _createDelegate = createDelegate;           
 
             //Seperate thread to initialize materials
-            Thread initializeThread = new Thread(InitializeMaterials);
-            initializeThread.Start();
+            Thread initializeMaterialThread = new Thread(InitializeMaterials);
+            initializeMaterialThread.Start();
         }
 
         //Constructor overload
@@ -61,53 +61,11 @@ namespace Nordlangelands_Tækkemand.Model
             _createDelegate = createDelegate;
             _initializeDelegate = initializeCreateDelegate;
 
-            Thread thread = new(InitializeMaterials);
-            thread.Start();
-            thread.Join();
-
-            //// Initialize and start the worker thread
-            //_workerThread = new Thread(Work);
-            //_workerThread.Start();
-
-            //// Enqueue material initialization task
-            //EnqueueTask(InitializeMaterials);
+            Thread createMaterialThread = new(InitializeMaterials);
+            createMaterialThread.Start();            
         }
 
-        //Forsøg på tråde
-
-        //private readonly Thread _workerThread;
-        //private readonly ConcurrentQueue<Action> _taskQueue = new ConcurrentQueue<Action>();
-        //private readonly AutoResetEvent _signal = new AutoResetEvent(false);
-        //private bool _running = true;
-
-        //private void Work()
-        //{
-        //    while (_running)
-        //    {
-        //        if (_taskQueue.TryDequeue(out Action task))
-        //        {
-        //            task.Invoke();
-        //        }
-        //        else
-        //        {
-        //            _signal.WaitOne(); // Wait for a signal to check the queue again
-        //        }
-        //    }
-        //}
-
-        //protected void EnqueueTask(Action task)
-        //{
-        //    _taskQueue.Enqueue(task);
-        //    _signal.Set(); // Signal the worker thread
-        //}
-
-        //public void Stop()
-        //{
-        //    _running = false;
-        //    _signal.Set(); // Signal to stop the thread
-        //    _workerThread.Join(); // Optionally wait for the thread to finish
-        //}
-
+        
         //Methods  
         public List<T> GetAllMaterials()
         {

@@ -15,6 +15,11 @@
         Background="Transparent"
         AllowsTransparency="True"
         WindowStyle="None">
+    <Window.InputBindings>
+        <KeyBinding Key="Enter"
+                    Command="{Binding LoginCMD}" 
+                    CommandParameter="{Binding}"/>
+    </Window.InputBindings>
 
     <Window.Resources>
         <ControlTemplate x:Key="TabItemTemplate"
@@ -80,9 +85,7 @@
 
 
 
-
-
-            <!-- Skyggeeffekt (valgfri) -->
+            <!-- Skyggeeffekt -->
             <Setter Property="Effect">
                 <Setter.Value>
                     <DropShadowEffect Color="Gray"
@@ -97,7 +100,6 @@
                     Value="White" />
 
 
-            <!-- Yderligere stiltilpasninger kan tilføjes her -->
 
 
         </Style>
@@ -253,7 +255,7 @@
 
 
                                 <TextBox x:Name="Username_TextBox"
-                                         Text="{Binding UserName}"
+                                         Text="{Binding UserName,UpdateSourceTrigger=PropertyChanged}"
                                          Grid.Row="1"
                                          Grid.Column="1"
                                          Padding="2"
@@ -269,7 +271,7 @@
                                 </TextBox>
 
                                 <TextBox x:Name="Password_TextBox"
-                                         Text="{Binding UserPassword}"
+                                         Text="{Binding UserPassword, UpdateSourceTrigger=PropertyChanged}"
                                          Padding="2"
                                          Margin="10,0,0,0"
                                          Background="White"
@@ -281,15 +283,18 @@
                                 </TextBox>
 
                             </StackPanel>
+                           
 
-
-                            <Button Grid.Column="1"
+                            <Button x:Name="Login_Button"
+                                    Grid.Column="1"
                                     Grid.Row="2"
                                     Margin="110,50,110,110"
                                     Content="Login"
                                     Command="{Binding LoginCMD}"
                                     CommandParameter="{Binding}">
                                 <Button.Resources>
+                                    
+                                    
                                     <Style TargetType="Border">
                                         <Setter Property="CornerRadius"
                                                 Value="7.5" />
@@ -304,8 +309,8 @@
                                                                   BlurRadius="5" />
                                             </Setter.Value>
                                         </Setter>
-                                    </Style>
-                                </Button.Resources>
+                                    </Style>                                    
+                                </Button.Resources>                                
                                 <Button.Background>
                                     <LinearGradientBrush EndPoint="0.5,1"
                                                          StartPoint="0.5,0">
@@ -402,7 +407,7 @@
                             </TextBox>
 
                             <TextBlock x:Name="LogTextTextBlock"
-                                       Text="{Binding LogText}"
+                                       Text="{Binding LogText, UpdateSourceTrigger=PropertyChanged}"
                                        Foreground="White"
                                        FontWeight="Bold"
                                        VerticalAlignment="Center"
@@ -832,7 +837,7 @@
                             </TextBox>
 
                             <TextBlock x:Name="WorkplaceLogTextTextBlock"
-                                       Text="{Binding LogText}"
+                                       Text="{Binding LogText, UpdateSourceTrigger=PropertyChanged}"
                                        Foreground="White"
                                        FontWeight="Bold"
                                        VerticalAlignment="Center"

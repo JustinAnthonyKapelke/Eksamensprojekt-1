@@ -96,6 +96,8 @@ namespace Nordlangelands_Tækkemand.Commands.StorageCommands
                             mvm.SelectedMaterial.MaterialStockCount = updatedMaterial.MaterialStockCount;
                         }
                     }
+                    //Update the logtext
+                    mvm.LogTextCMD.Execute(mvm);
                 }
 
                 catch (Exception)

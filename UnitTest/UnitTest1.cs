@@ -38,7 +38,8 @@ namespace UnitTest
             updateMaterialID = 72;
             newMaterialAmount = 4;
             oldMaterialStockCount = thatchingRepo.ReadMaterialByIDFromDatabase(updateMaterialID);
-        }
+        }      
+
 
         [TestMethod]
         public void TestReadMaterialByIDFromDatabase()
@@ -50,7 +51,7 @@ namespace UnitTest
             Assert.IsNotNull(readMaterial);
             Assert.AreEqual("Tækkerør K", readMaterial.MaterialName);
             Assert.AreEqual("Korte tækkerør fra Polen", readMaterial.MaterialDescription);
-            Assert.AreEqual("/Images/Thatching.png", readMaterial.MaterialImagePath);
+            Assert.AreEqual("/Resources/Thatching.png", readMaterial.MaterialImagePath);
             Assert.AreEqual(758, readMaterial.MaterialStockCount);
             Assert.AreEqual("Tække", readMaterial.MaterialType);
             Assert.AreEqual(1, readMaterial.StorageID);

@@ -10,7 +10,12 @@ namespace Nordlangelands_Tækkemand.Commands.MainCommands
 {
     internal class LogTextCommand : ICommand
     {
-        public event EventHandler? CanExecuteChanged;
+        public event EventHandler? CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
+
 
         public bool CanExecute(object? parameter)
         {
@@ -21,8 +26,7 @@ namespace Nordlangelands_Tækkemand.Commands.MainCommands
         {
             if (parameter is MainViewModel mvm)
             {
-                string logText = mvm.TVM.ReadLogTextFromDatabase();
-                mvm.LogText = logText;
+                mvm.LogText = mvm.TVM.ReadLogTextFromDatabase();                
             }
         }
     }

@@ -31,11 +31,8 @@ namespace Nordlangelands_Tækkemand.Commands.StorageCommands
         {
 
             if (parameter is MainViewModel mvm)
-            {
-                //Tilgå CreateMaterialWindow igennem MainViewModelinstansen MVM
-                //var createMaterialWindow = MVM.MainWindowInstance.CreateMaterialWindow;
-
-                //Gem textinput i lokale variabler                
+            {  
+                //Save textinput in local variables                
                 string name = mvm.CreateMaterialName;
                 string description = mvm.CreateMaterialDescription;
                 string stockCountText = mvm.CreateMaterialStockCount;
@@ -67,6 +64,7 @@ namespace Nordlangelands_Tækkemand.Commands.StorageCommands
                         // Add the new ThatchingViewModel to the ObservableCollection
                         mvm.ThatchingVM.Add(newThatchingVM);
                         mvm.AllMaterialsVM.Add(newThatchingVM);
+
                     }
                     else if (isWoodIsChecked == true)
                     {
@@ -104,7 +102,8 @@ namespace Nordlangelands_Tækkemand.Commands.StorageCommands
                 {
                     MessageBox.Show("Indtast et gyldigt materialenavn!");
                 }
-
+                
+                //Update the logtext
                 mvm.LogTextCMD.Execute(mvm);
             }
 
